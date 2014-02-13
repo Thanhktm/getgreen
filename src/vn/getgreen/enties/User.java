@@ -1,5 +1,11 @@
 package vn.getgreen.enties;
 
+import vn.getgreen.common.Constants;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+
 public class User extends BaseEnity {
 
 	/**
@@ -375,6 +381,27 @@ public class User extends BaseEnity {
 		this.personal_friend_count = personal_friend_count;
 	}
 	
+	/**
+	 * Support method
+	 */
+	
+	public static void save(Context context, User user) {
+		SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(user);
+		editor.putString(User.class.getSimpleName(), json);
+		editor.commit();
+	}
+
+	public static User get(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+		String json = settings.getString(User.class.getSimpleName(), "");
+		User user = null;
+		Gson gson = new Gson();
+		user = gson.fromJson(json, User.class);
+		return user;
+	}
 	
 
 }

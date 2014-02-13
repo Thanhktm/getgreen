@@ -1,12 +1,12 @@
 package vn.getgreen;
 
-import android.app.Fragment;
+import vn.getgreen.common.BaseFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PhotosFragment extends Fragment {
+public class PhotosFragment extends BaseFragment {
 	
 	public PhotosFragment(){}
 	

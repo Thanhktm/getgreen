@@ -1,12 +1,18 @@
 package vn.getgreen;
 
-import android.app.Fragment;
+import vn.getgreen.common.BaseFragment;
+import vn.getgreen.enties.User;
+import vn.getgreen.view.GEditText;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SignIn extends Fragment {
+public class SignIn extends BaseFragment {
+	
+	private GEditText mEditUsername;
+	private GEditText mEditPassword;
+	private User mUser;
 	
 	public SignIn(){}
 	
@@ -15,7 +21,7 @@ public class SignIn extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.sign_in, container, false);
-         
+
         return rootView;
     }
 }
