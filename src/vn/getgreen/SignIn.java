@@ -2,16 +2,21 @@ package vn.getgreen;
 
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.User;
+import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 public class SignIn extends BaseFragment {
 	
 	private GEditText mEditUsername;
 	private GEditText mEditPassword;
+	private GButton mBtnSignin;
+	private GButton mBtnCreate;
+	
 	private User mUser;
 	
 	public SignIn(){}
@@ -21,7 +26,21 @@ public class SignIn extends BaseFragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.sign_in, container, false);
-
+        mEditUsername = (GEditText) rootView.findViewById(R.id.email);
+        mEditPassword = (GEditText) rootView.findViewById(R.id.password);
+        mBtnSignin = (GButton) rootView.findViewById(R.id.sign_in);
+        mBtnCreate = (GButton) rootView.findViewById(R.id.create_account);
+        
+        
+        mBtnCreate.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
         return rootView;
     }
+	
 }

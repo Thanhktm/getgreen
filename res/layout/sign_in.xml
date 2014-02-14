@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:scrollbars="vertical" 
-    android:background="#2D912E">
+    android:scrollbars="vertical" >
 
     <RelativeLayout
         android:id="@id/regist_layout"
@@ -14,10 +13,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="35.0dip"
         android:scrollbars="vertical"
-        android:visibility="visible"
-         >
+        android:visibility="visible" >
 
-        <!-- <LinearLayout
+        <!--
+        <LinearLayout
             android:id="@id/buttonlay"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -69,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_facebook" />
             </LinearLayout>
-        </LinearLayout> -->
+        </LinearLayout>
+        -->
 
         <TextView
             android:id="@id/ortext"
@@ -85,7 +85,7 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <EditText
+        <vn.getgreen.view.GEditText
             android:id="@id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -93,12 +93,11 @@
             android:layout_marginLeft="30.0dip"
             android:layout_marginRight="30.0dip"
             android:hint="@string/signinusername"
-            android:textColorHint="@color/hint_color"
             android:inputType="text"
             android:textColor="@color/all_white"
             android:textSize="16.0sp" />
 
-        <EditText
+        <vn.getgreen.view.GEditText
             android:id="@id/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -107,10 +106,9 @@
             android:layout_marginRight="30.0dip"
             android:layout_marginTop="8.0dip"
             android:hint="@string/password"
-            android:textColorHint="@color/hint_color"
             android:imeOptions="actionDone"
-            android:textColor="@color/all_white"
             android:inputType="textPassword"
+            android:textColor="@color/all_white"
             android:textSize="16.0sp" />
 
         <LinearLayout
@@ -127,9 +125,9 @@
                 android:id="@id/sign_in"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_in"
                 android:gravity="center"
-                android:textColor="#ff3b3b3b"
+                android:text="@string/sign_in"
+                android:textColor="@color/all_white"
                 android:textSize="14.0sp"
                 android:textStyle="bold" />
 
@@ -137,9 +135,9 @@
                 android:id="@id/create_account"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/join"
                 android:gravity="center"
-                android:textColor="#ff3b3b3b"
+                android:text="@string/join"
+                android:textColor="@color/all_white"
                 android:textSize="14.0sp"
                 android:textStyle="bold" />
         </LinearLayout>
