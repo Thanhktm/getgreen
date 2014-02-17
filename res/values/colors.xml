@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green_action_bar">#2D912E</color>
     <color name="com_facebook_blue">#ff3b5998</color>
     <color name="com_facebook_usersettingsfragment_connected_text_color">#ffffffff</color>
     <color name="com_facebook_usersettingsfragment_connected_shadow_color">#ff000000</color>

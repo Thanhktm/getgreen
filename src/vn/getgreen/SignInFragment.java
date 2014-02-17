@@ -4,13 +4,14 @@ import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.User;
 import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-public class SignIn extends BaseFragment {
+public class SignInFragment extends BaseFragment {
 	
 	private GEditText mEditUsername;
 	private GEditText mEditPassword;
@@ -19,7 +20,7 @@ public class SignIn extends BaseFragment {
 	
 	private User mUser;
 	
-	public SignIn(){}
+	public SignInFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,8 +37,8 @@ public class SignIn extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(getActivity(), RegisterActivity.class);
+				startActivity(intent);
 			}
 		});
         return rootView;

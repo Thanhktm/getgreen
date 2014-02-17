@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-
+		
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
 				R.string.app_name, // nav drawer open - description for accessibility
@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(0);
+			displayView(1);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class MainActivity extends Activity {
 			fragment = new HomeFragment();
 			break;
 		case 1:
-			fragment = new SignIn();
+			fragment = new SignInFragment();
 			break;
 		case 2:
 			fragment = new PhotosFragment();
