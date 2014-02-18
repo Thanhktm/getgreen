@@ -66,6 +66,7 @@
             android:layout_marginTop="10.0dip"
             android:text="@string/register_button"
             android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/all_white"
             android:textStyle="bold" />
 
         <TextView

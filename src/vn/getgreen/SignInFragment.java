@@ -1,7 +1,11 @@
 package vn.getgreen;
 
+import org.json.JSONObject;
+
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.User;
+import vn.getgreen.network.ForumService;
+import vn.getgreen.network.GClient;
 import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
 import android.content.Intent;
@@ -19,6 +23,7 @@ public class SignInFragment extends BaseFragment {
 	private GButton mBtnCreate;
 	
 	private User mUser;
+	private ForumService mForumService;
 	
 	public SignInFragment(){}
 	
@@ -31,7 +36,7 @@ public class SignInFragment extends BaseFragment {
         mEditPassword = (GEditText) rootView.findViewById(R.id.password);
         mBtnSignin = (GButton) rootView.findViewById(R.id.sign_in);
         mBtnCreate = (GButton) rootView.findViewById(R.id.create_account);
-        
+        mForumService = new ForumService(getActivity(), this);
         
         mBtnCreate.setOnClickListener(new OnClickListener() {
 			
@@ -41,7 +46,31 @@ public class SignInFragment extends BaseFragment {
 				startActivity(intent);
 			}
 		});
+        
+        mBtnSignin.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mForumService.list();
+			}
+		});
+        
         return rootView;
     }
+	
+	@Override
+	public void onSuccess(GClient client, JSONObject jsonObject) {
+		if(client instanceof ForumService && mForumService.parseJson(jsonObject))
+		{
+			
+		}
+		super.onSuccess(client, jsonObject);
+	}
+	
+	@Override
+	public void onFailure(GClient client, JSONObject message) {
+		// TODO Auto-generated method stub
+		super.onFailure(client, message);
+	}
 	
 }

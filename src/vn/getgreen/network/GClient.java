@@ -125,8 +125,7 @@ public abstract class GClient {
 				JSONObject jsonObjectRoot) {
 			super.onSuccess(statusCode, headers, jsonObjectRoot);
 			if (Constants.DEBUG) {
-				Log.d(API_TAG, "Success request-url " + url + " : "
-						+ jsonObjectRoot.toString());
+				Log.d(API_TAG, jsonObjectRoot.toString());
 			}
 
 			if (responseListener != null) {
