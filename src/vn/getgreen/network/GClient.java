@@ -1,5 +1,8 @@
 package vn.getgreen.network;
 
+import java.util.Iterator;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,20 +11,18 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public abstract class GClient {
+	
 	public static final String API_TAG = "GG_NETWORK";
 	public static final int TIME_OUT = 60 * 1000; // 60s timeout
 
-	public static final int METHOD_GET = 0;
-	public static final int METHOD_POST = 1;
-	public static final int METHOD_PUT = 2;
-
-	public String errorMessage = "";
+	public JSONArray errorMessage = null;
 
 	private AsyncHttpClient asyncHttpClient;
 	private ResponseListener responseListener;
@@ -79,7 +80,7 @@ public abstract class GClient {
 		}
 
 		try {
-			errorMessage = jsonObject.getString("message");
+			errorMessage = jsonObject.getJSONArray("errors");
 			return true;
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -99,6 +100,31 @@ public abstract class GClient {
 
 	private class ResponseHandler extends JsonHttpResponseHandler {
 
+		@SuppressWarnings("rawtypes")
+		@Override
+		public void onFailure(int statusCode, Throwable e,
+				JSONObject errorResponse) {
+			try {
+				if(responseListener != null) responseListener.onFailure(GClient.this, errorResponse);
+				if(Constants.DEBUG) Log.d(API_TAG, errorResponse.toString());
+				if(!errorResponse.isNull("errors"))
+				{
+					String errorsString = "";
+					JSONObject menu = errorResponse.getJSONObject("errors");
+					Iterator iter = menu.keys();
+				    while(iter.hasNext()){
+				        String key = (String)iter.next();
+				        String value = menu.getString(key);
+				        errorsString += key + " : " + value + "\n";
+				    }
+				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+			super.onFailure(statusCode, e, errorResponse);
+		}
 		@Override
 		public void onFailure(Throwable throwable, String response) {
 			Log.d(API_TAG, "Fail request-url " + url + ":" + response);
@@ -109,6 +135,7 @@ public abstract class GClient {
 		public void onFinish() {
 			super.onFinish();
 			Log.d(API_TAG, "Finish request-url " + url);
+			if(responseListener != null) responseListener.onFinish(GClient.this);
 		}
 
 		@Override
@@ -128,6 +155,12 @@ public abstract class GClient {
 				Log.d(API_TAG, jsonObjectRoot.toString());
 			}
 
+			if(!jsonObjectRoot.isNull("errors"))
+			{
+				onFailure(statusCode, null,
+						jsonObjectRoot);
+				return;
+			}
 			if (responseListener != null) {
 				responseListener.onSuccess(GClient.this, jsonObjectRoot);
 			}

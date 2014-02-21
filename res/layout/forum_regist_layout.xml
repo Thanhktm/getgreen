@@ -12,29 +12,28 @@
         android:orientation="vertical"
         android:paddingTop="35.0dip" >
 
-        <EditText
-            android:id="@id/email"
+        <vn.getgreen.view.GEditText
+            android:id="@id/username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35.0dip"
             android:layout_marginRight="35.0dip"
             android:layout_marginTop="10.0dip"
             android:hint="@string/username"
-            android:inputType="textEmailAddress"
             android:textSize="16.0sp" />
 
-        <EditText
-            android:id="@id/tapatalk_id"
+        <vn.getgreen.view.GEditText
+            android:id="@id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35.0dip"
             android:layout_marginRight="35.0dip"
             android:layout_marginTop="10.0dip"
             android:hint="@string/email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="16.0sp" />
 
-        <EditText
+        <vn.getgreen.view.GEditText
             android:id="@id/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -45,7 +44,7 @@
             android:inputType="textPassword"
             android:textSize="16.0sp" />
 
-        <EditText
+        <vn.getgreen.view.GEditText
             android:id="@id/confirm_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -68,16 +67,6 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/all_white"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@id/tapa_id_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10.0dip"
-            android:layout_marginLeft="45.0dip"
-            android:layout_marginRight="35.0dip"
-            android:layout_marginTop="10.0dip"
-            android:text="@string/account_register_message" />
     </LinearLayout>
 
 </ScrollView>

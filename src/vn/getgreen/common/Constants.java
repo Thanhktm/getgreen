@@ -6,7 +6,7 @@ public class Constants {
 	public static final String PREFS_NAME = "PREFS_GETGREN";
 	public static final String API_KEY = "ecom2014";
 	
-	public static final String HOST_PRODUCTION = "https://xfrocks.com/api/";
+	public static final String HOST_PRODUCTION = "http://forum.ecomwebpro.com/api/index.php?";
 	
 	
 }
