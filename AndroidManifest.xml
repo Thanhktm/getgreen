@@ -37,6 +37,12 @@
             android:name="vn.getgreen.RegisterActivity"
             android:label="@string/register" >
         </activity>
+        <activity
+            android:name="vn.getgreen.ForumActivity" >
+        </activity>
+        <activity
+            android:name="vn.getgreen.ThreadActivity" >
+        </activity>
     </application>
 
 </manifest>

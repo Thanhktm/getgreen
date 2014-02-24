@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item type="id" name="list_forum" />
     <item type="id" name="selected_view" />
     <item type="id" name="tapaid_layout">false</item>
     <item type="id" name="login">false</item>

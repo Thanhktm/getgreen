@@ -36,6 +36,7 @@
         <item name="android:windowBackground">@color/dark_bg_color</item>
          <item name="quoord_11_textStyle">@style/Ligth_11_Text</item>
         <item name="quoord_author_12_textStyle">@style/Ligth_12_author_Text</item>
+        <item name="android:editTextStyle">@style/MyTheme.Widget.EditText</item>
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -46,5 +47,8 @@
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/all_white</item>
     </style>
-
+	<style name="MyTheme.Widget.EditText" parent="@android:style/Widget.EditText">
+    <item name="android:textColor">@color/all_white</item>
+    <item name="android:textCursorDrawable">@null</item>
+	</style>
 </resources>
