@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="show_pictures" format="boolean" />
+    <attr name="extra_fields" format="string" />
+    <attr name="show_title_bar" format="boolean" />
+    <attr name="title_text" format="string" />
+    <attr name="done_button_text" format="string" />
+    <attr name="title_bar_background" format="reference" />
+    <attr name="done_button_background" format="reference" />
+    <attr name="multi_select" format="boolean" />
+    <attr name="radius_in_meters" format="integer" />
+    <attr name="results_limit" format="integer" />
+    <attr name="search_text" format="string" />
+    <attr name="show_search_box" format="boolean" />
+    <attr name="confirm_logout" format="boolean" />
+    <attr name="fetch_user_info" format="boolean" />
+    <attr name="login_text" format="string" />
+    <attr name="logout_text" format="string" />
+    <attr name="preset_size">
+        <enum name="small" value="-2" />
+        <enum name="normal" value="-3" />
+        <enum name="large" value="-4" />
+    </attr>
+    <attr name="is_cropped" format="boolean" />
+    <attr name="fontFamilyLight" format="string" />
+    <attr name="fontFamilyMedium" format="string" />
+    <attr name="fontFamilyBold" format="string" />
+    <attr name="toolbarTitleFontFamily" format="string" />
+    <attr name="toolbarButtonFontFamily" format="string" />
+    <attr name="thumbTextFontFamily" format="string" />
+    <attr name="toolbarHeight" format="reference|dimension" />
+    <attr name="shadowColorPrimary" format="reference|color" />
+    <attr name="shadowColorPrimaryInverse" format="reference|color" />
+    <attr name="shadowDxSmall" format="float" />
+    <attr name="shadowDySmall" format="float" />
+    <attr name="shadowRadiusSmall" format="float" />
+    <attr name="shadowDxMedium" format="float" />
+    <attr name="shadowDyMedium" format="float" />
+    <attr name="shadowRadiusMedium" format="float" />
+    <attr name="textSizeSmall" format="reference|dimension" />
+    <attr name="textSizeMedium" format="reference|dimension" />
+    <attr name="textSizeLarge" format="reference|dimension" />
+    <attr name="workspaceHeight" format="reference|dimension" />
+    <attr name="workspaceIndicator" format="reference" />
+    <attr name="workspaceIAPIndicator" format="reference" />
+    <attr name="optionPanelHeight" format="dimension" />
+    <attr name="optionPanelShadowHeight" format="dimension" />
+    <attr name="optionPanelHeightWithShadow" format="dimension" />
+    <attr name="optionPanelButtonCheckboxWidth" format="dimension" />
+    <attr name="optionPanelBackground" format="reference|color" />
+    <attr name="optionPanelBackground2" format="reference" />
+    <attr name="textAppearanceThumbSmall" format="reference" />
+    <attr name="textAppearanceSmall" format="reference" />
+    <attr name="stickerPackDividerPadding" format="dimension" />
+    <attr name="stickerPackDividerEmptyDrawable" format="reference|color" />
+    <attr name="stickerPanelBottomOverlayHeight" format="dimension" />
+    <attr name="stickerPanelLoaderHeight" format="dimension" />
+    <attr name="iapDialogHeightWeight" format="integer" />
+    <attr name="iapDialogWidthWeight" format="integer" />
+    <attr name="iapDialogTopWeight" format="integer" />
+    <attr name="iapDialogGridBackgroundColor" format="reference|color" />
+    <attr name="mainImagePadding" format="dimension" />
+    <attr name="cropButtonMarginTop" format="dimension" />
+    <attr name="font" format="string" />
+    <attr name="ticks" format="integer" />
+    <attr name="numRotations" format="integer" />
+    <attr name="showDelay" format="integer" />
+    <attr name="hideDelay" format="integer" />
+    <attr name="showDuration" format="integer" />
+    <attr name="hideDuration" format="integer" />
+    <attr name="smallTicks" format="integer" />
+    <attr name="bigTicks" format="integer" />
+    <attr name="valueIndicatorColor" format="reference|color" />
+    <attr name="bigIndicatorColor" format="reference|color" />
+    <attr name="smallIndicatorColor" format="reference|color" />
+    <attr name="buttonIcon" format="integer" />
+    <attr name="buttonText" format="integer" />
+    <attr name="checked" format="boolean" />
+    <attr name="selectionSrc" format="reference" />
+    <attr name="selectionPaddingLeft" format="dimension" />
+    <attr name="selectionPaddingTop" format="dimension" />
+    <attr name="selectionPaddingRight" format="dimension" />
+    <attr name="selectionPaddingBottom" format="dimension" />
+    <attr name="shadowDrawable" format="reference|color" />
+    <attr name="shadowOffsetX" format="integer" />
+    <attr name="shadowOffsetY" format="integer" />
+    <attr name="selectionAnimationDuration" format="integer" />
+    <attr name="checkedButton" format="integer" />
+    <attr name="firstButton" format="integer" />
+    <attr name="centerButton" format="integer" />
+    <attr name="lastButton" format="integer" />
+    <attr name="indicatorId" format="reference" />
+    <attr name="defaultScreen" format="integer" />
+    <attr name="overscroll" format="integer" />
+    <attr name="startPadding" format="dimension" />
+    <attr name="endPadding" format="dimension" />
+    <attr name="topPadding" format="dimension" />
+    <attr name="bottomPadding" format="dimension" />
+    <attr name="horizontalPadding" format="dimension" />
+    <attr name="verticalPadding" format="dimension" />
+    <attr name="cells" format="integer" />
+    <attr name="rows" format="integer" />
+    <attr name="layout_direction">
+        <enum name="vertical" value="0" />
+        <enum name="horizontal" value="1" />
+    </attr>
+    <attr name="orientation">
+        <enum name="vertical" value="1" />
+        <enum name="horizontal" value="0" />
+    </attr>
+    <attr name="text" format="string" />
+    <attr name="textColor" format="color" />
+    <attr name="textSize" format="dimension" />
+    <attr name="mode">
+        <enum name="left" value="0" />
+        <enum name="right" value="1" />
+    </attr>
+    <attr name="viewAbove" format="reference" />
+    <attr name="viewBehind" format="reference" />
+    <attr name="behindOffset" format="dimension" />
+    <attr name="behindWidth" format="dimension" />
+    <attr name="behindScrollScale" format="float" />
+    <attr name="touchModeAbove">
+        <enum name="margin" value="0" />
+        <enum name="fullscreen" value="1" />
+    </attr>
+    <attr name="touchModeBehind">
+        <enum name="margin" value="0" />
+        <enum name="fullscreen" value="1" />
+    </attr>
+    <attr name="shadowDrawable2" format="reference" />
+    <attr name="shadowWidth" format="dimension" />
+    <attr name="fadeEnabled" format="boolean" />
+    <attr name="fadeDegree" format="float" />
+    <attr name="selectorEnabled" format="boolean" />
+    <attr name="selectorDrawable" format="reference" />
+    <attr name="collapsed_height" format="dimension" />
+    <attr name="drag_scroll_start" format="float" />
+    <attr name="max_drag_scroll_speed" format="float" />
+    <attr name="float_background_color" format="color" />
+    <attr name="remove_mode">
+        <enum name="clickRemove" value="0" />
+        <enum name="flingRight" value="1" />
+        <enum name="flingLeft" value="2" />
+        <enum name="slideRight" value="3" />
+        <enum name="slideLeft" value="4" />
+    </attr>
+    <attr name="track_drag_sort" format="boolean" />
+    <attr name="float_alpha" format="float" />
+    <attr name="slide_shuffle_speed" format="float" />
+    <attr name="remove_animation_duration" format="integer" />
+    <attr name="drop_animation_duration" format="integer" />
+    <attr name="drag_enabled" format="boolean" />
+    <attr name="sort_enabled" format="boolean" />
+    <attr name="remove_enabled" format="boolean" />
+    <attr name="drag_start_mode">
+        <enum name="onDown" value="0" />
+        <enum name="onMove" value="1" />
+        <enum name="onLongPress" value="2" />
+    </attr>
+    <attr name="drag_handle_id" format="integer" />
+    <attr name="click_remove_id" format="integer" />
+    <attr name="use_default_controller" format="boolean" />
+    <attr name="quoord_11_textStyle" format="reference" />
+    <attr name="quoord_author_12_textStyle" format="reference" />
+    <attr name="quoord_author_large_textStyle" format="reference" />
+    <attr name="quoord_12_textStyle" format="reference" />
+    <attr name="quoord_14_3btextStyle" format="reference" />
+    <attr name="quoord_14_textStyle" format="reference" />
+    <attr name="quoord_14_Gray_textStyle" format="reference" />
+    <attr name="quoord_16_textStyle" format="reference" />
+    <attr name="quoord_20_Gray_textStyle" format="reference" />
+    <attr name="dialogmessage_textStyle" format="reference" />
+    <attr name="image_type" format="string" />
+</resources>

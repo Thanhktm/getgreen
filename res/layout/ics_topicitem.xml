@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/llayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/notification_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/notification_left"
+        android:visibility="gone" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/usericon"
+        android:layout_width="36.0dip"
+        android:layout_height="36.0dip"
+        android:layout_marginLeft="12.0dip"
+        android:layout_marginTop="12.0dip"
+        android:focusable="false"
+        android:gravity="left|center" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/avater_bg"
+        android:layout_width="36.0dip"
+        android:layout_height="36.0dip"
+        android:layout_alignRight="@id/usericon"
+        android:layout_alignTop="@id/usericon"
+        android:layout_marginLeft="12.0dip"
+        android:background="@drawable/avator_background" />
+
+    <LinearLayout
+        android:id="@id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="12.0dip"
+        android:layout_marginTop="20.0dip"
+        android:gravity="top|right|center" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/approve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/topic_wait"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/topic_locked"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/attach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/attachment_small"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/topic_sticky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/topic_sticky"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/topic_ann"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ann"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GTimeStampView
+            android:id="@id/topictime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.0dip"
+            android:textAppearance="?quoord_11_textStyle" />
+    </LinearLayout>
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/breaker2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="26.0dip"
+        android:layout_toLeftOf="@id/ll"
+        android:src="@drawable/topic_vertical_break" />
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/view_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="4.0dip"
+        android:layout_marginTop="22.0dip"
+        android:layout_toLeftOf="@id/breaker2"
+        android:textAppearance="?quoord_11_textStyle" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/view_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="24.0dip"
+        android:layout_toLeftOf="@id/view_num"
+        android:src="@drawable/view_icon" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/breaker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4.0dip"
+        android:layout_marginTop="26.0dip"
+        android:layout_toLeftOf="@id/view_icon"
+        android:src="@drawable/topic_vertical_break" />
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/reply_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4.0dip"
+        android:layout_marginTop="22.0dip"
+        android:layout_toLeftOf="@id/breaker"
+        android:textAppearance="?quoord_11_textStyle" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/reply_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="24.0dip"
+        android:layout_toLeftOf="@id/reply_num"
+        android:src="@drawable/reply_icon" />
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/topicauthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_gravity="left"
+        android:layout_marginLeft="9.0dip"
+        android:layout_marginTop="22.0dip"
+        android:layout_toLeftOf="@id/reply_icon"
+        android:layout_toRightOf="@id/usericon"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?quoord_author_12_textStyle" />
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/topictitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/top_view"
+        android:layout_alignRight="@id/top_view"
+        android:layout_below="@id/usericon"
+        android:layout_marginRight="12.0dip"
+        android:layout_marginTop="5.0dip"
+        android:maxLines="2"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+    <vn.getgreen.view.GShortContentView
+        android:id="@id/shortcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/top_view"
+        android:layout_alignRight="@id/top_view"
+        android:layout_below="@id/topictitle"
+        android:layout_marginLeft="12.0dip"
+        android:layout_marginRight="12.0dip"
+        android:layout_marginTop="2.0dip"
+        android:maxLines="2"
+        android:paddingBottom="10.0dip"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+    <RelativeLayout
+        android:id="@id/forumtitle_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="27.0dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/shortcontent"
+        android:layout_marginTop="10.0dip"
+        android:background="@color/topic_cell_forum_bg_color"
+        android:visibility="gone" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/title_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="12.0dip"
+            android:src="@drawable/topic_at_forum" />
+
+        <vn.getgreen.view.GTextView
+            android:id="@id/forumtitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12.0dip"
+            android:layout_toRightOf="@id/title_logo"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/forum_title_color"
+            android:textSize="12.0sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+
+</RelativeLayout>

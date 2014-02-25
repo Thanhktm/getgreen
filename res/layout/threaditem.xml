@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/flipper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:paddingBottom="6.0dip"
+        android:paddingLeft="12.0dip"
+        android:paddingRight="12.0dip"
+        android:paddingTop="12.0dip" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/iconLay"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_alignParentTop="true"
+            android:gravity="center" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/avater_bg"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_alignRight="@id/iconLay"
+            android:layout_alignTop="@id/iconLay"
+            android:background="@drawable/avator_background" />
+
+        <LinearLayout
+            android:id="@id/llayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iconLay"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="1.0dip"
+            android:layout_toRightOf="@id/iconLay"
+            android:orientation="horizontal" >
+
+            <vn.getgreen.view.GImageView
+                android:id="@id/onlineStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginRight="5.0dip" />
+
+            <TextView
+                android:id="@id/post_author_name"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left|center"
+                android:layout_weight="1.0"
+                android:includeFontPadding="false"
+                android:textColor="@color/blue_5bb2d2"
+                android:textSize="14.0sp" />
+
+            <vn.getgreen.view.GImageView
+                android:id="@id/approve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5.0dip"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@id/floor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5.0dip"
+                android:includeFontPadding="false"
+                android:textSize="11.0sp" />
+
+            <vn.getgreen.view.GTimeStampView
+                android:id="@id/post_reply_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right|center"
+                android:includeFontPadding="false"
+                android:textSize="11.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/post_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/llayout1"
+            android:layout_below="@id/llayout1"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="1.0dip"
+            android:layout_marginTop="7.0dip"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@id/post_attach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/llayout1"
+            android:layout_below="@id/post_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="3.0dip"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@id/post_thanks"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/llayout1"
+            android:layout_below="@id/post_attach"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3.0dip"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="14.0dip"
+            android:paddingTop="7.0dip"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/thanks_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5.0dip"
+                    android:src="@drawable/ic_thank" />
+
+                <TextView
+                    android:id="@id/thanks_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:layout_toRightOf="@id/thanks_icon"
+                    android:drawablePadding="5.0dip"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text=""
+                    android:textColor="@color/thanks_color"
+                    android:textSize="14.0sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <vn.getgreen.view.GImageView
+                android:id="@id/like_info_thanks_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="5.0dip"
+                android:src="@drawable/thanks_dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/post_like"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/llayout1"
+            android:layout_below="@id/post_thanks"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3.0dip"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="14.0dip"
+            android:paddingTop="7.0dip"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/like_info_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5.0dip"
+                    android:src="@drawable/ic_thank" />
+
+                <TextView
+                    android:id="@id/like_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:layout_toRightOf="@id/like_info_icon"
+                    android:drawablePadding="5.0dip"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text=""
+                    android:textColor="@color/thanks_color"
+                    android:textSize="14.0sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <vn.getgreen.view.GImageView
+                android:id="@id/like_info_like_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="5.0dip"
+                android:src="@drawable/thanks_dropdown" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/llayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/transparent"
+        android:orientation="horizontal" />
+
+</ViewFlipper>
