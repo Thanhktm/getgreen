@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -28,7 +29,7 @@ public class ForumActivity extends BaseActivity {
 	private ListView mListForum;
 	private ForumAdapter mForumAdapter;
 	private List<Forum> forums;
-
+	private RelativeLayout ll;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class ForumActivity extends BaseActivity {
 
 		forums = new ArrayList<Forum>();
 		mForumAdapter = new ForumAdapter(this, forums);
+		ll = (RelativeLayout) findViewById(R.id.ll);
 		mListForum = (ListView) findViewById(R.id.list);
 		mListForum.setAdapter(mForumAdapter);
 		Intent intent = getIntent();
@@ -89,6 +91,12 @@ public class ForumActivity extends BaseActivity {
 			forums.clear();
 			forums.addAll(mForumService.forums);
 			mForumAdapter.notifyDataSetChanged();
+			if(forums.size() == 0){
+				ll.setVisibility(View.VISIBLE);
+			} else
+			{
+				ll.setVisibility(View.GONE);
+			}
 		}
 		super.onSuccess(client, jsonObject);
 	}

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vn.getgreen.common.Constants;
+import vn.getgreen.enties.User;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,7 +30,6 @@ public abstract class GClient {
 	private String host;
 	protected Context context;
 	private String url;
-	private RequestParams requestParams;
 
 	public GClient(Context context, ResponseListener responseListener) {
 		this.responseListener = responseListener;
@@ -43,24 +43,39 @@ public abstract class GClient {
 
 	}
 
+	/**
+	 * Update oauth_token if user has login
+	 * @param requestParams
+	 */
+	private void updateOauthToken(RequestParams requestParams)
+	{
+		if(User.isLogin(context))
+		{
+			if (requestParams == null) {
+				requestParams = new RequestParams();
+			}
+			requestParams.put("oauth_token", User.get(context).getAccess_token());
+		}
+	}
+	
 	public void get(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		this.requestParams = requestParams;
-		asyncHttpClient.get(context, this.url, this.requestParams,
+		updateOauthToken(requestParams);
+		asyncHttpClient.get(context, this.url, requestParams,
 				new ResponseHandler());
 	}
 
 	public void post(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		this.requestParams = requestParams;
-		asyncHttpClient.post(context, this.url, this.requestParams,
+		updateOauthToken(requestParams);
+		asyncHttpClient.post(context, this.url,requestParams,
 				new ResponseHandler());
 	}
 
 	public void put(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		this.requestParams = requestParams;
-		asyncHttpClient.put(context, this.url, this.requestParams,
+		updateOauthToken(requestParams);
+		asyncHttpClient.put(context, this.url, requestParams,
 				new ResponseHandler());
 	}
 
@@ -119,16 +134,23 @@ public abstract class GClient {
 				    }
 				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
 				}
+				if(!errorResponse.isNull("error"))
+				{
+					String errorsString = "";
+					JSONObject menu = errorResponse.getJSONObject("error");
+					Iterator iter = menu.keys();
+				    while(iter.hasNext()){
+				        String key = (String)iter.next();
+				        String value = menu.getString(key);
+				        errorsString += key + " : " + value + "\n";
+				    }
+				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
+				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 			
 			super.onFailure(statusCode, e, errorResponse);
-		}
-		@Override
-		public void onFailure(Throwable throwable, String response) {
-			Log.d(API_TAG, "Fail request-url " + url + ":" + response);
-			throwable.printStackTrace();
 		}
 
 		@Override

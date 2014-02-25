@@ -1,6 +1,5 @@
 package vn.getgreen.adapter;
 
-import java.net.URI;
 import java.util.List;
 
 import vn.getgreen.R;
@@ -89,6 +88,8 @@ public class ThreadAdapter extends BaseAdapter {
         reply_num.setText(thread.getThread_post_count() + "");
         topic_sticky.setVisibility(thread.isThread_is_sticky() ? View.VISIBLE : View.GONE);
         shortcontent.setText(thread.getFirst_post().getPost_body());
+        topictime.setTime(thread.getThread_update_date());
+        topictime.setVisibility(thread.isThread_is_sticky() ? View.GONE : View.VISIBLE);
 		return convertView;
 	}
 

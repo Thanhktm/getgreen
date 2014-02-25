@@ -1,5 +1,10 @@
 package vn.getgreen.view;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import vn.getgreen.common.DateUtils;
+
 import android.content.Context;
 import android.util.AttributeSet;
 
@@ -22,6 +27,16 @@ public class GTimeStampView extends GTextView {
 	
 	public void setTime(long time)
 	{
+		Date date = new Date(time);
+		if(DateUtils.isToday(date))
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
+			setText(sdf.format(date));	
+			return;
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd hh:mma");
+		setText(sdf.format(date));	
 		
 	}
 

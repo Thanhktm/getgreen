@@ -7,8 +7,8 @@
         android:id="@id/list"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
+        android:padding="10dip"
+    	android:clipToPadding="false">
     </ListView>
 
 </RelativeLayout>

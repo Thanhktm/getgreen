@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class CategoriesFragment extends BaseFragment {
 	
@@ -26,6 +27,7 @@ public class CategoriesFragment extends BaseFragment {
 	private ListView mListCategories;
 	private CategoriesAdapter mCategoriesAdapter;
 	private List<Category> categories;
+	private RelativeLayout ll;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,9 @@ public class CategoriesFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_categories, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_forum, container, false);
         mCategoriesService.list();
+        ll = (RelativeLayout) rootView.findViewById(R.id.ll);
         mListCategories = (ListView) rootView.findViewById(R.id.list);
         mListCategories.setAdapter(mCategoriesAdapter);
         mListCategories.setOnItemClickListener(new OnItemClickListener() {
@@ -67,7 +70,19 @@ public class CategoriesFragment extends BaseFragment {
 			categories.clear();
 			categories.addAll(mCategoriesService.categories);
 			mCategoriesAdapter.notifyDataSetChanged();
+			if(categories.size() == 0){
+				ll.setVisibility(View.VISIBLE);
+			} else
+			{
+				ll.setVisibility(View.GONE);
+			}
 		}
 		super.onSuccess(client, jsonObject);
+	}
+	
+	@Override
+	public void onFinish(GClient client) {
+		
+		super.onFinish(client);
 	}
 }
