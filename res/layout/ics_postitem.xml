@@ -48,7 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" >
 
-            <vn.getgreen.view.GTextView
+            <vn.getgreen.view.GTimeStampView
                 android:id="@id/topictime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
         android:maxLines="2"
         android:textAppearance="?android:textAppearanceSmall" />
 
-    <vn.getgreen.view.GTextView
+    <vn.getgreen.view.GShortContentView
         android:id="@id/shortcontent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

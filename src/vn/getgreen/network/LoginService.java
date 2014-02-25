@@ -23,6 +23,7 @@ public class LoginService extends GClient{
 		params.put("username", user.getUsername());
 		params.put("password", user.getPassword());
 		params.put("client_id", Constants.API_KEY);
+		User.save(context, user);
 		post(params, "oauth/token");
 	}
 	

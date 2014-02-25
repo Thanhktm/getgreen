@@ -9,10 +9,12 @@ import vn.getgreen.network.LoginService;
 import vn.getgreen.network.RegisterService;
 import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class RegisterActivity extends BaseActivity {
@@ -62,6 +64,8 @@ public class RegisterActivity extends BaseActivity {
 			mUser.setUsername(mEditUsername.getText().toString());
 			mUser.setPassword(mEditPassword.getText().toString());
 			mRegisterService.register(mUser);
+			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 			v.setEnabled(false);
 		}
 	};
@@ -84,6 +88,8 @@ public class RegisterActivity extends BaseActivity {
 		if(client instanceof LoginService && mLoginService.parseJson(jsonObject))
 		{
 			Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+			setResult(RESULT_OK);
+			finish();
 		}
 		super.onSuccess(client, jsonObject);
 	}

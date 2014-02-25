@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@id/llayout1"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/category_item_color_dark" >
 
     <vn.getgreen.view.GImageView
         android:id="@id/notification_flag"
@@ -164,10 +165,13 @@
         android:layout_alignLeft="@id/top_view"
         android:layout_alignRight="@id/top_view"
         android:layout_below="@id/usericon"
+        android:layout_marginLeft="12.0dip"
         android:layout_marginRight="12.0dip"
         android:layout_marginTop="5.0dip"
         android:maxLines="2"
-        android:textAppearance="?android:textAppearanceSmall" />
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/all_white"
+        android:textStyle="bold" />
 
     <vn.getgreen.view.GShortContentView
         android:id="@id/shortcontent"
@@ -180,6 +184,7 @@
         android:layout_marginRight="12.0dip"
         android:layout_marginTop="2.0dip"
         android:maxLines="2"
+        android:textColor="@color/content_text_read"
         android:paddingBottom="10.0dip"
         android:textAppearance="?android:textAppearanceSmall" />
 

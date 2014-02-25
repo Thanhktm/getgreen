@@ -20,7 +20,7 @@ public class RegisterService extends GClient {
 		RequestParams params = new RequestParams();
 		params.put("username", user.getUsername());
 		params.put("email", user.getEmail());
-		params.put("passsword", user.getPassword());
+		params.put("password", user.getPassword());
 		params.put("client_id", Constants.API_KEY);
 		post(params, "users");
 	}

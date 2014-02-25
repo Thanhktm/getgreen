@@ -24,7 +24,13 @@ public class User extends BaseEnity {
 	private boolean user_is_visitor;
 	private String refresh_token;
 	private String access_token;
-	
+	public static boolean isLogin(Context context)
+	{
+		User user = User.get(context);
+		if(user == null || user.getAccess_token() == null || user.getAccess_token().isEmpty()) return false;
+		return true;
+		
+	}
 	Permissions permissions;
 	Links links;
 	

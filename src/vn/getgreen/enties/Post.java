@@ -59,6 +59,8 @@ public class Post extends BaseEnity {
 		this.post_create_date = post_create_date;
 	}
 	public String getPost_body() {
+		String parten = "\\[[^]]+\\]";
+		if(post_body != null) return post_body.replaceAll(parten, "");
 		return post_body;
 	}
 	public void setPost_body(String post_body) {

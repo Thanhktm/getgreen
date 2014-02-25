@@ -11,7 +11,11 @@
     <string-array name="nav_drawer_items_not_signin">
         <item >Trang nhất</item>
         <item >Đăng nhập</item>
+        <item >Thông báo</item>
+        <item >Theo dõi</item>
         <item >Diễn đàn</item>
+        <item >Hộp thư</item>
+        <item >Bài mới</item>
         <item >Tìm kiếm</item>
     </string-array>
     
@@ -20,8 +24,12 @@
     <array name="nav_drawer_icons_not_signin">
         <item>@drawable/menu_ic_subforum_new</item>
         <item>@drawable/menu_ic_login_select</item>
+        <item>@drawable/menu_alert_new</item>
+        <item>@drawable/menu_subscribe_dark</item>
         <item>@drawable/menu_ic_forum_new</item>
-        <item>@drawable/ic_menu_search</item>
+        <item>@drawable/menu_convo_new</item>
+        <item>@drawable/menu_unread_topics_new</item>
+        <item>@drawable/ic_menu_search_dark</item>
     </array>
     
     <!-- Nav Drawer Menu Items -->
