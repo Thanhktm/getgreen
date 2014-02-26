@@ -33,7 +33,7 @@ public class ThreadAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return threads.get(position);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ThreadAdapter extends BaseAdapter {
         // bind data
         topictitle.setText(thread.getThread_title());
         topicauthor.setText(thread.getCreator_username());
-        avatar.setImageUrl(thread.getLinks().getAvatar(), R.drawable.default_avatar_dark);
+        avatar.setImageUrl(thread.getFirst_post().getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
         view_num.setText(thread.getThread_view_count() + "");
         reply_num.setText(thread.getThread_post_count() + "");
         topic_sticky.setVisibility(thread.isThread_is_sticky() ? View.VISIBLE : View.GONE);

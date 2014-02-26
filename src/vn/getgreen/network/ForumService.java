@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class ForumService extends GClient {
 	public List<Forum> forums = new ArrayList<Forum>();
+	private boolean isLoadAll = false;
 	
 	public ForumService(Context context, ResponseListener responseListener) {
 		super(context, responseListener);
@@ -26,6 +27,7 @@ public class ForumService extends GClient {
 	 */
 	public void list()
 	{
+		this.isLoadAll = true;
 		get(null, "forums");
 	}
 	
@@ -56,6 +58,7 @@ public class ForumService extends GClient {
 				Type listType = new TypeToken<List<Forum>>() {
 				}.getType();
 				this.forums = gson.fromJson(json.getJSONArray("forums").toString(), listType);
+				if(this.isLoadAll) Forum.save(context, forums);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

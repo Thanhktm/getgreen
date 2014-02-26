@@ -120,6 +120,10 @@ public abstract class GClient {
 		public void onFailure(int statusCode, Throwable e,
 				JSONObject errorResponse) {
 			try {
+				if(e != null)
+				{
+					Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+				}
 				if(responseListener != null) responseListener.onFailure(GClient.this, errorResponse);
 				if(Constants.DEBUG) Log.d(API_TAG, errorResponse.toString());
 				if(!errorResponse.isNull("errors"))
@@ -146,6 +150,7 @@ public abstract class GClient {
 				    }
 				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
 				}
+				
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

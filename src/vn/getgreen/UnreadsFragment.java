@@ -1,22 +1,56 @@
 package vn.getgreen;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import vn.getgreen.adapter.ThreadAdapter;
 import vn.getgreen.common.BaseFragment;
+import vn.getgreen.enties.Forum;
+import vn.getgreen.enties.Thread;
+import vn.getgreen.network.GClient;
+import vn.getgreen.network.ThreadService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class UnreadsFragment extends BaseFragment {
 	
 	public UnreadsFragment(){}
-	
+	List<Thread> threads = new ArrayList<Thread>();
+	ThreadAdapter mThreadAdapter;
+	ListView mListThread;
+	ThreadService mThreadService;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_whats_hot, container, false);
-         
+        View rootView = inflater.inflate(R.layout.fragment_thread, container, false);
+        mThreadAdapter = new ThreadAdapter(getActivity(), threads);
+		mListThread = (ListView) rootView.findViewById(R.id.list);
+		mListThread.setAdapter(mThreadAdapter);
+		mThreadService = new ThreadService(getActivity(), this);
+		mThreadService.listUnreadByForum(null);
+		
         return rootView;
     }
+	
+	
+
+	@Override
+	public void onSuccess(GClient client, JSONObject jsonObject) {
+		if(client instanceof ThreadService && mThreadService.parseJson(jsonObject))
+		{
+			threads.clear();
+			threads.addAll(mThreadService.threads);
+			mThreadAdapter.notifyDataSetChanged();
+		}
+		super.onSuccess(client, jsonObject);
+	}
+	
 }

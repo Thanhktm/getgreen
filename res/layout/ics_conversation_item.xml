@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/llayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10.0dip" >
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/uneadicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/pm_unread" />
+
+    <RelativeLayout
+        android:id="@id/top_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginLeft="12.0dip"
+        android:layout_marginRight="12.0dip"
+        android:layout_marginTop="12.0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/pmauthoricon"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:focusable="false"
+            android:gravity="left|center" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/avater_bg"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_alignRight="@id/pmauthoricon"
+            android:layout_alignTop="@id/pmauthoricon"
+            android:background="@drawable/avator_background" />
+
+        <vn.getgreen.view.GTimeStampView
+            android:id="@id/senttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginTop="2.0dip"
+            android:gravity="right|center"
+            android:textAppearance="?quoord_11_textStyle"
+            android:textIsSelectable="false" />
+
+        <vn.getgreen.view.GTextView
+            android:id="@id/pmauthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="left"
+            android:layout_marginLeft="9.0dip"
+            android:layout_toLeftOf="@id/senttime"
+            android:layout_toRightOf="@id/pmauthoricon"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="?quoord_author_12_textStyle" />
+    </RelativeLayout>
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/pmtitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/top_view"
+        android:layout_below="@id/top_view"
+        android:ellipsize="middle"
+        android:maxLines="2"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+    <vn.getgreen.view.GShortContentView
+        android:id="@id/shortcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/top_view"
+        android:layout_alignRight="@id/top_view"
+        android:layout_below="@id/pmtitle"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginTop="2.0dip"
+        android:maxLines="2"
+        android:paddingBottom="10.0dip"
+        android:textAppearance="?quoord_author_12_textStyle" />
+
+</RelativeLayout>

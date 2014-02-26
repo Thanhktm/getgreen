@@ -2,10 +2,14 @@ package vn.getgreen;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import vn.getgreen.adapter.NavDrawerListAdapter;
+import vn.getgreen.common.BaseActivity;
 import vn.getgreen.enties.User;
 import vn.getgreen.model.NavDrawerItem;
-import android.app.Activity;
+import vn.getgreen.network.GClient;
+import vn.getgreen.network.LoginService;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -21,7 +25,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -39,6 +43,7 @@ public class MainActivity extends Activity {
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 	public User user;
+	private LoginService mLoginService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,8 @@ public class MainActivity extends Activity {
 
 		mTitle = mDrawerTitle = getTitle();
 		user = User.get(this);
-
+		mLoginService = new LoginService(this, this);
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 		
@@ -60,6 +66,33 @@ public class MainActivity extends Activity {
 
 	}
 	
+	@Override
+	protected void onResume() {
+		if(User.isLogin(this))
+		{
+			mLoginService.login(user);
+		}
+		super.onResume();
+	}
+	@Override
+	public void onSuccess(GClient client, JSONObject jsonObject) {
+		if(client instanceof LoginService && mLoginService.parseJson(jsonObject))
+		{
+			// Relogin success
+		}
+		super.onSuccess(client, jsonObject);
+	}
+	
+	@Override
+	public void onFailure(GClient client, JSONObject message) {
+		if(client instanceof LoginService)
+		{
+			User user = new User();
+			User.save(this, user);
+			initView(null);
+		}
+		super.onFailure(client, message);
+	}
 	public void initView(Bundle savedInstanceState) {
 		// nav drawer icons from resources
 		navMenuIcons = getResources().obtainTypedArray(
@@ -74,6 +107,7 @@ public class MainActivity extends Activity {
 					.getResourceId(2, -1)));
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
 					.getResourceId(3, -1)));
+			
 		} else {
 			// Sign in
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons

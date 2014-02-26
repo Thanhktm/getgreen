@@ -15,7 +15,14 @@ public class Permissions extends BaseEnity {
 	private boolean create_thread;
 	private boolean follow;
 	private boolean like;
+	private boolean reply;
 	
+	public boolean isReply() {
+		return reply;
+	}
+	public void setReply(boolean reply) {
+		this.reply = reply;
+	}
 	public boolean isLike() {
 		return like;
 	}

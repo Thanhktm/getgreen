@@ -35,7 +35,56 @@ public class Links extends BaseEnity {
 	
 	private String last_poster;
 	private String last_post;
+	private String conversation;
+	private String creator;
+	private String creator_avatar;
+	private String messages;
+	private int pages;
+	private String next	;
+	private String prev;
 	
+	public int getPages() {
+		return pages;
+	}
+	public void setPages(int pages) {
+		this.pages = pages;
+	}
+	public String getNext() {
+		return next;
+	}
+	public void setNext(String next) {
+		this.next = next;
+	}
+	public String getPrev() {
+		return prev;
+	}
+	public void setPrev(String prev) {
+		this.prev = prev;
+	}
+	public String getMessages() {
+		return messages;
+	}
+	public void setMessages(String messages) {
+		this.messages = messages;
+	}
+	public String getConversation() {
+		return conversation;
+	}
+	public void setConversation(String conversation) {
+		this.conversation = conversation;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getCreator_avatar() {
+		return creator_avatar;
+	}
+	public void setCreator_avatar(String creator_avatar) {
+		this.creator_avatar = creator_avatar;
+	}
 	public String getThread() {
 		return thread;
 	}

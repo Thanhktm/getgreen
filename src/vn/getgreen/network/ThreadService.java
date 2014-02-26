@@ -35,6 +35,18 @@ public class ThreadService extends GClient {
 		get(null, "threads/&forum_id=" + forum.getForum_id());
 	}
 	
+	/**
+	 * List threads unread in singel forum
+	 * @param forum if null will search all
+	 */
+	public void listUnreadByForum(Forum forum)
+	{
+		RequestParams params = new RequestParams();
+		params.put("limit", "64");
+		if(forum != null) params.put("forum_id", forum.getForum_id());
+		get(params, "threads/new");
+	}
+	
 	public void listByForums(List<Forum> forums, boolean isSticky, String order)
 	{
 		StringBuilder stringBuilder = new StringBuilder();

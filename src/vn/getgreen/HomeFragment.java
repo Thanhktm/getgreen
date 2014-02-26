@@ -7,12 +7,10 @@ import org.json.JSONObject;
 
 import vn.getgreen.adapter.ThreadAdapter;
 import vn.getgreen.common.BaseFragment;
-import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.network.ForumService;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
