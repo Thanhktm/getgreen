@@ -75,7 +75,6 @@
             android:id="@id/ortext"
             android:layout_width="fill_parent"
             android:layout_height="48.0dip"
-            android:layout_below="@id/buttonlay"
             android:layout_marginLeft="30.0dip"
             android:layout_marginRight="30.0dip"
             android:gravity="center"
