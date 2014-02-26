@@ -44,22 +44,7 @@ public class ForumActivity extends BaseActivity {
 		ll = (RelativeLayout) findViewById(R.id.ll);
 		mListForum = (ListView) findViewById(R.id.list);
 		mListForum.setAdapter(mForumAdapter);
-		Intent intent = getIntent();
-		if(intent.getSerializableExtra(Category.class.getName()) != null)
-		{
-			// Get forums by category
-			Category category = (Category) intent.getSerializableExtra(Category.class.getName());
-			setTitle(category.getCategory_title());
-			mForumService.listByCategory(category);
-		}
 		
-		if(intent.getSerializableExtra(Forum.class.getName()) != null)
-		{
-			// Get sub-forum by parent forum
-			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
-			setTitle(forum.getForum_title());
-			mForumService.listByForum(forum);
-		}
 		
 		mListForum.setOnItemClickListener(new OnItemClickListener() {
 
@@ -82,6 +67,26 @@ public class ForumActivity extends BaseActivity {
 				
 			}
 		});
+	}
+	
+
+	public void onRefresh() {
+		Intent intent = getIntent();
+		if(intent.getSerializableExtra(Category.class.getName()) != null)
+		{
+			// Get forums by category
+			Category category = (Category) intent.getSerializableExtra(Category.class.getName());
+			setTitle(category.getCategory_title());
+			mForumService.listByCategory(category);
+		}
+		
+		if(intent.getSerializableExtra(Forum.class.getName()) != null)
+		{
+			// Get sub-forum by parent forum
+			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
+			setTitle(forum.getForum_title());
+			mForumService.listByForum(forum);
+		}
 	}
 
 	@Override

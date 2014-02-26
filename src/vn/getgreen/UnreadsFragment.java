@@ -7,11 +7,9 @@ import org.json.JSONObject;
 
 import vn.getgreen.adapter.ThreadAdapter;
 import vn.getgreen.common.BaseFragment;
-import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +33,7 @@ public class UnreadsFragment extends BaseFragment {
 		mListThread = (ListView) rootView.findViewById(R.id.list);
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(getActivity(), this);
-		mThreadService.listUnreadByForum(null);
-		
+		onRefresh();
         return rootView;
     }
 	
@@ -51,6 +48,13 @@ public class UnreadsFragment extends BaseFragment {
 			mThreadAdapter.notifyDataSetChanged();
 		}
 		super.onSuccess(client, jsonObject);
+	}
+
+
+
+	@Override
+	public void onRefresh() {
+		mThreadService.listUnreadByForum(null);
 	}
 	
 }

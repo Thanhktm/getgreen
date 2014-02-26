@@ -99,4 +99,10 @@ public class RegisterActivity extends BaseActivity {
 		mBtnCreate.setEnabled(true);
 		super.onFinish(client);
 	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -85,4 +85,10 @@ public class CategoriesFragment extends BaseFragment {
 		
 		super.onFinish(client);
 	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

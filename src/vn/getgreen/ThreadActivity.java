@@ -38,14 +38,7 @@ public class ThreadActivity extends BaseActivity {
 		mListThread = (ListView) findViewById(R.id.list);
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(this, this);
-		Intent intent = getIntent();
-		if(intent.getSerializableExtra(Forum.class.getName()) != null)
-		{
-			// Get sub-forum by parent forum
-			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
-			setTitle(forum.getForum_title());
-			mThreadService.listByForum(forum);
-		}
+		onRefresh();
 	}
 
 	@Override
@@ -64,6 +57,18 @@ public class ThreadActivity extends BaseActivity {
 	{       
 	    onBackPressed();
 	    return true;
+	}
+
+	@Override
+	public void onRefresh() {
+		Intent intent = getIntent();
+		if(intent.getSerializableExtra(Forum.class.getName()) != null)
+		{
+			// Get sub-forum by parent forum
+			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
+			setTitle(forum.getForum_title());
+			mThreadService.listByForum(forum);
+		}		
 	}
 	
 }

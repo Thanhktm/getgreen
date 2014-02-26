@@ -18,4 +18,10 @@ public class SearchFragment extends BaseFragment {
          
         return rootView;
     }
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

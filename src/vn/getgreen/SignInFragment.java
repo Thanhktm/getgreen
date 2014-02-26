@@ -87,9 +87,15 @@ public class SignInFragment extends BaseFragment {
 	}
 	
 	@Override
-	public void onFailure(GClient client, JSONObject message) {
+	public void onFailure(GClient client, int statusCode, JSONObject message) {
 		// TODO Auto-generated method stub
-		super.onFailure(client, message);
+		super.onFailure(client, statusCode, message);
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

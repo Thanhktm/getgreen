@@ -41,7 +41,7 @@ public class HomeFragment extends BaseFragment {
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(getActivity(), this);
 		mForumService = new ForumService(getActivity(), this);
-		mForumService.list();
+		onRefresh();
         return rootView;
     }
 	
@@ -63,6 +63,11 @@ public class HomeFragment extends BaseFragment {
 			}
 		}
 		super.onSuccess(client, jsonObject);
+	}
+
+	@Override
+	public void onRefresh() {
+		mForumService.list();		
 	}
 	
 }

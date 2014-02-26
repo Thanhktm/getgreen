@@ -35,7 +35,7 @@ public class ConversationsFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_conversations, container, false);
 		
         mConversationService = new ConversationService(getActivity(), this);
-        mConversationService.list();
+        onRefresh();
         mConversationAdapter = new ConversationAdapter(getActivity(), conversations );
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
 		mListForum = (ListView) rootView.findViewById(R.id.list);
@@ -60,5 +60,12 @@ public class ConversationsFragment extends BaseFragment {
 			}
 		}
 		super.onSuccess(client, jsonObject);
+	}
+
+
+
+	@Override
+	public void onRefresh() {
+		mConversationService.list();
 	}
 }

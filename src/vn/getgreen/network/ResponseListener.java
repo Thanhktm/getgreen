@@ -7,7 +7,7 @@ public interface ResponseListener {
 	
 	public void onFinish(GClient client);
 	
-	public void onFailure(GClient client, JSONObject message);
+	public void onFailure(GClient client, int statusCode, JSONObject message);
 	
 	public void onSuccess(GClient client, JSONObject jsonObject);
 }

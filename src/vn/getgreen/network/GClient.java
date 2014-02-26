@@ -47,7 +47,7 @@ public abstract class GClient {
 	 * Update oauth_token if user has login
 	 * @param requestParams
 	 */
-	private void updateOauthToken(RequestParams requestParams)
+	private RequestParams updateOauthToken(RequestParams requestParams)
 	{
 		if(User.isLogin(context))
 		{
@@ -56,25 +56,26 @@ public abstract class GClient {
 			}
 			requestParams.put("oauth_token", User.get(context).getAccess_token());
 		}
+		return requestParams;
 	}
 	
 	public void get(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		updateOauthToken(requestParams);
+		requestParams = updateOauthToken(requestParams);
 		asyncHttpClient.get(context, this.url, requestParams,
 				new ResponseHandler());
 	}
 
 	public void post(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		updateOauthToken(requestParams);
+		requestParams = updateOauthToken(requestParams);
 		asyncHttpClient.post(context, this.url,requestParams,
 				new ResponseHandler());
 	}
 
 	public void put(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
-		updateOauthToken(requestParams);
+		requestParams = updateOauthToken(requestParams);
 		asyncHttpClient.put(context, this.url, requestParams,
 				new ResponseHandler());
 	}
@@ -124,7 +125,7 @@ public abstract class GClient {
 				{
 					Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
 				}
-				if(responseListener != null) responseListener.onFailure(GClient.this, errorResponse);
+				if(responseListener != null) responseListener.onFailure(GClient.this, statusCode, errorResponse);
 				if(Constants.DEBUG) Log.d(API_TAG, errorResponse.toString());
 				if(!errorResponse.isNull("errors"))
 				{

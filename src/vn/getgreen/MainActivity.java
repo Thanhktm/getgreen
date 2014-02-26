@@ -43,7 +43,6 @@ public class MainActivity extends BaseActivity {
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 	public User user;
-	private LoginService mLoginService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class MainActivity extends BaseActivity {
 
 		mTitle = mDrawerTitle = getTitle();
 		user = User.get(this);
-		mLoginService = new LoginService(this, this);
 		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -67,31 +65,14 @@ public class MainActivity extends BaseActivity {
 	}
 	
 	@Override
-	protected void onResume() {
-		if(User.isLogin(this))
-		{
-			mLoginService.login(user);
-		}
-		super.onResume();
-	}
-	@Override
-	public void onSuccess(GClient client, JSONObject jsonObject) {
-		if(client instanceof LoginService && mLoginService.parseJson(jsonObject))
-		{
-			// Relogin success
-		}
-		super.onSuccess(client, jsonObject);
-	}
-	
-	@Override
-	public void onFailure(GClient client, JSONObject message) {
+	public void onFailure(GClient client, int statusCode, JSONObject message) {
 		if(client instanceof LoginService)
 		{
 			User user = new User();
 			User.save(this, user);
 			initView(null);
 		}
-		super.onFailure(client, message);
+		super.onFailure(client, statusCode, message);
 	}
 	public void initView(Bundle savedInstanceState) {
 		// nav drawer icons from resources
@@ -318,6 +299,12 @@ public class MainActivity extends BaseActivity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -27,7 +27,7 @@ public class ThreadService extends GClient {
 	}
 
 	/**
-	 * List threads in singel forum
+	 * List threads in single forum
 	 * @param forum
 	 */
 	public void listByForum(Forum forum)
@@ -36,17 +36,23 @@ public class ThreadService extends GClient {
 	}
 	
 	/**
-	 * List threads unread in singel forum
+	 * List threads unread in single forum
 	 * @param forum if null will search all
 	 */
 	public void listUnreadByForum(Forum forum)
 	{
 		RequestParams params = new RequestParams();
-		params.put("limit", "64");
+		params.put("limit", "32");
 		if(forum != null) params.put("forum_id", forum.getForum_id());
 		get(params, "threads/new");
 	}
 	
+	/**
+	 * get list threads by forums
+	 * @param forums contains threads
+	 * @param isSticky true return threads sticky
+	 * @param order Please view static variable 
+	 */
 	public void listByForums(List<Forum> forums, boolean isSticky, String order)
 	{
 		StringBuilder stringBuilder = new StringBuilder();
@@ -64,6 +70,7 @@ public class ThreadService extends GClient {
 		
 		get(requestParams, "threads/&forum_id=" + stringBuilder.toString());
 	}
+	
 	@Override
 	public boolean parseJson(JSONObject jsonObject) {
 		try {
