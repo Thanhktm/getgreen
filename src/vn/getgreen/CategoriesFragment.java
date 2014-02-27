@@ -26,26 +26,26 @@ public class CategoriesFragment extends BaseFragment {
 	private CategoriesService mCategoriesService;
 	private ListView mListCategories;
 	private CategoriesAdapter mCategoriesAdapter;
-	private List<Category> categories;
+	private List<Category> categories = new ArrayList<Category>();
 	private RelativeLayout ll;
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		mCategoriesService = new CategoriesService(getActivity(), this);
-		categories = new ArrayList<Category>();
-		mCategoriesAdapter = new CategoriesAdapter(getActivity(), categories);
 		super.onCreate(savedInstanceState);
+		mCategoriesService = new CategoriesService(getActivity(), this);
+		mCategoriesAdapter = new CategoriesAdapter(getActivity(), categories);
 	}
-
+	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_forum, container, false);
-        mCategoriesService.list();
-        ll = (RelativeLayout) rootView.findViewById(R.id.ll);
-        mListCategories = (ListView) rootView.findViewById(R.id.list);
+		mListCategories = (ListView) rootView.findViewById(R.id.list);
         mListCategories.setAdapter(mCategoriesAdapter);
+        onRefresh();
+        ll = (RelativeLayout) rootView.findViewById(R.id.ll);
         mListCategories.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -79,7 +79,7 @@ public class CategoriesFragment extends BaseFragment {
 		}
 		super.onSuccess(client, jsonObject);
 	}
-	
+
 	@Override
 	public void onFinish(GClient client) {
 		
@@ -88,7 +88,6 @@ public class CategoriesFragment extends BaseFragment {
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		
+		mCategoriesService.list();
 	}
 }

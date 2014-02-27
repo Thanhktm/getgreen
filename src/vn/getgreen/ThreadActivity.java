@@ -11,13 +11,17 @@ import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 public class ThreadActivity extends BaseActivity {
-
+	public static int REQUEST_CODE_NEWTOPIC = 1;
+	
 	List<Thread> threads = new ArrayList<Thread>();
 	ThreadAdapter mThreadAdapter;
 	ListView mListThread;
@@ -51,11 +55,33 @@ public class ThreadActivity extends BaseActivity {
 		}
 		super.onSuccess(client, jsonObject);
 	}
-	
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.action_search).setVisible(true);
+		menu.findItem(R.id.action_newtopic).setVisible(true);
+		menu.findItem(R.id.action_subscribe).setVisible(true);
+		menu.findItem(R.id.action_unsubscribe).setVisible(true);
+		menu.findItem(R.id.action_refresh).setVisible(true);
+		return super.onPrepareOptionsMenu(menu);
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem)
 	{       
-	    onBackPressed();
+		switch (menuItem.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		case R.id.action_refresh:
+			onRefresh();
+			return true;
+		case R.id.action_newtopic:
+			Intent intent = new Intent(this, NewTopicActivity.class);
+			startActivityForResult(intent, REQUEST_CODE_NEWTOPIC);
+			return true;
+		default:
+			break;
+		}
 	    return true;
 	}
 
@@ -71,4 +97,12 @@ public class ThreadActivity extends BaseActivity {
 		}		
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == REQUEST_CODE_NEWTOPIC && resultCode == Activity.RESULT_OK)
+		{
+			onRefresh();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 }

@@ -26,7 +26,8 @@
         android:theme="@style/MyTheme" >
         <activity
             android:name="vn.getgreen.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges= "orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +42,13 @@
             android:name="vn.getgreen.ForumActivity" >
         </activity>
         <activity
-            android:name="vn.getgreen.ThreadActivity" >
+            android:name="vn.getgreen.ThreadActivity">
+        </activity>
+        <activity
+            android:name="vn.getgreen.SearchActivity">
+        </activity>
+        <activity
+            android:name="vn.getgreen.NewTopicActivity">
         </activity>
     </application>
 

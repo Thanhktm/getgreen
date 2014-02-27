@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import vn.getgreen.adapter.NavDrawerListAdapter;
 import vn.getgreen.common.BaseActivity;
+import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.User;
 import vn.getgreen.model.NavDrawerItem;
 import vn.getgreen.network.GClient;
@@ -29,7 +30,7 @@ public class MainActivity extends BaseActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
+	public static final String FRAGMENT_TAG = "MAIN_FRAGMENT";
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
@@ -43,7 +44,8 @@ public class MainActivity extends BaseActivity {
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 	public User user;
-	
+	private Fragment fragment;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,29 +53,30 @@ public class MainActivity extends BaseActivity {
 
 		mTitle = mDrawerTitle = getTitle();
 		user = User.get(this);
-		
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-		
+
 		navDrawerItems = new ArrayList<NavDrawerItem>();
-		
+
 		// load slide menu items
-		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items_not_signin);
-		
+		navMenuTitles = getResources().getStringArray(
+				R.array.nav_drawer_items_not_signin);
+
 		initView(savedInstanceState);
 
 	}
-	
+
 	@Override
 	public void onFailure(GClient client, int statusCode, JSONObject message) {
-		if(client instanceof LoginService)
-		{
+		if (client instanceof LoginService) {
 			User user = new User();
 			User.save(this, user);
 			initView(null);
 		}
 		super.onFailure(client, statusCode, message);
 	}
+
 	public void initView(Bundle savedInstanceState) {
 		// nav drawer icons from resources
 		navMenuIcons = getResources().obtainTypedArray(
@@ -88,7 +91,7 @@ public class MainActivity extends BaseActivity {
 					.getResourceId(2, -1)));
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
 					.getResourceId(3, -1)));
-			
+
 		} else {
 			// Sign in
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
@@ -121,11 +124,13 @@ public class MainActivity extends BaseActivity {
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
+
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, //nav menu toggle icon
-				R.string.app_name, // nav drawer open - description for accessibility
-				R.string.app_name // nav drawer close - description for accessibility
+				R.drawable.ic_drawer_dark, // nav menu toggle icon
+				R.string.app_name, // nav drawer open - description for
+									// accessibility
+				R.string.app_name // nav drawer close - description for
+									// accessibility
 		) {
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(mTitle);
@@ -139,21 +144,20 @@ public class MainActivity extends BaseActivity {
 				invalidateOptionsMenu();
 			}
 		};
-		
+
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			if(User.isLogin(this))
-			{
+			if (User.isLogin(this)) {
 				displayView(3);
-			}else {
-				displayView(1);	
+			} else {
+				displayView(1);
 			}
-			
+
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -174,24 +178,12 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// toggle nav drawer on selecting action bar app icon/title
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// Handle action bar actions click
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/* *
@@ -201,7 +193,43 @@ public class MainActivity extends BaseActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+		if (!drawerOpen) {
+			menu.findItem(R.id.action_refresh).setVisible(true);
+			if (fragment instanceof HomeFragment) {
+				
+			}
+			if (fragment instanceof SignInFragment) {
+
+			}
+			if (fragment instanceof AlertFragment) {
+
+			}
+			if (fragment instanceof SubscribeFragment) {
+
+			}
+			if (fragment instanceof CategoriesFragment) {
+				menu.findItem(R.id.action_search).setVisible(true);
+			}
+			if (fragment instanceof ConversationsFragment) {
+
+			}
+			if (fragment instanceof UnreadsFragment) {
+
+			}
+			if (fragment instanceof SearchFragment) {
+				menu.findItem(R.id.action_search).setVisible(true);
+			}
+
+		} else {
+			menu.findItem(R.id.action_settings).setVisible(false);
+			menu.findItem(R.id.action_refresh).setVisible(false);
+			menu.findItem(R.id.action_newtopic).setVisible(false);
+			menu.findItem(R.id.action_settings).setVisible(false);
+			menu.findItem(R.id.action_subscribe).setVisible(false);
+			menu.findItem(R.id.action_unsubscribe).setVisible(false);
+
+		}
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -210,9 +238,8 @@ public class MainActivity extends BaseActivity {
 	 * */
 	private void displayView(int position) {
 		// update the main content by replacing fragments
-		Fragment fragment = null;
-		if(User.isLogin(this))
-		{
+		fragment = null;
+		if (User.isLogin(this)) {
 			switch (position) {
 			case 0:
 				fragment = new HomeFragment();
@@ -238,7 +265,7 @@ public class MainActivity extends BaseActivity {
 			default:
 				break;
 			}
-		}else {
+		} else {
 			switch (position) {
 			case 0:
 				fragment = new HomeFragment();
@@ -257,17 +284,18 @@ public class MainActivity extends BaseActivity {
 				break;
 			}
 		}
-		
 
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+					.replace(R.id.frame_container, fragment, FRAGMENT_TAG)
+					.commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
-			NavDrawerItem navDrawerItem = (NavDrawerItem) adapter.getItem(position);
+			NavDrawerItem navDrawerItem = (NavDrawerItem) adapter
+					.getItem(position);
 			setTitle(navDrawerItem.getTitle());
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
@@ -303,8 +331,11 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		
+		FragmentManager fragmentManager = getFragmentManager();
+		BaseFragment fragment = (BaseFragment) fragmentManager
+				.findFragmentByTag(FRAGMENT_TAG);
+		if (fragment != null)
+			fragment.onRefresh();
 	}
 
 }

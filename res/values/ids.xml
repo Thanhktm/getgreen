@@ -717,6 +717,11 @@
     <item type="id" name="masked">false</item>
     <item type="id" name="mask">false</item>
     <item type="id" name="action_search">false</item>
+    <item type="id" name="action_refresh">false</item>
+    <item type="id" name="action_settings">false</item>
+    <item type="id" name="action_newtopic">false</item>
+    <item type="id" name="action_subscribe">false</item>
+    <item type="id" name="action_unsubscribe">false</item>
     <item type="id" name="edit_reset">false</item>
     <item type="id" name="edit_premium">false</item>
     <item type="id" name="edit_cancel">false</item>

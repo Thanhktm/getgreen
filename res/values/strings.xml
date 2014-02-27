@@ -6,19 +6,23 @@
     <string name="hello_world">Hello world!</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-    
+
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items_not_signin">
-        <item >Trang nhất</item>
-        <item >Đăng nhập</item>
-        <item >Thông báo</item>
-        <item >Theo dõi</item>
-        <item >Diễn đàn</item>
-        <item >Hộp thư</item>
-        <item >Bài mới</item>
-        <item >Tìm kiếm</item>
+        <item>Trang nhất</item>
+        <item>Đăng nhập</item>
+        <item>Thông báo</item>
+        <item>Theo dõi</item>
+        <item>Diễn đàn</item>
+        <item>Hộp thư</item>
+        <item>Bài mới</item>
+        <item>Tìm kiếm</item>
     </string-array>
     
+    <string-array name="dropdown_threads">
+        <item>@string/forumnavigateactivity_menu_newtopic</item>
+        <item>@string/forumnavigateactivity_menu_refresh</item>
+    </string-array>
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons_not_signin">
@@ -31,15 +35,15 @@
         <item>@drawable/menu_unread_topics_new</item>
         <item>@drawable/ic_menu_search_dark</item>
     </array>
-    
+
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Trang nhất</item>
-        <item >Đăng nhập</item>
-        <item >Diễn đàn</item>
-        <item >Tìm kiếm</item>
+        <item>Trang nhất</item>
+        <item>Đăng nhập</item>
+        <item>Diễn đàn</item>
+        <item>Tìm kiếm</item>
     </string-array>
-    
+
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
@@ -50,8 +54,8 @@
     </array>
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-	
-	<!-- Taptalk -->
+
+    <!-- Taptalk -->
     <string name="text">Nội dung</string>
     <string name="enter_text_here">Nhập văn bản vào đây</string>
     <string name="edit_bottom_text">Chỉnh sửa văn bản dưới cùng</string>
@@ -956,6 +960,7 @@ Vui lòng liên hệ với chủ sở hữu diễn đàn của bạn để cập
     <string name="tapatalkid_changepassword_tipcs">afsdfsaafdsfadfsaf</string>
     <string name="ics_slidingmenu_sendInbox">SendInbox</string>
     <string name="sliding_menu_Powered">"Powered by "</string>
-	
-	<!-- End Taptalk -->
+
+    <!-- End Taptalk -->
+
 </resources>

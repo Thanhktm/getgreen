@@ -3,7 +3,8 @@
     android:id="@id/llayout1"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10.0dip" >
+    android:layout_marginTop="10.0dip" 
+    android:background="@drawable/category_item_color_dark">
 
     <vn.getgreen.view.GImageView
         android:id="@id/uneadicon"
@@ -72,10 +73,13 @@
         android:id="@id/pmtitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/top_view"
         android:layout_alignRight="@id/top_view"
         android:layout_below="@id/top_view"
         android:ellipsize="middle"
         android:maxLines="2"
+        android:textStyle="bold"
+        android:textColor="@color/all_white"
         android:textAppearance="?android:textAppearanceSmall" />
 
     <vn.getgreen.view.GShortContentView

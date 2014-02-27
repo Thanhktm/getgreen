@@ -14,10 +14,10 @@ public class SearchFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_community, container, false);
-         
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         return rootView;
     }
+
 
 	@Override
 	public void onRefresh() {

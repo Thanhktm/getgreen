@@ -1,9 +1,43 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"  >
+    
+	<item
+        android:id="@id/action_search"
+        android:orderInCategory="10"
+        android:icon="@drawable/ic_menu_search_dark"
+        android:showAsAction="always"
+        android:visible="false"/>
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@id/action_refresh"
+        android:icon="@drawable/menu_refresh_new_dark"
+        android:orderInCategory="105"
+        android:showAsAction="always"
+        android:visible="false"
+        android:title="@string/forumnavigateactivity_menu_refresh"/>
+    <item
+        android:id="@id/action_settings"
+        android:icon="@drawable/menu_more_dark"
+        android:orderInCategory="101"
         android:showAsAction="never"
+        android:visible="false"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@id/action_newtopic"
+        android:orderInCategory="102"
+        android:showAsAction="always"
+        android:visible="false"
+        android:title="@string/forumnavigateactivity_menu_newtopic"/>
+    <item
+        android:id="@id/action_subscribe"
+        android:orderInCategory="103"
+        android:showAsAction="always"
+        android:visible="false"
+        android:title="@string/forumnavigateactivity_dlg_item_subscribeforum"/>
+    <item
+        android:id="@id/action_unsubscribe"
+        android:orderInCategory="104"
+        android:showAsAction="always"
+        android:visible="false"
+        android:title="@string/forumnavigateactivity_dlg_item_unsubscribeforum"/>
+    
 
 </menu>

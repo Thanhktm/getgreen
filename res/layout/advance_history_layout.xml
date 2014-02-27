@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@id/search_history_listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="10dip" />
+
+    <ImageView
+        android:id="@id/search_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58.0dip"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@id/search_describe1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28.0dip"
+        android:text="@string/searchactivity_search_history_text1"
+        android:textColor="@color/advancesearch_text_color"
+        android:textSize="22.0sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@id/search_describe2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_describe1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5.0dip"
+        android:text="@string/searchactivity_search_history_text2"
+        android:textColor="@color/advancesearch_text_color"
+        android:textSize="16.0sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

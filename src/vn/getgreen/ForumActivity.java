@@ -45,6 +45,7 @@ public class ForumActivity extends BaseActivity {
 		mListForum = (ListView) findViewById(R.id.list);
 		mListForum.setAdapter(mForumAdapter);
 		
+		onRefresh();
 		
 		mListForum.setOnItemClickListener(new OnItemClickListener() {
 
@@ -108,8 +109,14 @@ public class ForumActivity extends BaseActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem)
-	{       
-	    onBackPressed();
-	    return true;
+	{   
+		switch (menuItem.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			break;
+		}
+	    return super.onOptionsItemSelected(menuItem);
 	}
 }

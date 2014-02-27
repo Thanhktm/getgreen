@@ -2,12 +2,15 @@ package vn.getgreen.common;
 
 import org.json.JSONObject;
 
+import vn.getgreen.R;
 import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
 import vn.getgreen.network.ResponseListener;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public abstract class BaseActivity extends Activity implements ResponseListener {
 
@@ -51,6 +54,23 @@ public abstract class BaseActivity extends Activity implements ResponseListener 
 		}
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar actions click
+		switch (item.getItemId()) {
+		case R.id.action_refresh:
+			onRefresh();
+			return true;
+		default:
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	/**
 	 * For request first page or reload
 	 */
