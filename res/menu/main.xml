@@ -6,6 +6,13 @@
         android:icon="@drawable/ic_menu_search_dark"
         android:showAsAction="always"
         android:visible="false"/>
+	<item
+        android:id="@id/advancesearch"
+        android:orderInCategory="10"
+        android:actionLayout="@layout/action_bar_advancesearch"
+        android:showAsAction="always"
+        android:visible="false"/>
+	
     <item
         android:id="@id/action_refresh"
         android:icon="@drawable/menu_refresh_new_dark"

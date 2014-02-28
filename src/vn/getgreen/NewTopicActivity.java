@@ -1,9 +1,8 @@
 package vn.getgreen;
 
-import android.content.Intent;
+import vn.getgreen.common.BaseActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import vn.getgreen.common.BaseActivity;
 
 public class NewTopicActivity extends BaseActivity {
 
@@ -20,6 +19,7 @@ public class NewTopicActivity extends BaseActivity {
 		getActionBar().setHomeButtonEnabled(true);
 		
 	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem)
 	{       

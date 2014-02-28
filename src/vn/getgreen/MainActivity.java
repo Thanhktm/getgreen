@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 public class MainActivity extends BaseActivity {
 	private DrawerLayout mDrawerLayout;
@@ -194,30 +195,31 @@ public class MainActivity extends BaseActivity {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		if (!drawerOpen) {
-			menu.findItem(R.id.action_refresh).setVisible(true);
+			
 			if (fragment instanceof HomeFragment) {
-				
+				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof SignInFragment) {
 
 			}
 			if (fragment instanceof AlertFragment) {
-
+				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof SubscribeFragment) {
-
+				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof CategoriesFragment) {
+				menu.findItem(R.id.action_refresh).setVisible(true);
 				menu.findItem(R.id.action_search).setVisible(true);
 			}
 			if (fragment instanceof ConversationsFragment) {
-
+				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof UnreadsFragment) {
-
+				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof SearchFragment) {
-				menu.findItem(R.id.action_search).setVisible(true);
+				menu.findItem(R.id.advancesearch).setVisible(true);
 			}
 
 		} else {

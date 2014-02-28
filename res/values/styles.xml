@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -33,6 +33,10 @@
         <item name="android:textSize">16.0sp</item>
         <item name="android:textColor">@color/content_text_unread</item>
     </style>
+    <style name="Search_14_style" parent="@android:attr/textAppearance">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColorHint">@color/search_hint</item>
+    </style>
     <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
         <item name="android:windowBackground">@color/dark_bg_color</item>
@@ -40,6 +44,8 @@
         <item name="quoord_author_12_textStyle">@style/Ligth_12_author_Text</item>
         <item name="quoord_16_textStyle">@style/Ligth_16_Text</item>
         <item name="android:editTextStyle">@style/MyTheme.Widget.EditText</item>
+        <item name="android:actionBarWidgetTheme">@style/Search_14_style</item>
+        
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
