@@ -37,6 +37,11 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColorHint">@color/search_hint</item>
     </style>
+    <style name="Ligth_14_author_Text" parent="@android:attr/textAppearance">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/blue_5bb2d2</item>
+    </style>
+    
     <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
         <item name="android:windowBackground">@color/dark_bg_color</item>
@@ -45,6 +50,7 @@
         <item name="quoord_16_textStyle">@style/Ligth_16_Text</item>
         <item name="android:editTextStyle">@style/MyTheme.Widget.EditText</item>
         <item name="android:actionBarWidgetTheme">@style/Search_14_style</item>
+        <item name="quoord_author_large_textStyle">@style/Ligth_14_author_Text</item>
         
     </style>
 

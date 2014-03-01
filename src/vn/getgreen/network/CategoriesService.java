@@ -33,6 +33,7 @@ public class CategoriesService extends GClient {
 				Type listType = new TypeToken<List<Category>>() {
 				}.getType();
 				this.categories = gson.fromJson(json.getJSONArray("categories").toString(), listType);
+				Category.save(context, categories);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

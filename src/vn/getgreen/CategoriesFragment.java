@@ -26,7 +26,7 @@ public class CategoriesFragment extends BaseFragment {
 	private CategoriesService mCategoriesService;
 	private ListView mListCategories;
 	private CategoriesAdapter mCategoriesAdapter;
-	private List<Category> categories = new ArrayList<Category>();
+	private List<Category> categories;
 	private RelativeLayout ll;
 	
 
@@ -34,6 +34,8 @@ public class CategoriesFragment extends BaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mCategoriesService = new CategoriesService(getActivity(), this);
+		categories = Category.get(getActivity());
+		if (categories == null) categories = new ArrayList<Category>();
 		mCategoriesAdapter = new CategoriesAdapter(getActivity(), categories);
 	}
 	

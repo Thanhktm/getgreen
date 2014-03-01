@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/widget0"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@id/quickbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-2.0dip"
+        android:visibility="visible" >
+
+        <include layout="@layout/thread_quick_reply" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@id/conversationdata_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/quickbar"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center" />
+
+</RelativeLayout>

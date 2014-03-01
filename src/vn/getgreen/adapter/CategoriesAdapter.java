@@ -30,7 +30,7 @@ public class CategoriesAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return categories.get(position);
 	}
 
 	@Override

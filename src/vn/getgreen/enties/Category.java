@@ -1,5 +1,16 @@
 package vn.getgreen.enties;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.getgreen.common.Constants;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 public class Category extends BaseEnity {
 
 	/**
@@ -45,5 +56,27 @@ public class Category extends BaseEnity {
 		this.links = links;
 	}
 	
+	public static void save(Context context, List<Category> categories)
+	{
+		SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(categories);
+		editor.putString(Category.class.getSimpleName(), json);
+		editor.commit();
+	}
+	
+
+	public static List<Category> get(Context context)
+	{
+		SharedPreferences settings = context.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+		String json = settings.getString(Category.class.getSimpleName(), "");
+		ArrayList<Category> categories = null;
+		Gson gson = new Gson();
+		Type listType = new TypeToken<List<Category>>() {
+		}.getType();
+		categories = gson.fromJson(json, listType);
+		return categories;
+	}	
 	
 }
