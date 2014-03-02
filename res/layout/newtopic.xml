@@ -64,7 +64,8 @@
                 android:layout_marginTop="15.0dip"
                 android:checked="true"
                 android:maxLines="2"
-                android:visibility="visible" />
+                android:visibility="visible" 
+                android:textColor="@color/all_white"/>
 
             <TextView
                 android:id="@id/attachsectiontitle"

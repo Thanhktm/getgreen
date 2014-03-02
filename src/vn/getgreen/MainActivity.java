@@ -11,6 +11,7 @@ import vn.getgreen.enties.User;
 import vn.getgreen.model.NavDrawerItem;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
+import vn.getgreen.R;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;

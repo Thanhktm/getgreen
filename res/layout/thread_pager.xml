@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@id/progress"
+        android:layout_width="fill_parent"
+        android:layout_height="85.0sp"
+        android:layout_marginTop="20.0dip"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5.0dip" >
+
+        <ProgressBar
+            android:id="@id/progressbar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@id/loading1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.0dip"
+            android:text="@string/loading"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@id/quickbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-2.0dip"
+        android:visibility="gone" >
+
+        <include layout="@layout/thread_quick_reply" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/vPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/quickbar"
+        android:layout_gravity="center"
+        android:visibility="visible" />
+
+</RelativeLayout>

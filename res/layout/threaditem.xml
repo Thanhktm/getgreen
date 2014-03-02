@@ -47,7 +47,7 @@
                 android:layout_marginBottom="5.0dip"
                 android:layout_marginRight="5.0dip" />
 
-            <TextView
+            <vn.getgreen.view.GTextView
                 android:id="@id/post_author_name"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_marginRight="5.0dip"
                 android:visibility="gone" />
 
-            <TextView
+            <vn.getgreen.view.GTextView
                 android:id="@id/floor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +92,12 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="1.0dip"
             android:layout_marginTop="7.0dip"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+            <vn.getgreen.view.GTextView 
+                android:id="@id/content_webview"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@id/post_attach"
@@ -132,7 +137,7 @@
                     android:layout_marginRight="5.0dip"
                     android:src="@drawable/ic_thank" />
 
-                <TextView
+                <vn.getgreen.view.GTextView
                     android:id="@id/thanks_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,7 +189,7 @@
                     android:layout_marginRight="5.0dip"
                     android:src="@drawable/ic_thank" />
 
-                <TextView
+                <vn.getgreen.view.GTextView
                     android:id="@id/like_info_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

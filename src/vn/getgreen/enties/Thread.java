@@ -25,7 +25,8 @@ public class Thread extends BaseEnity {
 	private boolean thread_is_sticky;
 	private Post first_post;
 	private Links links;
-
+	private Permissions permissions;
+	
 	public int getThread_id() {
 		return thread_id;
 	}
@@ -109,6 +110,12 @@ public class Thread extends BaseEnity {
 	}
 	public void setLinks(Links links) {
 		this.links = links;
+	}
+	public Permissions getPermissions() {
+		return permissions;
+	}
+	public void setPermissions(Permissions permissions) {
+		this.permissions = permissions;
 	}
 	
 	

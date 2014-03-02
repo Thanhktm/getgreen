@@ -26,20 +26,17 @@ public class ThreadAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return threads.size();
 	}
 
 	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
+	public Thread getItem(int position) {
 		return threads.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getItem(position).getThread_id();
 	}
 
 	@Override
@@ -87,7 +84,7 @@ public class ThreadAdapter extends BaseAdapter {
         view_num.setText(thread.getThread_view_count() + "");
         reply_num.setText(thread.getThread_post_count() + "");
         topic_sticky.setVisibility(thread.isThread_is_sticky() ? View.VISIBLE : View.GONE);
-        shortcontent.setText(thread.getFirst_post().getPost_body());
+        shortcontent.setText(thread.getFirst_post().getPost_body_plain_text());
         topictime.setTime(thread.getThread_update_date());
         topictime.setVisibility(thread.isThread_is_sticky() ? View.GONE : View.VISIBLE);
 		return convertView;

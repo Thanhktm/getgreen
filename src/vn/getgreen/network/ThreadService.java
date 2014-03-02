@@ -48,6 +48,28 @@ public class ThreadService extends GClient {
 	}
 	
 	/**
+	 * Create new thread, must set first_post instance of Post Entity
+	 * @param thread
+	 */
+	public void create(Thread thread)
+	{
+		RequestParams params = new RequestParams();
+		params.put("forum_id", thread.getForum_id() +"");
+		params.put("thread_title", thread.getThread_title());
+		params.put("post_body", thread.getFirst_post().getPost_body());
+		post(params, "threads");
+	}
+	
+	/**
+	 * Delete a thread
+	 * @param thread
+	 */
+	public void remove(Thread thread)
+	{
+		delete(null, "threads/"+thread.getThread_id());
+	}
+	
+	/**
 	 * get list threads by forums
 	 * @param forums contains threads
 	 * @param isSticky true return threads sticky
@@ -69,6 +91,14 @@ public class ThreadService extends GClient {
 		if(order != null) requestParams.put("order", order);
 		
 		get(requestParams, "threads/&forum_id=" + stringBuilder.toString());
+	}
+	/**
+	 * Follow some thread, user must loged in
+	 * @param thread
+	 */
+	public void follow(Thread thread)
+	{
+		post(null, "threads/"+thread.getThread_id()+"/followers");
 	}
 	
 	@Override

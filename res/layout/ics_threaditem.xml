@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/flipper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <include
+            android:id="@id/headerup"
+            layout="@layout/thread_view_header" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/headerup"
+            android:paddingBottom="5.0dip"
+            android:paddingLeft="8.0dip"
+            android:paddingRight="6.0dip"
+            android:paddingTop="5.0dip" >
+
+            <RelativeLayout
+                android:id="@id/llayout_thanks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@id/like_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="bottom|left|center"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:textSize="11.0sp"
+                    android:visibility="gone" />
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/like_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@id/like_text"
+                    android:src="@drawable/ic_thank"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@id/thank_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_gravity="bottom|left|center"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:layout_toLeftOf="@id/like_icon"
+                    android:textSize="11.0sp" />
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/thank_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@id/thank_text"
+                    android:src="@drawable/ic_thank"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@id/llayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iconLay"
+                android:layout_below="@id/llayout_thanks"
+                android:layout_marginBottom="5.0dip"
+                android:layout_toRightOf="@id/iconLay"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5.0dip"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@id/floor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5.0dip"
+                    android:text=""
+                    android:textSize="11.0sp" />
+
+                <TextView
+                    android:id="@id/post_reply_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right|center"
+                    android:text=""
+                    android:textSize="11.0sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@id/post_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@id/post_attach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/post_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="3.0dip"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@id/post_thanks"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/post_attach"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4.0dip"
+                android:orientation="horizontal" >
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/thanks_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5.0dip"
+                    android:src="@drawable/ic_thank" />
+
+                <TextView
+                    android:id="@id/thanks_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:text=""
+                    android:textSize="12.0sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@id/post_like"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/post_thanks"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4.0dip"
+                android:orientation="horizontal" >
+
+                <vn.getgreen.view.GImageView
+                    android:id="@id/like_info_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="5.0dip"
+                    android:src="@drawable/ic_thank" />
+
+                <TextView
+                    android:id="@id/like_info_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:text=""
+                    android:textSize="12.0sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/llayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/transparent"
+        android:orientation="horizontal" />
+
+</ViewFlipper>

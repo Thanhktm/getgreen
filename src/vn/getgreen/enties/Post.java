@@ -1,5 +1,7 @@
 package vn.getgreen.enties;
 
+import vn.getgreen.view.GWebView;
+
 public class Post extends BaseEnity {
 
 	/**
@@ -10,7 +12,14 @@ public class Post extends BaseEnity {
 	public Post() {
 		// TODO Auto-generated constructor stub
 	}
+	private GWebView content;
 	
+	public GWebView getContent() {
+		return content;
+	}
+	public void setContent(GWebView content) {
+		this.content = content;
+	}
 	private int post_id;
 	private int thread_id;
 	private int poster_user_id;
@@ -59,8 +68,6 @@ public class Post extends BaseEnity {
 		this.post_create_date = post_create_date;
 	}
 	public String getPost_body() {
-		String parten = "\\[[^]]+\\]";
-		if(post_body != null) return post_body.replaceAll(parten, "");
 		return post_body;
 	}
 	public void setPost_body(String post_body) {

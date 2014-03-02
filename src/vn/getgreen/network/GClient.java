@@ -19,10 +19,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public abstract class GClient {
-	
+
 	public static final String API_TAG = "GG_NETWORK";
 	public static final int TIME_OUT = 60 * 1000; // 60s timeout
-
+	private static final String STATUS = "ok";
 	public JSONArray errorMessage = null;
 
 	private AsyncHttpClient asyncHttpClient;
@@ -45,20 +45,20 @@ public abstract class GClient {
 
 	/**
 	 * Update oauth_token if user has login
+	 * 
 	 * @param requestParams
 	 */
-	private RequestParams updateOauthToken(RequestParams requestParams)
-	{
-		if(User.isLogin(context))
-		{
+	private RequestParams updateOauthToken(RequestParams requestParams) {
+		if (User.isLogin(context)) {
 			if (requestParams == null) {
 				requestParams = new RequestParams();
 			}
-			requestParams.put("oauth_token", User.get(context).getAccess_token());
+			requestParams.put("oauth_token", User.get(context)
+					.getAccess_token());
 		}
 		return requestParams;
 	}
-	
+
 	public void get(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
 		requestParams = updateOauthToken(requestParams);
@@ -69,7 +69,7 @@ public abstract class GClient {
 	public void post(RequestParams requestParams, String requestPath) {
 		url = host + requestPath;
 		requestParams = updateOauthToken(requestParams);
-		asyncHttpClient.post(context, this.url,requestParams,
+		asyncHttpClient.post(context, this.url, requestParams,
 				new ResponseHandler());
 	}
 
@@ -77,6 +77,13 @@ public abstract class GClient {
 		url = host + requestPath;
 		requestParams = updateOauthToken(requestParams);
 		asyncHttpClient.put(context, this.url, requestParams,
+				new ResponseHandler());
+	}
+
+	public void delete(RequestParams requestParams, String requestPath) {
+		url = host + requestPath;
+		requestParams = updateOauthToken(requestParams);
+		asyncHttpClient.delete(context, this.url, null, requestParams,
 				new ResponseHandler());
 	}
 
@@ -121,41 +128,44 @@ public abstract class GClient {
 		public void onFailure(int statusCode, Throwable e,
 				JSONObject errorResponse) {
 			try {
-				if(e != null)
-				{
-					Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+				if (e != null) {
+					Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG)
+							.show();
 				}
-				if(responseListener != null) responseListener.onFailure(GClient.this, statusCode, errorResponse);
-				if(Constants.DEBUG) Log.d(API_TAG, errorResponse.toString());
-				if(!errorResponse.isNull("errors"))
-				{
+				if (responseListener != null)
+					responseListener.onFailure(GClient.this, statusCode,
+							errorResponse);
+				if (Constants.DEBUG)
+					Log.d(API_TAG, errorResponse.toString());
+				if (!errorResponse.isNull("errors")) {
 					String errorsString = "";
 					JSONObject menu = errorResponse.getJSONObject("errors");
 					Iterator iter = menu.keys();
-				    while(iter.hasNext()){
-				        String key = (String)iter.next();
-				        String value = menu.getString(key);
-				        errorsString += key + " : " + value + "\n";
-				    }
-				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
+					while (iter.hasNext()) {
+						String key = (String) iter.next();
+						String value = menu.getString(key);
+						errorsString += key + " : " + value + "\n";
+					}
+					Toast.makeText(context, errorsString, Toast.LENGTH_LONG)
+							.show();
 				}
-				if(!errorResponse.isNull("error"))
-				{
+				if (!errorResponse.isNull("error")) {
 					String errorsString = "";
 					JSONObject menu = errorResponse.getJSONObject("error");
 					Iterator iter = menu.keys();
-				    while(iter.hasNext()){
-				        String key = (String)iter.next();
-				        String value = menu.getString(key);
-				        errorsString += key + " : " + value + "\n";
-				    }
-				    Toast.makeText(context, errorsString, Toast.LENGTH_LONG).show();
+					while (iter.hasNext()) {
+						String key = (String) iter.next();
+						String value = menu.getString(key);
+						errorsString += key + " : " + value + "\n";
+					}
+					Toast.makeText(context, errorsString, Toast.LENGTH_LONG)
+							.show();
 				}
-				
+
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			
+
 			super.onFailure(statusCode, e, errorResponse);
 		}
 
@@ -163,7 +173,8 @@ public abstract class GClient {
 		public void onFinish() {
 			super.onFinish();
 			Log.d(API_TAG, "Finish request-url " + url);
-			if(responseListener != null) responseListener.onFinish(GClient.this);
+			if (responseListener != null)
+				responseListener.onFinish(GClient.this);
 		}
 
 		@Override
@@ -179,20 +190,30 @@ public abstract class GClient {
 		public void onSuccess(int statusCode, org.apache.http.Header[] headers,
 				JSONObject jsonObjectRoot) {
 			super.onSuccess(statusCode, headers, jsonObjectRoot);
-			if (Constants.DEBUG) {
-				Log.d(API_TAG, jsonObjectRoot.toString());
-			}
+			try {
+				if (Constants.DEBUG) {
+					Log.d(API_TAG, jsonObjectRoot.toString());
+				}
 
-			if(!jsonObjectRoot.isNull("errors"))
-			{
-				onFailure(statusCode, null,
-						jsonObjectRoot);
-				return;
-			}
-			if (responseListener != null) {
-				responseListener.onSuccess(GClient.this, jsonObjectRoot);
-			}
+				if (!jsonObjectRoot.isNull("errors")) {
+					onFailure(statusCode, null, jsonObjectRoot);
+					return;
+				}
+				if (!jsonObjectRoot.isNull("status")
+						&& STATUS.equals(jsonObjectRoot.getString("status"))
+						&& !jsonObjectRoot.isNull("message")) {
 
+					Toast.makeText(context,
+							jsonObjectRoot.getString("message"),
+							Toast.LENGTH_SHORT).show();
+					
+				}
+				if (responseListener != null) {
+					responseListener.onSuccess(GClient.this, jsonObjectRoot);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

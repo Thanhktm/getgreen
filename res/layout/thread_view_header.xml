@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48.0dip"
+    android:background="#ffffffff" >
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/iconLay"
+        android:layout_width="48.0dip"
+        android:layout_height="48.0dip"
+        android:layout_alignParentLeft="true" />
+
+    <View
+        android:id="@id/diver"
+        android:layout_width="1.0dip"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@id/iconLay"
+        android:background="@android:color/white" />
+
+    <ImageView
+        android:id="@id/onlineStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="9.0dip"
+        android:layout_toRightOf="@id/iconLay"
+        android:src="@drawable/online" />
+
+    <TextView
+        android:id="@id/post_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="2.0dip"
+        android:layout_toRightOf="@id/onlineStatus"
+        android:text="tracelijing"
+        android:textSize="13.0sp" />
+
+    <ImageButton
+        android:id="@id/more"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/more" />
+
+    <ImageButton
+        android:id="@id/reply"
+        android:layout_toLeftOf="@id/more"
+        android:contentDescription="replay"
+        android:src="@drawable/reply" />
+
+</RelativeLayout>

@@ -7,14 +7,14 @@
     android:focusableInTouchMode="true"
     android:gravity="center_vertical" >
 
-    <ImageView
+    <vn.getgreen.view.GImageView
         android:id="@id/show_all"
         android:layout_width="48.0dip"
         android:layout_height="wrap_content"
         android:layout_marginTop="1.0dip"
         android:src="@drawable/menu_expand_dark" />
 
-    <EditText
+    <vn.getgreen.view.GEditText
         android:id="@id/quickqeply"
         android:layout_width="0.0px"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1.5dip" >
 
-        <ImageView
+        <vn.getgreen.view.GImageView
             android:id="@id/reply"
             android:layout_width="48.0dip"
             android:layout_height="wrap_content"

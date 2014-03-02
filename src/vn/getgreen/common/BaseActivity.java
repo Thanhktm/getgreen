@@ -7,13 +7,14 @@ import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
 import vn.getgreen.network.ResponseListener;
-import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public abstract class BaseActivity extends Activity implements ResponseListener {
-
+public abstract class BaseActivity extends FragmentActivity implements ResponseListener {
+	public String signature;
 	public BaseActivity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends Activity implements ResponseListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mLoginService = new LoginService(this, this);
+		signature = String.format(getResources().getString(R.string.format), Build.MODEL);
 	}
 
 	@Override

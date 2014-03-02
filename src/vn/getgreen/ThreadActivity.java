@@ -7,15 +7,24 @@ import org.json.JSONObject;
 
 import vn.getgreen.adapter.ThreadAdapter;
 import vn.getgreen.common.BaseActivity;
+import vn.getgreen.common.DialogBuilder;
 import vn.getgreen.enties.Forum;
+import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ThreadActivity extends BaseActivity {
@@ -25,6 +34,9 @@ public class ThreadActivity extends BaseActivity {
 	ThreadAdapter mThreadAdapter;
 	ListView mListThread;
 	ThreadService mThreadService;
+	ThreadService mThreadRemoveService;
+	ThreadService mThreadSubscribe;
+	Forum forum;
 	
 	public ThreadActivity() {
 		// TODO Auto-generated constructor stub
@@ -41,16 +53,68 @@ public class ThreadActivity extends BaseActivity {
 		mListThread = (ListView) findViewById(R.id.list);
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(this, this);
+		mThreadRemoveService = new ThreadService(this, this);
+		mThreadSubscribe = new ThreadService(this, this);
+		
+		mListThread.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					final int position, long itemId) {
+				final Thread thread = threads.get(position);
+				Permissions permissions = thread.getPermissions();
+				
+	            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+	                    ThreadActivity.this,
+	                    android.R.layout.simple_list_item_1);
+	            arrayAdapter.add(getResources().getString(R.string.ForumMenuAdapter_topic_menu_subscribe));
+	            if(permissions.isDelete())arrayAdapter.add(getResources().getString(R.string.ThreadActivity_dlgitem_delete));
+	            
+	            new DialogBuilder(ThreadActivity.this, arrayAdapter, new OnClickListener() {
+	        		
+	        		@Override
+	        		public void onClick(DialogInterface dialog, int which) {
+	        			switch (which) {
+	        			case 0:
+	        				mThreadSubscribe.follow(thread);
+	        				break;
+						case 1:
+							mThreadRemoveService.remove(thread);
+							break;
+						default:
+							break;
+						}
+	        			dialog.dismiss();
+	        		}
+	        	});
+				return true;
+			}
+		});
+		
+		mListThread.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View convertView, int position,
+					long itemId) {
+				Thread thread = threads.get(position);
+				Intent intent = new Intent(ThreadActivity.this, PostsActivity.class);
+				intent.putExtra(Thread.class.getName(), thread);
+				startActivity(intent);
+			}
+		});
 		onRefresh();
 	}
-
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
-		if(client instanceof ThreadService && mThreadService.parseJson(jsonObject))
+		if(client == mThreadService && mThreadService.parseJson(jsonObject))
 		{
 			threads.clear();
 			threads.addAll(mThreadService.threads);
 			mThreadAdapter.notifyDataSetChanged();
+		}
+		if(client == mThreadRemoveService)
+		{
+			onRefresh();
 		}
 		super.onSuccess(client, jsonObject);
 	}
@@ -58,9 +122,7 @@ public class ThreadActivity extends BaseActivity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		menu.findItem(R.id.action_search).setVisible(true);
-		menu.findItem(R.id.action_newtopic).setVisible(true);
-		menu.findItem(R.id.action_subscribe).setVisible(true);
-		menu.findItem(R.id.action_unsubscribe).setVisible(true);
+		menu.findItem(R.id.action_newtopic).setVisible(forum.getPermissions().isCreate_thread());
 		menu.findItem(R.id.action_refresh).setVisible(true);
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -76,6 +138,7 @@ public class ThreadActivity extends BaseActivity {
 			return true;
 		case R.id.action_newtopic:
 			Intent intent = new Intent(this, NewTopicActivity.class);
+			intent.putExtra(Forum.class.getName(), forum);
 			startActivityForResult(intent, REQUEST_CODE_NEWTOPIC);
 			return true;
 		default:
@@ -90,7 +153,7 @@ public class ThreadActivity extends BaseActivity {
 		if(intent.getSerializableExtra(Forum.class.getName()) != null)
 		{
 			// Get sub-forum by parent forum
-			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
+			forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
 			setTitle(forum.getForum_title());
 			mThreadService.listByForum(forum);
 		}		

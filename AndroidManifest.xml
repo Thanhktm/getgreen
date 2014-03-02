@@ -50,6 +50,9 @@
         <activity
             android:name="vn.getgreen.NewTopicActivity">
         </activity>
+        <activity
+            android:name="vn.getgreen.PostsActivity">
+        </activity>
     </application>
 
 </manifest>

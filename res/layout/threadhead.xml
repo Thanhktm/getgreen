@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_centerVertical="true"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@id/head_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+    <View
+        android:id="@id/processline"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/grey_f2f2f2" />
+
+    <LinearLayout
+        android:id="@id/process"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5.0dip" >
+
+        <ProgressBar
+            android:id="@id/processbar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@id/loading1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.0dip"
+            android:text="@string/loading"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+</LinearLayout>

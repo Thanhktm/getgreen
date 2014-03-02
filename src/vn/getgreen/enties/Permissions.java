@@ -16,7 +16,14 @@ public class Permissions extends BaseEnity {
 	private boolean follow;
 	private boolean like;
 	private boolean reply;
+	private boolean post;
 	
+	public boolean isPost() {
+		return post;
+	}
+	public void setPost(boolean post) {
+		this.post = post;
+	}
 	public boolean isReply() {
 		return reply;
 	}
