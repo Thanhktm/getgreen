@@ -124,8 +124,9 @@ public class PageFragment extends BaseFragment {
         }
         page_list.setText((mPageNumber + 1) + "/" + total_page);
         mListPost.addHeaderView(header_footer);
-        mListPost.addFooterView(header_footer);
         mListPost.setAdapter(mPageAdapter);
+        mListPost.addFooterView(header_footer);
+        
         return rootView;
     }
 

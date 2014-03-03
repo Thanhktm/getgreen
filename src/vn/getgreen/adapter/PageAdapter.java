@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class PageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder = null;
 		View view = null;
-		if (convertView == null) {
+		if (true) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = mInflater.inflate(R.layout.threaditem, parent, false);
@@ -59,7 +60,7 @@ public class PageAdapter extends BaseAdapter {
     		
             viewHolder.post_content =(LinearLayout) view.findViewById(R.id.post_content);
             viewHolder.post_attach =(LinearLayout) view.findViewById(R.id.post_attach);
-            viewHolder.content = (GTextView) view.findViewById(R.id.content_webview);
+            viewHolder.content = (GTextView) view.findViewById(R.id.content);
     		
             viewHolder.post_thanks =(LinearLayout) view.findViewById(R.id.post_thanks);
             viewHolder.thanks_text = (GTextView) view.findViewById(R.id.thanks_text);
@@ -78,7 +79,7 @@ public class PageAdapter extends BaseAdapter {
 		viewHolder.post_reply_time.setTime(post.getPost_create_date());
 		
 		URLImageParser p = new URLImageParser(viewHolder.content, context, post.map);
-		Spanned htmlSpan = Html.fromHtml(post.getPost_body_html(), p, null);
+		Spanned htmlSpan = Html.fromHtml(post.getPost_body_html() , p, null);
 		viewHolder.content.setText(htmlSpan);
 		
 		if (post.getPost_like_count() > 0) {
