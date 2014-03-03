@@ -95,6 +95,8 @@
             android:orientation="vertical" >
             <vn.getgreen.view.GTextView 
                 android:id="@id/content_webview"
+                android:freezesText="true"
+                android:textColor="@color/all_white"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
         </LinearLayout>

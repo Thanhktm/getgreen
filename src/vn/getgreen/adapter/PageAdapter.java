@@ -7,11 +7,11 @@ import vn.getgreen.enties.Post;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GTextView;
 import vn.getgreen.view.GTimeStampView;
-import vn.getgreen.view.GWebView;
+import vn.getgreen.view.URLImageParser;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
-import android.text.Html.ImageGetter;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,40 +45,67 @@ public class PageAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder = null;
+		View view = null;
 		if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.threaditem, null);
-        }
-		// User
-		GImageView iconLay = (GImageView) convertView.findViewById(R.id.iconLay);
-		GImageView onlineStatus = (GImageView) convertView.findViewById(R.id.onlineStatus);
-		GTextView post_author_name = (GTextView) convertView.findViewById(R.id.post_author_name);
-		GTimeStampView post_reply_time = (GTimeStampView) convertView.findViewById(R.id.post_reply_time);
-		
-		LinearLayout post_content =(LinearLayout) convertView.findViewById(R.id.post_content);
-		LinearLayout post_attach =(LinearLayout) convertView.findViewById(R.id.post_attach);
-		GTextView content_webview = (GTextView) convertView.findViewById(R.id.content_webview);
-		
-		LinearLayout post_thanks =(LinearLayout) convertView.findViewById(R.id.post_thanks);
-		GTextView thanks_text = (GTextView) convertView.findViewById(R.id.thanks_text);
-		
-		LinearLayout post_like = (LinearLayout) convertView.findViewById(R.id.post_like);
-		GTextView like_info_text = (GTextView) convertView.findViewById(R.id.like_info_text);
-		
-		Post post = posts.get(position);
-		iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
-		post_author_name.setText(post.getPoster_username());
-		post_reply_time.setTime(post.getPost_create_date());
-		
-		if (post.getPost_like_count() > 0) {
-			post_like.setVisibility(View.VISIBLE);
-			like_info_text.setText(post.getPost_like_count()+"");
-		} else {
-			post_like.setVisibility(View.GONE);
+            view = mInflater.inflate(R.layout.threaditem, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.iconLay = (GImageView) view.findViewById(R.id.iconLay);
+            viewHolder.onlineStatus = (GImageView) view.findViewById(R.id.onlineStatus);
+            viewHolder.post_author_name = (GTextView) view.findViewById(R.id.post_author_name);
+            viewHolder.post_reply_time = (GTimeStampView) view.findViewById(R.id.post_reply_time);
+    		
+            viewHolder.post_content =(LinearLayout) view.findViewById(R.id.post_content);
+            viewHolder.post_attach =(LinearLayout) view.findViewById(R.id.post_attach);
+            viewHolder.content = (GTextView) view.findViewById(R.id.content_webview);
+    		
+            viewHolder.post_thanks =(LinearLayout) view.findViewById(R.id.post_thanks);
+            viewHolder.thanks_text = (GTextView) view.findViewById(R.id.thanks_text);
+    		
+            viewHolder.post_like = (LinearLayout) view.findViewById(R.id.post_like);
+            viewHolder.like_info_text = (GTextView) view.findViewById(R.id.like_info_text);
+            view.setTag(viewHolder);
+        }else {
+        	view = convertView;
+            viewHolder = ((ViewHolder) view.getTag());
 		}
 		
-		return convertView;
+		Post post = posts.get(position);
+		viewHolder.iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
+		viewHolder.post_author_name.setText(post.getPoster_username());
+		viewHolder.post_reply_time.setTime(post.getPost_create_date());
+		
+		URLImageParser p = new URLImageParser(viewHolder.content, context, post.map);
+		Spanned htmlSpan = Html.fromHtml(post.getPost_body_html(), p, null);
+		viewHolder.content.setText(htmlSpan);
+		
+		if (post.getPost_like_count() > 0) {
+			viewHolder.post_like.setVisibility(View.VISIBLE);
+			viewHolder.like_info_text.setText(post.getPost_like_count()+"");
+		} else {
+			viewHolder.post_like.setVisibility(View.GONE);
+		}
+		
+		return view;
 	}
+	
+	static class ViewHolder {
+        protected GImageView iconLay;
+        protected GImageView onlineStatus;
+        protected GTextView post_author_name;
+        protected GTimeStampView post_reply_time;
+        
+        protected LinearLayout post_content;
+        protected LinearLayout post_attach;
+        protected GTextView content;
+        protected LinearLayout post_thanks;
+        protected GTextView thanks_text;
+        protected LinearLayout post_like;
+        protected GTextView like_info_text;
+        
+        
+    }
 
 }

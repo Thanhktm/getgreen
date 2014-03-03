@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -26,7 +27,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	private Thread mThread;
 	private int NUM_PAGES = 1;
 	private PagerAdapter mPagerAdapter;
-	private ProgressBar progress;
+	private LinearLayout progress;
 	private RelativeLayout quickBar;
 	private GEditText quickqeply;
 	private ProgressBar loading;
@@ -50,7 +51,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		progress = (ProgressBar) findViewById(R.id.progressbar);
+		progress = (LinearLayout) findViewById(R.id.progress);
 		quickBar = (RelativeLayout) findViewById(R.id.quickbar);
 		quickqeply = (GEditText) findViewById(R.id.quickqeply);
 		loading = (ProgressBar) findViewById(R.id.loading);
@@ -63,7 +64,8 @@ public class PostsActivity extends BaseActivity implements PageListener{
 			mThread = (Thread) intent.getSerializableExtra(Thread.class.getName());
 			NUM_PAGES = mThread.getThread_post_count() / PostService.LIMIT_POSTS_PER_PAGE;
 			if(mThread.getThread_post_count() % PostService.LIMIT_POSTS_PER_PAGE != 0) NUM_PAGES += 1;
-			quickBar.setVisibility(mThread.getPermissions().isPost() ? View.VISIBLE : View.GONE);
+			//quickBar.setVisibility(mThread.getPermissions().isPost() ? View.VISIBLE : View.GONE);
+			quickBar.setVisibility(View.VISIBLE);
 		}
         mPager = (ViewPager) findViewById(R.id.vPager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
@@ -114,7 +116,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.create(position, mThread, PostsActivity.this);
+            return PageFragment.create(position, mThread, PostsActivity.this, NUM_PAGES);
         }
 
         @Override

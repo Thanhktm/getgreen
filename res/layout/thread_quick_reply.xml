@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:gravity="center_vertical" >
+    android:gravity="center_vertical" 
+    android:background="@color/all_gray">
 
     <vn.getgreen.view.GImageView
         android:id="@id/show_all"

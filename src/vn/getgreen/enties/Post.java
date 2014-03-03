@@ -1,6 +1,8 @@
 package vn.getgreen.enties;
 
-import vn.getgreen.view.GWebView;
+import java.util.HashMap;
+
+import vn.getgreen.view.URLDrawable;
 
 public class Post extends BaseEnity {
 
@@ -12,14 +14,8 @@ public class Post extends BaseEnity {
 	public Post() {
 		// TODO Auto-generated constructor stub
 	}
-	private GWebView content;
+	public HashMap<String, URLDrawable> map = new HashMap<String, URLDrawable>();
 	
-	public GWebView getContent() {
-		return content;
-	}
-	public void setContent(GWebView content) {
-		this.content = content;
-	}
 	private int post_id;
 	private int thread_id;
 	private int poster_user_id;

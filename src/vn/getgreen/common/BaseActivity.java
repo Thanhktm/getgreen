@@ -73,6 +73,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseL
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	/**
 	 * For request first page or reload
 	 */
