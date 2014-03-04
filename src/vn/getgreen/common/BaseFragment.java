@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 public abstract class BaseFragment extends Fragment implements ResponseListener {
 
-	LoginService mLoginService;
+	protected LoginService mLoginService;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

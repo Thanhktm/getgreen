@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 
 public class PostService extends GClient {
-	public static final int LIMIT_POSTS_PER_PAGE = 5;
+	public static final int LIMIT_POSTS_PER_PAGE = 10;
 	public static final String ORDER_NATURAL = "natural";
 	public static final String ORDER_NATURAL_REVERSE = "natural_reverse";
 	public List<Post> posts;

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import vn.getgreen.adapter.CategoriesAdapter;
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Category;
+import vn.getgreen.enties.User;
 import vn.getgreen.network.CategoriesService;
 import vn.getgreen.network.GClient;
 import android.content.Intent;
@@ -46,7 +47,13 @@ public class CategoriesFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_forum, container, false);
 		mListCategories = (ListView) rootView.findViewById(R.id.list);
         mListCategories.setAdapter(mCategoriesAdapter);
-        onRefresh();
+
+		if (User.get(getActivity()) != null) {
+			mLoginService.login(User.get(getActivity()));
+		} else {
+			onRefresh();
+		}
+		
         ll = (RelativeLayout) rootView.findViewById(R.id.ll);
         mListCategories.setOnItemClickListener(new OnItemClickListener() {
 

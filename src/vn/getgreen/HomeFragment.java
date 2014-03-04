@@ -11,10 +11,13 @@ import vn.getgreen.enties.Thread;
 import vn.getgreen.network.ForumService;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -34,7 +37,7 @@ public class HomeFragment extends BaseFragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_thread, container, false);
-        mThreadAdapter = new ThreadAdapter(getActivity(), threads);
+        mThreadAdapter = new ThreadAdapter(getActivity(), threads, ((MainActivity) getActivity()).mImageFetcher);
 		mListThread = (ListView) rootView.findViewById(R.id.list);
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
 		
@@ -42,6 +45,17 @@ public class HomeFragment extends BaseFragment {
 		mThreadService = new ThreadService(getActivity(), this);
 		mForumService = new ForumService(getActivity(), this);
 		onRefresh();
+		mListThread.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View convertView, int position,
+					long itemId) {
+				Thread thread = threads.get(position);
+				Intent intent = new Intent(getActivity(), PostsActivity.class);
+				intent.putExtra(Thread.class.getName(), thread);
+				startActivity(intent);
+			}
+		});
         return rootView;
     }
 	

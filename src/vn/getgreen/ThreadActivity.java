@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import vn.getgreen.adapter.ThreadAdapter;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.common.DialogBuilder;
+import vn.getgreen.common.DialogBuilder.GDialogListener;
 import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Thread;
@@ -49,7 +50,7 @@ public class ThreadActivity extends BaseActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		mThreadAdapter = new ThreadAdapter(this, threads);
+		mThreadAdapter = new ThreadAdapter(this, threads, mImageFetcher);
 		mListThread = (ListView) findViewById(R.id.list);
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(this, this);
@@ -70,7 +71,7 @@ public class ThreadActivity extends BaseActivity {
 	            arrayAdapter.add(getResources().getString(R.string.ForumMenuAdapter_topic_menu_subscribe));
 	            if(permissions.isDelete())arrayAdapter.add(getResources().getString(R.string.ThreadActivity_dlgitem_delete));
 	            
-	            new DialogBuilder(ThreadActivity.this, arrayAdapter, new OnClickListener() {
+	            new DialogBuilder(ThreadActivity.this, arrayAdapter, new GDialogListener() {
 	        		
 	        		@Override
 	        		public void onClick(DialogInterface dialog, int which) {

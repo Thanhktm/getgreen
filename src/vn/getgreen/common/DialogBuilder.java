@@ -4,11 +4,16 @@ import vn.getgreen.R;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.widget.ArrayAdapter;
 
 public class DialogBuilder extends Builder {
 
-	public DialogBuilder(Context context, ArrayAdapter<String> adapter, DialogInterface.OnClickListener callback)
+	public interface GDialogListener extends OnClickListener
+	{
+		
+	}
+	public DialogBuilder(Context context, ArrayAdapter<String> adapter, GDialogListener callback)
 	{
 		super(context);
 		setIcon(R.drawable.ic_launcher);

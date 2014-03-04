@@ -4,6 +4,7 @@ import java.util.List;
 
 import vn.getgreen.R;
 import vn.getgreen.enties.Thread;
+import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GShortContentView;
 import vn.getgreen.view.GTextView;
@@ -19,9 +20,11 @@ import android.widget.RelativeLayout;
 public class ThreadAdapter extends BaseAdapter {
 	List<Thread> threads;
 	Context context;
-	public ThreadAdapter(Context context, List<Thread> threads) {
+	ImageFetcher mImageFetcher;
+	public ThreadAdapter(Context context, List<Thread> threads, ImageFetcher imageFetcher) {
 		this.threads = threads;
 		this.context = context;
+		this.mImageFetcher = imageFetcher;
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public class ThreadAdapter extends BaseAdapter {
         // bind data
         topictitle.setText(thread.getThread_title());
         topicauthor.setText(thread.getCreator_username());
-        avatar.setImageUrl(thread.getFirst_post().getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
+        mImageFetcher.loadThumbnailImage(thread.getFirst_post().getLinks().getPoster_avatar(), avatar, R.drawable.default_avatar_dark);
         view_num.setText(thread.getThread_view_count() + "");
         reply_num.setText(thread.getThread_post_count() + "");
         topic_sticky.setVisibility(thread.isThread_is_sticky() ? View.VISIBLE : View.GONE);

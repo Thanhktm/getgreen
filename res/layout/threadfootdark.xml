@@ -19,7 +19,7 @@
             android:layout_weight="2.0"
             android:background="@drawable/transparent_button_dark"
             android:scaleType="centerInside"
-            android:src="@drawable/fast_back_common_dark" />
+            android:src="@drawable/fast_back_page" />
 
         <View
             android:layout_width="1.0dip"
@@ -35,7 +35,7 @@
             android:layout_weight="2.0"
             android:background="@drawable/transparent_button_dark"
             android:scaleType="centerInside"
-            android:src="@drawable/back_common_dark" />
+            android:src="@drawable/back_page" />
 
         <View
             android:layout_width="1.0dip"
@@ -84,7 +84,7 @@
             android:layout_weight="2.0"
             android:background="@drawable/transparent_button_dark"
             android:scaleType="centerInside"
-            android:src="@drawable/forward_common_dark" />
+            android:src="@drawable/next_page" />
 
         <View
             android:layout_width="1.0dip"
@@ -100,7 +100,7 @@
             android:layout_weight="2.0"
             android:background="@drawable/transparent_button_dark"
             android:scaleType="centerInside"
-            android:src="@drawable/fast_forward_common_dark" />
+            android:src="@drawable/fast_next_page" />
     </LinearLayout>
 
     <vn.getgreen.view.GImageView

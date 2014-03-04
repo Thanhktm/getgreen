@@ -4,6 +4,7 @@ import java.util.List;
 
 import vn.getgreen.R;
 import vn.getgreen.enties.Post;
+import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GTextView;
 import vn.getgreen.view.GTimeStampView;
@@ -12,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +22,11 @@ import android.widget.LinearLayout;
 public class PageAdapter extends BaseAdapter {
 	List<Post> posts;
 	Context context;
-	public PageAdapter(Context context, List<Post> posts) {
+	ImageFetcher mImageFetcher;
+	public PageAdapter(Context context, List<Post> posts, ImageFetcher imageFetcher) {
 		this.posts = posts;
 		this.context = context;
+		this.mImageFetcher = imageFetcher;
 	}
 
 	@Override
@@ -74,7 +76,8 @@ public class PageAdapter extends BaseAdapter {
 		}
 		
 		Post post = posts.get(position);
-		viewHolder.iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
+		mImageFetcher.loadThumbnailImage(post.getLinks().getPoster_avatar(), viewHolder.iconLay, R.drawable.default_avatar_dark);
+		//viewHolder.iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
 		viewHolder.post_author_name.setText(post.getPoster_username());
 		viewHolder.post_reply_time.setTime(post.getPost_create_date());
 		

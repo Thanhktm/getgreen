@@ -9,6 +9,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import vn.getgreen.imagecache.ImageFetcher;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -20,7 +22,7 @@ public class URLImageParser implements ImageGetter {
 	Context c;
     View container;
     HashMap<String, URLDrawable> map;
-   
+    ImageFetcher mImageFetcher;
     /***
      * Construct the URLImageParser which will execute AsyncTask and refresh the container
      * @param t
@@ -37,7 +39,6 @@ public class URLImageParser implements ImageGetter {
         if (map.get(source) != null) return map.get(source);
     	URLDrawable urlDrawable = new URLDrawable();
         map.put(source, urlDrawable);
-        
         // get the actual source
         ImageGetterAsyncTask asyncTask = 
             new ImageGetterAsyncTask(map.get(source));
