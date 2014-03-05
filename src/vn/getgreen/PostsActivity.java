@@ -135,7 +135,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.create(position, mThread, PostsActivity.this, NUM_PAGES);
+            return PageFragment.create(position, mThread, PostsActivity.this, NUM_PAGES, mImageFetcher);
         }
 
         @Override

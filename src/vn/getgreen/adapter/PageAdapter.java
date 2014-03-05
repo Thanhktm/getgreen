@@ -76,7 +76,7 @@ public class PageAdapter extends BaseAdapter {
 		}
 		
 		Post post = posts.get(position);
-		mImageFetcher.loadThumbnailImage(post.getLinks().getPoster_avatar(), viewHolder.iconLay, R.drawable.default_avatar_dark);
+		if(mImageFetcher != null)mImageFetcher.loadThumbnailImage(post.getLinks().getPoster_avatar(), viewHolder.iconLay, R.drawable.default_avatar_dark);
 		//viewHolder.iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
 		viewHolder.post_author_name.setText(post.getPoster_username());
 		viewHolder.post_reply_time.setTime(post.getPost_create_date());

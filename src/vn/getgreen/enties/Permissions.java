@@ -17,7 +17,14 @@ public class Permissions extends BaseEnity {
 	private boolean like;
 	private boolean reply;
 	private boolean post;
+	private boolean create_conversation;
 	
+	public boolean isCreate_conversation() {
+		return create_conversation;
+	}
+	public void setCreate_conversation(boolean create_conversation) {
+		this.create_conversation = create_conversation;
+	}
 	public boolean isPost() {
 		return post;
 	}

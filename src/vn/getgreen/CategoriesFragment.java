@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import vn.getgreen.adapter.CategoriesAdapter;
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Category;
-import vn.getgreen.enties.User;
 import vn.getgreen.network.CategoriesService;
 import vn.getgreen.network.GClient;
 import android.content.Intent;
@@ -48,11 +47,7 @@ public class CategoriesFragment extends BaseFragment {
 		mListCategories = (ListView) rootView.findViewById(R.id.list);
         mListCategories.setAdapter(mCategoriesAdapter);
 
-		if (User.get(getActivity()) != null) {
-			mLoginService.login(User.get(getActivity()));
-		} else {
-			onRefresh();
-		}
+		onRefresh();
 		
         ll = (RelativeLayout) rootView.findViewById(R.id.ll);
         mListCategories.setOnItemClickListener(new OnItemClickListener() {
@@ -91,7 +86,6 @@ public class CategoriesFragment extends BaseFragment {
 
 	@Override
 	public void onFinish(GClient client) {
-		
 		super.onFinish(client);
 	}
 

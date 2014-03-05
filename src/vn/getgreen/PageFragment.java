@@ -11,6 +11,7 @@ import vn.getgreen.adapter.PageAdapter;
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
+import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.PostService;
 import vn.getgreen.view.GImageView;
@@ -57,8 +58,12 @@ public class PageFragment extends BaseFragment {
     private GImageView footer_next;
     private GImageView footer_fast_next;
     private RelativeLayout footer_page_btn;
-    private GTextView footer_page_list;
-    
+    public void setImageFetcher(ImageFetcher imageFetcher) {
+		this.imageFetcher = imageFetcher;
+	}
+
+	private GTextView footer_page_list;
+    private ImageFetcher imageFetcher;
 
 	public void setPageListener(PageListener pageListener) {
 		this.pageListener = pageListener;
@@ -78,7 +83,7 @@ public class PageFragment extends BaseFragment {
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */
-    public static PageFragment create(int pageNumber, Thread thread, PageListener pageListener, int totalPage) {
+    public static PageFragment create(int pageNumber, Thread thread, PageListener pageListener, int totalPage, ImageFetcher imageFetcher) {
         PageFragment fragment = new PageFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
@@ -86,6 +91,7 @@ public class PageFragment extends BaseFragment {
         args.putInt(ARG_TOTAL_PAGE, totalPage);
         fragment.setArguments(args);
         fragment.setPageListener(pageListener);
+        fragment.setImageFetcher(imageFetcher);
         return fragment;
     }
 
@@ -99,7 +105,7 @@ public class PageFragment extends BaseFragment {
         total_page = getArguments().getInt(ARG_TOTAL_PAGE);
         mThread = (Thread) getArguments().getSerializable(Thread.class.getName());
         mPostService = new PostService(getActivity(), this);
-        mPageAdapter = new PageAdapter(getActivity(), posts, ((PostsActivity)getActivity()).mImageFetcher);
+        mPageAdapter = new PageAdapter(getActivity(), posts, imageFetcher);
     }
 
     @Override

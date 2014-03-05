@@ -15,7 +15,7 @@ public class User extends BaseEnity {
 	private int user_id;
 	private String username;
 	private String password;
-	private String email;
+	private String user_email;
 	private int user_message_count;
 	private long user_register_date;
 	private int user_like_count;
@@ -24,6 +24,15 @@ public class User extends BaseEnity {
 	private boolean user_is_visitor;
 	private String refresh_token;
 	private String access_token;
+	private String user_title;
+	private int user_dob_day;
+	private int user_dob_month;
+	private int user_dob_year;
+	private int user_timezone_offset;
+	private boolean user_has_password;
+	private int user_unread_conversation_count;
+	private String one_time_token;
+	
 	public static boolean isLogin(Context context)
 	{
 		User user = User.get(context);
@@ -32,9 +41,18 @@ public class User extends BaseEnity {
 		
 	}
 	Permissions permissions;
+	Permissions self_permissions;
 	Links links;
 	
 	
+	public String getOne_time_token() {
+		return one_time_token;
+	}
+
+	public void setOne_time_token(String one_time_token) {
+		this.one_time_token = one_time_token;
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -59,12 +77,20 @@ public class User extends BaseEnity {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUser_email() {
+		return user_email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+
+	public String getUser_title() {
+		return user_title;
+	}
+
+	public void setUser_title(String user_title) {
+		this.user_title = user_title;
 	}
 
 	public int getUser_message_count() {
@@ -145,6 +171,62 @@ public class User extends BaseEnity {
 
 	public void setAccess_token(String access_token) {
 		this.access_token = access_token;
+	}
+
+	public int getUser_dob_day() {
+		return user_dob_day;
+	}
+
+	public void setUser_dob_day(int user_dob_day) {
+		this.user_dob_day = user_dob_day;
+	}
+
+	public int getUser_dob_month() {
+		return user_dob_month;
+	}
+
+	public void setUser_dob_month(int user_dob_month) {
+		this.user_dob_month = user_dob_month;
+	}
+
+	public int getUser_dob_year() {
+		return user_dob_year;
+	}
+
+	public void setUser_dob_year(int user_dob_year) {
+		this.user_dob_year = user_dob_year;
+	}
+
+	public int getUser_timezone_offset() {
+		return user_timezone_offset;
+	}
+
+	public void setUser_timezone_offset(int user_timezone_offset) {
+		this.user_timezone_offset = user_timezone_offset;
+	}
+
+	public boolean isUser_has_password() {
+		return user_has_password;
+	}
+
+	public void setUser_has_password(boolean user_has_password) {
+		this.user_has_password = user_has_password;
+	}
+
+	public int getUser_unread_conversation_count() {
+		return user_unread_conversation_count;
+	}
+
+	public void setUser_unread_conversation_count(int user_unread_conversation_count) {
+		this.user_unread_conversation_count = user_unread_conversation_count;
+	}
+
+	public Permissions getSelf_permissions() {
+		return self_permissions;
+	}
+
+	public void setSelf_permissions(Permissions self_permissions) {
+		this.self_permissions = self_permissions;
 	}
 
 	/**

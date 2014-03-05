@@ -11,6 +11,7 @@ import vn.getgreen.enties.User;
 import vn.getgreen.model.NavDrawerItem;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
+import vn.getgreen.network.UserService;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -45,7 +46,7 @@ public class MainActivity extends BaseActivity {
 	private NavDrawerListAdapter adapter;
 	public User user;
 	private Fragment fragment;
-
+	private UserService mUserService;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +54,8 @@ public class MainActivity extends BaseActivity {
 
 		mTitle = mDrawerTitle = getTitle();
 		user = User.get(this);
-
+		mUserService = new UserService(this, this);
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
@@ -91,7 +93,6 @@ public class MainActivity extends BaseActivity {
 					.getResourceId(2, -1)));
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
 					.getResourceId(3, -1)));
-
 		} else {
 			// Sign in
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
@@ -151,6 +152,7 @@ public class MainActivity extends BaseActivity {
 			// on first time display view for first nav item
 			if (User.isLogin(this)) {
 				displayView(3);
+				mUserService.getInfo();
 			} else {
 				displayView(1);
 			}
@@ -339,4 +341,11 @@ public class MainActivity extends BaseActivity {
 			fragment.onRefresh();
 	}
 
+	@Override
+	public void onSuccess(GClient client, JSONObject jsonObject) {
+		if (client instanceof UserService && mUserService.parseJson(jsonObject)) {
+			
+		}
+		super.onSuccess(client, jsonObject);
+	}
 }

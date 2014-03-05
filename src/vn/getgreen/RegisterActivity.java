@@ -60,7 +60,7 @@ public class RegisterActivity extends BaseActivity {
 				return;
 			}
 			
-			mUser.setEmail(mEditEmail.getText().toString());
+			mUser.setUser_email(mEditEmail.getText().toString());
 			mUser.setUsername(mEditUsername.getText().toString());
 			mUser.setPassword(mEditPassword.getText().toString());
 			mRegisterService.register(mUser);

@@ -1,11 +1,12 @@
 package vn.getgreen.common;
 
 public class Constants {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static final boolean USE_HOST_PRODUCTION = true;
 	public static final String PREFS_NAME = "PREFS_GETGREN";
 	public static final String API_KEY = "ecom2014";
-	
+	public static final String CLIENT_SECRET = "ecom2014";
+	public static long DAYS_TOKEN_EXPRIED = 14 * 24 * 60 * 60; //14 days will expried OTT
 	public static final String HOST_PRODUCTION = "http://getgreen.vn/forum/api/index.php?";
 	
 	public static final int SCALED_IMAGE = 1;// 1-100%; 2-50%; 4-25%

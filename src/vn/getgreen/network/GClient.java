@@ -53,8 +53,17 @@ public abstract class GClient {
 			if (requestParams == null) {
 				requestParams = new RequestParams();
 			}
-			requestParams.put("oauth_token", User.get(context)
-					.getAccess_token());
+			if(User.get(context)
+					.getOne_time_token() != null)
+			{
+				requestParams.put("oauth_token", User.get(context)
+						.getOne_time_token());
+			}else
+			{
+				requestParams.put("oauth_token", User.get(context)
+						.getAccess_token());
+			}
+			
 		}
 		return requestParams;
 	}

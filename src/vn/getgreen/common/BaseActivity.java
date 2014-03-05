@@ -23,11 +23,9 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseL
 		// TODO Auto-generated constructor stub
 	}
 
-	LoginService mLoginService;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mLoginService = new LoginService(this, this);
 		signature = String.format(getResources().getString(R.string.format), Build.MODEL);
 		final DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -64,16 +62,12 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseL
 		// TODO Auto-generated method stub
 		if(statusCode == 403)
 		{
-			mLoginService.login(User.get(this));
+			User.save(this, null);
 		}
 	}
 
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
-		// TODO Auto-generated method stub
-		if (client instanceof LoginService && mLoginService.parseJson(jsonObject)) {
-			onRefresh();
-		}
 	}
 
 	@Override
