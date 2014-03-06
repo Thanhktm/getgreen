@@ -7,7 +7,6 @@ import vn.getgreen.enties.User;
 import vn.getgreen.imagecache.ImageCache;
 import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.network.GClient;
-import vn.getgreen.network.LoginService;
 import vn.getgreen.network.ResponseListener;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.view.MenuItem;
 public abstract class BaseActivity extends FragmentActivity implements ResponseListener {
 	public String signature;
 	public ImageFetcher mImageFetcher;
+	public int page = 1;
 	public BaseActivity() {
 		// TODO Auto-generated constructor stub
 	}

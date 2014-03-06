@@ -53,6 +53,9 @@
         <activity
             android:name="vn.getgreen.PostsActivity">
         </activity>
+         <activity
+            android:name="vn.getgreen.MessagesActivity">
+        </activity>
     </application>
 
 </manifest>

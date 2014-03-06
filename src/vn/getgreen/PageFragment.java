@@ -58,12 +58,8 @@ public class PageFragment extends BaseFragment {
     private GImageView footer_next;
     private GImageView footer_fast_next;
     private RelativeLayout footer_page_btn;
-    public void setImageFetcher(ImageFetcher imageFetcher) {
-		this.imageFetcher = imageFetcher;
-	}
 
 	private GTextView footer_page_list;
-    private ImageFetcher imageFetcher;
 
 	public void setPageListener(PageListener pageListener) {
 		this.pageListener = pageListener;
@@ -91,7 +87,6 @@ public class PageFragment extends BaseFragment {
         args.putInt(ARG_TOTAL_PAGE, totalPage);
         fragment.setArguments(args);
         fragment.setPageListener(pageListener);
-        fragment.setImageFetcher(imageFetcher);
         return fragment;
     }
 
@@ -105,7 +100,7 @@ public class PageFragment extends BaseFragment {
         total_page = getArguments().getInt(ARG_TOTAL_PAGE);
         mThread = (Thread) getArguments().getSerializable(Thread.class.getName());
         mPostService = new PostService(getActivity(), this);
-        mPageAdapter = new PageAdapter(getActivity(), posts, imageFetcher);
+        
     }
 
     @Override
@@ -134,7 +129,7 @@ public class PageFragment extends BaseFragment {
         footer_fast_next = (GImageView) footer.findViewById(R.id.fast_next);
         footer_page_btn = (RelativeLayout) footer.findViewById(R.id.page_btn);
         footer_page_list = (GTextView) footer.findViewById(R.id.page_list);
-        
+        setPageListener((PostsActivity)getActivity());
         if(total_page > 1)
         {
         	header_page_list.setText((mPageNumber + 1) + "/" + total_page);
@@ -157,6 +152,7 @@ public class PageFragment extends BaseFragment {
         }
         
         onRefresh();
+        mPageAdapter = new PageAdapter(getActivity(), posts, ((PostsActivity) getActivity()).mImageFetcher);
         mListPost.setAdapter(mPageAdapter);
         if(total_page > 1)
         {

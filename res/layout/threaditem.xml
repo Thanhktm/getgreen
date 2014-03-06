@@ -19,6 +19,7 @@
             android:layout_width="36.0dip"
             android:layout_height="36.0dip"
             android:layout_alignParentTop="true"
+            android:background="@drawable/default_avatar_dark"
             android:gravity="center" />
 
         <vn.getgreen.view.GImageView

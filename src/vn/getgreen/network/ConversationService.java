@@ -1,6 +1,7 @@
 package vn.getgreen.network;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -15,7 +16,8 @@ import com.google.gson.reflect.TypeToken;
 public class ConversationService extends GClient {
 	public int conversations_total;
 	public Links links;
-	public List<Conversation> conversations;
+	public List<Conversation> conversations = new ArrayList<Conversation>();
+	
 	
 	public ConversationService(Context context,
 			ResponseListener responseListener) {

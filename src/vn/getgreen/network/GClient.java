@@ -100,26 +100,6 @@ public abstract class GClient {
 		return true;
 	}
 
-	public boolean parseErrorJson(Object object) {
-
-		return false;
-
-	}
-
-	public boolean parseErrorJson(JSONObject jsonObject) {
-		if (jsonObject == null) {
-			return false;
-		}
-
-		try {
-			errorMessage = jsonObject.getJSONArray("errors");
-			return true;
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 	public static boolean isOnline(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -32,7 +32,8 @@
             android:layout_width="36.0dip"
             android:layout_height="36.0dip"
             android:focusable="false"
-            android:gravity="left|center" />
+            android:gravity="left|center" 
+            android:background="@drawable/default_avatar_dark"/>
 
         <vn.getgreen.view.GImageView
             android:id="@id/avater_bg"

@@ -88,7 +88,7 @@ public class ThreadAdapter extends BaseAdapter {
         Post post = thread.getFirst_post();
         if(post != null && post.getLinks() != null)
         {
-        	mImageFetcher.loadThumbnailImage(post.getLinks().getPoster_avatar(), avatar, R.drawable.default_avatar_dark);
+        	mImageFetcher.loadImage(post.getLinks().getPoster_avatar(), avatar);
         	shortcontent.setText(thread.getFirst_post().getPost_body_plain_text());
         }
         view_num.setText(thread.getThread_view_count() + "");

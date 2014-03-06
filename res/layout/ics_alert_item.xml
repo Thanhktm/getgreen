@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/category_item_color_dark" >
+
+    <RelativeLayout
+        android:id="@id/alert_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/alert_icon"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="12.0dip"
+            android:layout_marginTop="12.0dip"
+            android:focusable="false"
+            android:gravity="left|center" 
+            android:background="@drawable/default_avatar_dark"/>
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/avater_bg"
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_alignRight="@id/alert_icon"
+            android:layout_alignTop="@id/alert_icon"
+            android:background="@drawable/avator_background" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/typeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/alert_icon"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_toRightOf="@id/alert_icon" />
+
+        <vn.getgreen.view.GTimeStampView
+            android:id="@id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/alert_icon"
+            android:layout_marginRight="12.0dip"
+            android:layout_marginTop="1.0dip"
+            android:textColor="@color/name_grey_8a"
+            android:textSize="11.0sp" />
+
+        <vn.getgreen.view.GTextView
+            android:id="@id/alert_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/alert_icon"
+            android:layout_marginLeft="6.0dip"
+            android:layout_marginTop="1.0dip"
+            android:layout_toRightOf="@id/typeIcon"
+            android:includeFontPadding="false"
+            android:textAppearance="?quoord_author_large_textStyle" />
+
+        <vn.getgreen.view.GShortContentView
+            android:id="@id/alert_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/typeIcon"
+            android:layout_below="@id/typeIcon"
+            android:layout_marginTop="10.0dip"
+            android:layout_toRightOf="@id/alert_icon"
+            android:includeFontPadding="false"
+            android:paddingTop="10.0dip"
+            android:paddingBottom="10.0dip"
+            android:textAppearance="?android:textAppearanceSmall"
+       	 	android:textColor="@color/all_white"
+        	android:textStyle="bold" 
+            android:maxLines="10"/>
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/diver"
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

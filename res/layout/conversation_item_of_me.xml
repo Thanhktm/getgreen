@@ -11,9 +11,10 @@
         android:layout_marginLeft="22.0dip"
         android:layout_marginRight="28.0dip"
         android:layout_marginTop="18.0dip"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@drawable/conversation_blue_bg_dark" >
 
-        <LinearLayout
+        <vn.getgreen.view.GTextView
             android:id="@id/conversation_shortcontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
             android:textColor="@color/content_text_unread"
             android:textSize="14.0sp" />
 
-        <LinearLayout
+        <vn.getgreen.view.GTextView
             android:id="@id/conversation_attachment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
             android:orientation="vertical" />
     </LinearLayout>
 
-    <TextView
+    <vn.getgreen.view.GTimeStampView
         android:id="@id/senttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

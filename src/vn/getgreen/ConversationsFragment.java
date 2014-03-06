@@ -10,10 +10,13 @@ import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Conversation;
 import vn.getgreen.network.ConversationService;
 import vn.getgreen.network.GClient;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -23,7 +26,7 @@ public class ConversationsFragment extends BaseFragment {
 	
 	
 	private ConversationService mConversationService;
-	private ListView mListForum;
+	private ListView mListConversations;
 	private ConversationAdapter mConversationAdapter;
 	private List<Conversation> conversations = new ArrayList<Conversation>();
 	private RelativeLayout ll;
@@ -36,10 +39,21 @@ public class ConversationsFragment extends BaseFragment {
 		
         mConversationService = new ConversationService(getActivity(), this);
         onRefresh();
-        mConversationAdapter = new ConversationAdapter(getActivity(), conversations );
+        mConversationAdapter = new ConversationAdapter(getActivity(), conversations, ((MainActivity)getActivity()).mImageFetcher);
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
-		mListForum = (ListView) rootView.findViewById(R.id.list);
-		mListForum.setAdapter(mConversationAdapter);
+		mListConversations = (ListView) rootView.findViewById(R.id.list);
+		mListConversations.setAdapter(mConversationAdapter);
+		mListConversations.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View convertView, int position,
+					long itemId) {
+				Conversation conversation = conversations.get(position);
+				Intent intent = new Intent(getActivity(), MessagesActivity.class);
+				intent.putExtra(Conversation.class.getName(), conversation);
+				startActivity(intent);
+			}
+		});
         return rootView;
     }
 	

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="no_network_connection_toast">No network</string>
     <string name="perform_action">Perform Action</string>
     <string name="format">Gửi từ %s của tôi</string>
 	<string name="host_name">GetGreen</string>

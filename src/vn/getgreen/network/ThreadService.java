@@ -1,6 +1,7 @@
 package vn.getgreen.network;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class ThreadService extends GClient {
 	public static final String ORDER_UPDATE_DATE = "thread_update_date";
 	public static final String ORDER_UPDATE_DATE_REVERSE = "thread_update_date_reverse";
 	
-	public List<Thread> threads;
+	public List<Thread> threads = new ArrayList<Thread>();
 	
 	public ThreadService(Context context, ResponseListener responseListener) {
 		super(context, responseListener);

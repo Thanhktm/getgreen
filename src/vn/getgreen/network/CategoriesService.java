@@ -1,6 +1,7 @@
 package vn.getgreen.network;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -12,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class CategoriesService extends GClient {
-	public List<Category> categories;
+	public List<Category> categories = new ArrayList<Category>();
 	
 	public CategoriesService(Context context, ResponseListener responseListener) {
 		super(context, responseListener);

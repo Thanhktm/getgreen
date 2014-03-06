@@ -16,8 +16,12 @@
 
 package vn.getgreen.imagecache;
 
+import vn.getgreen.MainActivity;
+import vn.getgreen.PostsActivity;
+import vn.getgreen.ThreadActivity;
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.StrictMode;
 
 /**
@@ -27,12 +31,21 @@ public class Utils {
 	private Utils() {
 	};
 
-	@TargetApi(11)
+	@TargetApi(VERSION_CODES.HONEYCOMB)
 	public static void enableStrictMode() {
 		if (Utils.hasGingerbread()) {
-			StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder().detectAll()
-					.penaltyLog();
-			StrictMode.VmPolicy.Builder vmPolicyBuilder = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog();
+			StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder()
+					.detectAll().penaltyLog();
+			StrictMode.VmPolicy.Builder vmPolicyBuilder = new StrictMode.VmPolicy.Builder()
+					.detectAll().penaltyLog();
+
+			if (Utils.hasHoneycomb()) {
+				threadPolicyBuilder.penaltyFlashScreen();
+				vmPolicyBuilder.setClassInstanceLimit(MainActivity.class, 1)
+						.setClassInstanceLimit(ThreadActivity.class, 1)
+						.setClassInstanceLimit(PostsActivity.class, 1)
+						.setClassInstanceLimit(ThreadActivity.class, 1);
+			}
 			StrictMode.setThreadPolicy(threadPolicyBuilder.build());
 			StrictMode.setVmPolicy(vmPolicyBuilder.build());
 		}
@@ -59,5 +72,9 @@ public class Utils {
 
 	public static boolean hasJellyBean() {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+	}
+
+	public static boolean hasKitKat() {
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 	}
 }

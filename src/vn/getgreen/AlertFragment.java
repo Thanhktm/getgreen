@@ -1,29 +1,66 @@
 package vn.getgreen;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import vn.getgreen.adapter.AlertAdapter;
 import vn.getgreen.common.BaseFragment;
+import vn.getgreen.enties.Notification;
+import vn.getgreen.network.GClient;
+import vn.getgreen.network.NotificationService;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class AlertFragment extends BaseFragment {
 	
 	public AlertFragment(){}
 	
+	private RelativeLayout ll;
+	private AlertAdapter mAlertAdapter;
+	private List<Notification> notifications = new ArrayList<Notification>();
+	private NotificationService mNotificationService;
+	private ListView mListView;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_whats_hot, container, false);
-         
+        View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
+        ll = (RelativeLayout) rootView.findViewById(R.id.ll);
+        mNotificationService = new NotificationService(getActivity(), this);
+        mListView = (ListView) rootView.findViewById(R.id.list);
+        mAlertAdapter = new AlertAdapter(getActivity(), notifications, ((MainActivity)getActivity()).mImageFetcher);
+        mListView.setAdapter(mAlertAdapter);
+        onRefresh();
         return rootView;
     }
 
-
+	@Override
+	public void onSuccess(GClient client, JSONObject jsonObject) {
+		if(client instanceof NotificationService && mNotificationService.parseJson(jsonObject))
+		{
+			notifications.clear();
+			notifications.addAll(mNotificationService.notifications);
+			mAlertAdapter.notifyDataSetChanged();
+		}
+		if(notifications.size() == 0)
+		{
+			ll.setVisibility(View.VISIBLE);
+		}else
+		{
+			ll.setVisibility(View.GONE);
+		}
+		super.onSuccess(client, jsonObject);
+	}
+	
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		
+		mNotificationService.list();
 	}
 }

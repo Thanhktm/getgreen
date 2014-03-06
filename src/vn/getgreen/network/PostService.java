@@ -1,6 +1,7 @@
 package vn.getgreen.network;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -8,9 +9,7 @@ import org.json.JSONObject;
 import vn.getgreen.enties.Links;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
-import vn.getgreen.view.GWebView;
 import android.content.Context;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,7 +19,7 @@ public class PostService extends GClient {
 	public static final int LIMIT_POSTS_PER_PAGE = 10;
 	public static final String ORDER_NATURAL = "natural";
 	public static final String ORDER_NATURAL_REVERSE = "natural_reverse";
-	public List<Post> posts;
+	public List<Post> posts = new ArrayList<Post>();
 	public int posts_total;
 	public Links links;
 	

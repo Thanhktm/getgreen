@@ -4,6 +4,7 @@ import java.util.List;
 
 import vn.getgreen.R;
 import vn.getgreen.enties.Conversation;
+import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GShortContentView;
 import vn.getgreen.view.GTextView;
@@ -18,9 +19,11 @@ import android.widget.BaseAdapter;
 public class ConversationAdapter extends BaseAdapter {
 	List<Conversation> conversations;
 	Context context;
-	public ConversationAdapter(Context context, List<Conversation> conversations) {
+	ImageFetcher mImageFetcher;
+	public ConversationAdapter(Context context, List<Conversation> conversations, ImageFetcher imageFetcher) {
 		this.conversations = conversations;
 		this.context = context;
+		this.mImageFetcher = imageFetcher;
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class ConversationAdapter extends BaseAdapter {
 		}else {
 			uneadicon.setVisibility(View.GONE);
 		}
-		pmauthoricon.setImageUrl(conversation.getLinks().getCreator_avatar(), R.drawable.default_avatar_dark);
+		mImageFetcher.loadImage(conversation.getLinks().getCreator_avatar(), pmauthoricon);
 		senttime.setTime(conversation.getConversation_create_date());
 		pmauthor.setText(conversation.getCreator_username());
 		pmtitle.setText(conversation.getConversation_title());

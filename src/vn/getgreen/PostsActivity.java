@@ -79,6 +79,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 			NUM_PAGES = mThread.getThread_post_count() / PostService.LIMIT_POSTS_PER_PAGE;
 			if(mThread.getThread_post_count() % PostService.LIMIT_POSTS_PER_PAGE != 0) NUM_PAGES += 1;
 			quickBar.setVisibility(User.isLogin(this) ? View.VISIBLE : View.GONE);
+			setTitle(mThread.getThread_title());
 		}
         
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());

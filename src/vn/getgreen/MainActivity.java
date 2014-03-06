@@ -152,7 +152,6 @@ public class MainActivity extends BaseActivity {
 			// on first time display view for first nav item
 			if (User.isLogin(this)) {
 				displayView(3);
-				mUserService.getInfo();
 			} else {
 				displayView(1);
 			}
@@ -243,6 +242,7 @@ public class MainActivity extends BaseActivity {
 		// update the main content by replacing fragments
 		fragment = null;
 		if (User.isLogin(this)) {
+			mUserService.getInfo();
 			switch (position) {
 			case 0:
 				fragment = new HomeFragment();
