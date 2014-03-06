@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
 				R.array.nav_drawer_items_not_signin);
 
 		initView(savedInstanceState);
-		
+		if(User.isLogin(this))mUserService.getInfo();
 	}
 
 	@Override
@@ -242,7 +242,6 @@ public class MainActivity extends BaseActivity {
 		// update the main content by replacing fragments
 		fragment = null;
 		if (User.isLogin(this)) {
-			mUserService.getInfo();
 			switch (position) {
 			case 0:
 				fragment = new HomeFragment();

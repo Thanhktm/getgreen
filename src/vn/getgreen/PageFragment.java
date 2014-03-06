@@ -67,7 +67,7 @@ public class PageFragment extends BaseFragment {
 
 	public abstract interface PageListener
     {
-    	public abstract void onLoadComplete(int page,List<Post> post);
+    	public abstract void onLoadComplete(int posts_total,List<Post> post);
     	public abstract void onStartLoad();
     	public abstract void onPrevPage();
     	public abstract void onFastPrevPage();
@@ -172,7 +172,7 @@ public class PageFragment extends BaseFragment {
         
         return rootView;
     }
-
+    
     OnClickListener prevClick = new OnClickListener() {
 		
 		@Override
@@ -222,8 +222,12 @@ public class PageFragment extends BaseFragment {
 			mPageAdapter.notifyDataSetChanged();
 			
 			if (pageListener != null) {
-				pageListener.onLoadComplete(mPageNumber, posts);
+				pageListener.onLoadComplete(mPostService.posts_total, posts);
 			}
+			total_page = mPostService.posts_total / PostService.LIMIT_POSTS_PER_PAGE;
+			if(mPostService.posts_total % PostService.LIMIT_POSTS_PER_PAGE != 0) total_page +=1;
+			header_page_list.setText((mPageNumber + 1) + "/" + total_page);
+            footer_page_list.setText((mPageNumber + 1) + "/" + total_page);
 		}
     	super.onSuccess(client, jsonObject);
     }

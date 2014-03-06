@@ -11,20 +11,19 @@
         android:layout_marginLeft="22.0dip"
         android:layout_marginRight="28.0dip"
         android:layout_marginTop="18.0dip"
-        android:orientation="vertical"
-        android:background="@drawable/conversation_blue_bg_dark" >
+        android:background="@drawable/conversation_blue_bg_dark"
+        android:orientation="vertical" >
 
         <vn.getgreen.view.GTextView
             android:id="@id/conversation_shortcontent"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14.0dip"
             android:layout_marginRight="24.0dip"
             android:layout_marginTop="14.0dip"
             android:minWidth="20.0dip"
-            android:orientation="vertical"
             android:paddingBottom="8.0dip"
-            android:textColor="@color/content_text_unread"
+            android:textColor="@color/all_white"
             android:textSize="14.0sp" />
 
         <vn.getgreen.view.GTextView
@@ -34,7 +33,7 @@
             android:layout_marginBottom="10.0dip"
             android:layout_marginLeft="10.0dip"
             android:layout_marginRight="10.0dip"
-            android:orientation="vertical" />
+            android:textColor="@color/all_gray" />
     </LinearLayout>
 
     <vn.getgreen.view.GTimeStampView

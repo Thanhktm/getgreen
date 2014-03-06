@@ -1,8 +1,8 @@
 package vn.getgreen;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -99,7 +100,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
 			public void onClick(View view) {
 				InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(quickqeply.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-				mPostService.createPost(mThread, quickqeply.getText().toString());
+				mPostService.createPost(mThread, quickqeply.getText().toString()+"\n\n"+signature);
 				quickqeply.getText().clear();
 			}
 		});
@@ -108,7 +109,6 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		menu.findItem(R.id.action_refresh).setVisible(true);
-		
 		return super.onPrepareOptionsMenu(menu);
 	}
 	
@@ -126,23 +126,51 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	
 	@Override
 	public void onRefresh() {
-		
+		PageFragment fragment = ((ScreenSlidePagerAdapter)mPagerAdapter).getFragment(currentPage);
+		fragment.onRefresh();
 	}
 	
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    	private Map<Integer, PageFragment> mPageReferenceMap = new HashMap<Integer, PageFragment>();
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.create(position, mThread, PostsActivity.this, NUM_PAGES, mImageFetcher);
+        	PageFragment fragment  = PageFragment.create(position, mThread, PostsActivity.this, NUM_PAGES, mImageFetcher);
+        	mPageReferenceMap.put(Integer.valueOf(position), fragment);
+            return fragment;
         }
 
         @Override
         public int getCount() {
             return NUM_PAGES;
         }
+        
+        @Override
+		public void destroyItem(View container, int position, Object object) {
+			super.destroyItem(container, position, object);
+			mPageReferenceMap.remove(Integer.valueOf(position));
+		}
+        
+        /**
+         * After an orientation change, the fragments are saved in the adapter, and
+         * I don't want to double save them: I will retrieve them and put them in my
+         * list again here.
+         */
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            PageFragment fragment = (PageFragment) super.instantiateItem(container,
+                    position);
+            mPageReferenceMap.put(position, fragment);
+            return fragment;
+        }
+        
+        public PageFragment getFragment(int key) {
+			
+			return mPageReferenceMap.get(key);
+		}
     }
     @Override
     public void onStart(GClient client) {
@@ -158,7 +186,6 @@ public class PostsActivity extends BaseActivity implements PageListener{
     	if(client instanceof PostService)
     	{
     		loading.setVisibility(View.INVISIBLE);
-    		
     	}
     	super.onFinish(client);
     }
@@ -167,13 +194,18 @@ public class PostsActivity extends BaseActivity implements PageListener{
     public void onSuccess(GClient client, JSONObject jsonObject) {
     	if(client instanceof PostService)
     	{
-    		mPager.setCurrentItem(NUM_PAGES - 1, true);
+    		mPager.setCurrentItem(NUM_PAGES - 1, false);
+    		onRefresh();
     	}
     	super.onSuccess(client, jsonObject);
     }
     
 	@Override
-	public void onLoadComplete(int page, List<Post> post) {
+	public void onLoadComplete(int posts_total, List<Post> post) {
+		mThread.setThread_post_count(posts_total);
+		NUM_PAGES = mThread.getThread_post_count() / PostService.LIMIT_POSTS_PER_PAGE;
+		if(mThread.getThread_post_count() % PostService.LIMIT_POSTS_PER_PAGE != 0) NUM_PAGES += 1;
+		mPagerAdapter.notifyDataSetChanged();
 	}
 
 	@Override

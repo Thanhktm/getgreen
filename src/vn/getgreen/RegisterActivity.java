@@ -7,6 +7,7 @@ import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
 import vn.getgreen.network.RegisterService;
+import vn.getgreen.network.UserService;
 import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
 import android.content.Context;
@@ -27,6 +28,7 @@ public class RegisterActivity extends BaseActivity {
 	private RegisterService mRegisterService;
 	private LoginService mLoginService;
 	private User mUser;
+	private UserService mUserService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class RegisterActivity extends BaseActivity {
 		
 		mRegisterService = new RegisterService(this, this);
 		mLoginService = new LoginService(this, this);
+		mUserService = new UserService(this, this);
 		mUser = new User();
 		
 		mEditUsername = (GEditText) findViewById(R.id.username);
@@ -85,8 +88,12 @@ public class RegisterActivity extends BaseActivity {
 		{
 			mLoginService.login(mUser);
 		}
+		
 		if(client instanceof LoginService && mLoginService.parseJson(jsonObject))
 		{
+			mUserService.getInfo();
+		}
+		if (client instanceof UserService && mUserService.parseJson(jsonObject)) {
 			Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
 			setResult(RESULT_OK);
 			finish();

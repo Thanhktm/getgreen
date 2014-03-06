@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@id/profile_userinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:id="@id/icon"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip"
+            android:layout_marginBottom="29.0dip"
+            android:layout_marginLeft="15.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="23.0dip"
+            android:background="@drawable/pm_avatar_icon" >
+
+            <vn.getgreen.view.GImageView
+                android:id="@id/iconLay"
+                android:layout_width="60.0dip"
+                android:layout_height="60.0dip"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon"
+            android:layout_marginLeft="-27.0dip"
+            android:layout_marginTop="-45.0dip"
+            android:layout_toRightOf="@id/icon"
+            android:src="@drawable/camera" />
+
+        <vn.getgreen.view.GTextView
+            android:id="@id/name"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/icon"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_marginLeft="4.0dip"
+            android:layout_toRightOf="@id/icon"
+            android:includeFontPadding="false"
+            android:textSize="17.0sp"
+            android:textStyle="bold" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/onlineStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/icon"
+            android:layout_marginLeft="4.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="8.0dip"
+            android:layout_toRightOf="@id/name"
+            android:visibility="gone" />
+
+        <vn.getgreen.view.GTextView
+            android:id="@id/description"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name"
+            android:layout_below="@id/name"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_toRightOf="@id/photo"
+            android:ellipsize="end"
+            android:textColor="@color/timestamp"
+            android:textSize="13.0sp" />
+
+        <Button
+            android:id="@id/avatar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:gravity="center"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            android:text="@string/upload_avatar"
+            android:textSize="14.0sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@id/ban_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_toLeftOf="@id/avatar_button"
+            android:gravity="center"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            android:text="@string/ban"
+            android:textSize="14.0sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <vn.getgreen.view.GTextView
+        android:id="@id/currentactivity"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_userinfo"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:maxHeight="50.0dip"
+        android:paddingLeft="10.0dip"
+        android:paddingTop="5.0dip"
+        android:textSize="13.0sp"
+        android:visibility="gone" />
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/profiles_diver"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:layout_alignLeft="@id/profile_userinfo"
+        android:layout_alignRight="@id/profile_userinfo"
+        android:layout_below="@id/currentactivity"
+        android:layout_marginLeft="1.0dip"
+        android:layout_marginRight="1.0dip" />
+
+</RelativeLayout>

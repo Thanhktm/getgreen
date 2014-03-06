@@ -27,7 +27,7 @@ public class GTimeStampView extends GTextView {
 	
 	public void setTime(long time)
 	{
-		Date date = new Date(time);
+		Date date = new Date((long)time*1000);
 		if(DateUtils.isToday(date))
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");

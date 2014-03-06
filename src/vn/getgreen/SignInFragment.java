@@ -6,6 +6,7 @@ import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
+import vn.getgreen.network.UserService;
 import vn.getgreen.view.GButton;
 import vn.getgreen.view.GEditText;
 import android.app.Activity;
@@ -28,7 +29,7 @@ public class SignInFragment extends BaseFragment {
 	
 	private User mUser;
 	private LoginService mLoginService;
-	
+	private UserService mUserService;
 	public SignInFragment(){}
 	
 	@Override
@@ -41,6 +42,7 @@ public class SignInFragment extends BaseFragment {
         mBtnSignin = (GButton) rootView.findViewById(R.id.sign_in);
         mBtnCreate = (GButton) rootView.findViewById(R.id.create_account);
         mLoginService = new LoginService(getActivity(), this);
+        mUserService = new UserService(getActivity(), this);
         this.mUser = new User();
         
         mBtnCreate.setOnClickListener(new OnClickListener() {
@@ -80,6 +82,9 @@ public class SignInFragment extends BaseFragment {
 	public void onSuccess(GClient client, JSONObject jsonObject) {
 		if(client instanceof LoginService && mLoginService.parseJson(jsonObject))
 		{
+			mUserService.getInfo();
+		}
+		if (client instanceof UserService && mUserService.parseJson(jsonObject)) {
 			Toast.makeText(getActivity(), "Login success", Toast.LENGTH_SHORT).show();
 			((MainActivity) getActivity()).initView(null);
 		}

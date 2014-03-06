@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right|center"
                 android:includeFontPadding="false"
+                android:textColor="@color/all_gray"
                 android:textSize="11.0sp" />
         </LinearLayout>
 

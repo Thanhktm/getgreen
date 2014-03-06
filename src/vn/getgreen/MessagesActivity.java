@@ -31,15 +31,18 @@ public class MessagesActivity extends BaseActivity {
 	private ListView mListView;
 	private MessagesAdapter mMessagesAdapter;
 	private MessageService mMessageService;
+	private MessageService mPostMessage;
 	private Conversation mConversation;
 	private RelativeLayout quickbar;
 	private GEditText quickqeply;
 	private ProgressBar loading;
 	private GImageView showAll;
 	private GImageView reply;
+	
 	public MessagesActivity() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class MessagesActivity extends BaseActivity {
 		
 		quickbar.setVisibility(View.VISIBLE);
 		mMessageService = new MessageService(this, this);
+		mPostMessage = new MessageService(this, this);
 		mMessagesAdapter = new MessagesAdapter(this, messages, mImageFetcher);
 		mListView.setAdapter(mMessagesAdapter);
 		
@@ -65,7 +69,7 @@ public class MessagesActivity extends BaseActivity {
 			public void onClick(View view) {
 				InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(quickqeply.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-				mMessageService.createMessage(mConversation.getConversation_id(), quickqeply.getText().toString());
+				mPostMessage.createMessage(mConversation.getConversation_id(), quickqeply.getText().toString() +"\n\n"+signature);
 				quickqeply.getText().clear();
 			}
 		});
@@ -93,11 +97,16 @@ public class MessagesActivity extends BaseActivity {
     
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
-		if(client instanceof MessageService && mMessageService.parseJson(jsonObject))
+		if(client == mMessageService && mMessageService.parseJson(jsonObject))
 		{
 			if(page == 1) messages.clear();
 			messages.addAll(mMessageService.messages);
 			mMessagesAdapter.notifyDataSetChanged();
+		}
+		if (client == mPostMessage && mPostMessage.parseJson(jsonObject)) {
+			messages.add(mPostMessage.message);
+			mMessagesAdapter.notifyDataSetChanged();
+			mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 		}
 		super.onSuccess(client, jsonObject);
 	}

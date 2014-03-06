@@ -17,9 +17,9 @@
             android:id="@id/conversation_authoricon"
             android:layout_width="38.0dip"
             android:layout_height="38.0dip"
+            android:background="@drawable/default_avatar_dark"
             android:focusable="false"
-            android:gravity="left|center" 
-            android:background="@drawable/default_avatar_dark"/>
+            android:gravity="left|center" />
 
         <vn.getgreen.view.GImageView
             android:id="@id/avater_bg"
@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6.0dip"
             android:layout_toRightOf="@id/conversation_authoricon"
-            android:orientation="vertical" 
-            android:background="@drawable/conversation_white_bg_dark">
+            android:background="@drawable/conversation_white_bg_dark"
+            android:orientation="vertical" >
 
             <vn.getgreen.view.GTextView
                 android:id="@id/conversation_author"
@@ -66,10 +66,11 @@
                 android:id="@id/conversation_attachment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="10.0dip"
                 android:layout_marginLeft="10.0dip"
-                android:layout_marginRight="10.0dip" />
+                android:layout_marginRight="10.0dip"
+                android:orientation="vertical"
+                android:textColor="@color/all_gray" />
         </LinearLayout>
 
         <vn.getgreen.view.GTimeStampView

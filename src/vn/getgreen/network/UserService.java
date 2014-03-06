@@ -36,7 +36,7 @@ public class UserService extends GClient {
 					this.user.setPassword(userCached.getPassword());
 					if(userCached.getOne_time_token() == null)
 					{
-						long time = System.currentTimeMillis() / 1000 + Constants.DAYS_TOKEN_EXPRIED;
+						long time = (System.currentTimeMillis() + Constants.DAYS_TOKEN_EXPRIED) / 1000;
 						String once = EncryptUtils.md5(user.getUser_id()+""+time+user.getAccess_token()+Constants.CLIENT_SECRET);
 						String ott = String.format("%d,%d,%s,%s", user.getUser_id(), time, once, Constants.API_KEY);
 						user.setOne_time_token(ott);	
