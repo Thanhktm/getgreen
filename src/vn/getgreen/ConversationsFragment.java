@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class ConversationsFragment extends BaseFragment {
@@ -30,6 +31,7 @@ public class ConversationsFragment extends BaseFragment {
 	private ConversationAdapter mConversationAdapter;
 	private List<Conversation> conversations = new ArrayList<Conversation>();
 	private RelativeLayout ll;
+	private ProgressBar loading;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,8 @@ public class ConversationsFragment extends BaseFragment {
         onRefresh();
         mConversationAdapter = new ConversationAdapter(getActivity(), conversations, ((MainActivity)getActivity()).mImageFetcher);
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
+		loading = (ProgressBar) rootView.findViewById(R.id.loading);
+		
 		mListConversations = (ListView) rootView.findViewById(R.id.list);
 		mListConversations.setAdapter(mConversationAdapter);
 		mListConversations.setOnItemClickListener(new OnItemClickListener() {
@@ -57,8 +61,24 @@ public class ConversationsFragment extends BaseFragment {
         return rootView;
     }
 	
+	@Override
+	public void onStart(GClient client) {
+		if(client instanceof ConversationService && conversations.size() == 0)
+		{
+			loading.setVisibility(View.VISIBLE);
+		}
+		super.onStart(client);
+	}
 
-
+	@Override
+	public void onFinish(GClient client) {
+		if(client instanceof ConversationService)
+		{
+			loading.setVisibility(View.GONE);
+		}
+		super.onFinish(client);
+	}
+	
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
 		if (client instanceof ConversationService

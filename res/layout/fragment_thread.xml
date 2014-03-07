@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent" >
+
+    <ProgressBar
+        android:id="@id/loading"
+        android:layout_width="48.0dip"
+        android:layout_height="48.0dip"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@id/ll"
         android:layout_width="wrap_content"
@@ -21,23 +28,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/image"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="@string/no_topic"
-            android:layout_centerHorizontal="true"
-            android:textSize="16sp"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/all_gray"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </RelativeLayout>
-    
-   <ListView 
+
+    <ListView
         android:id="@id/list"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:divider="@android:color/transparent"
-  		android:dividerHeight="10.0sp"
-  		android:padding="10dip"
-    	android:clipToPadding="false">
+        android:dividerHeight="10.0sp"
+        android:padding="10dip" >
     </ListView>
 
 </RelativeLayout>

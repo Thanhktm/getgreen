@@ -9,6 +9,8 @@ import org.json.JSONObject;
 
 import vn.getgreen.adapter.PageAdapter;
 import vn.getgreen.common.BaseFragment;
+import vn.getgreen.common.DialogBuilder;
+import vn.getgreen.common.DialogBuilder.GDialogListener;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.imagecache.ImageFetcher;
@@ -16,13 +18,18 @@ import vn.getgreen.network.GClient;
 import vn.getgreen.network.PostService;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GTextView;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class PageFragment extends BaseFragment {
@@ -58,7 +65,8 @@ public class PageFragment extends BaseFragment {
     private GImageView footer_next;
     private GImageView footer_fast_next;
     private RelativeLayout footer_page_btn;
-
+    private ProgressBar loading;
+    
 	private GTextView footer_page_list;
 
 	public void setPageListener(PageListener pageListener) {
@@ -74,6 +82,7 @@ public class PageFragment extends BaseFragment {
     	public abstract void onNextPage();
     	public abstract void onFastNextPage();
     	public abstract void onPageBtn();
+    	public abstract void onActionWithPost(Post post);
     }
     
     /**
@@ -123,12 +132,15 @@ public class PageFragment extends BaseFragment {
         header_page_btn = (RelativeLayout) header.findViewById(R.id.page_btn);
         header_page_list = (GTextView) header.findViewById(R.id.page_list);
         
+        loading = (ProgressBar) header.findViewById(R.id.loading);
+        
         footer_prev = (GImageView) footer.findViewById(R.id.prev);
         footer_fast_prev = (GImageView) footer.findViewById(R.id.fast_prev);
         footer_next = (GImageView) footer.findViewById(R.id.next);
         footer_fast_next = (GImageView) footer.findViewById(R.id.fast_next);
         footer_page_btn = (RelativeLayout) footer.findViewById(R.id.page_btn);
         footer_page_list = (GTextView) footer.findViewById(R.id.page_list);
+        
         setPageListener((PostsActivity)getActivity());
         if(total_page > 1)
         {
@@ -170,8 +182,24 @@ public class PageFragment extends BaseFragment {
         	footer_page_btn.setOnClickListener(pageBtnClick);
         }
         
+        mListPost.setOnItemLongClickListener(onLongClickPost);
+        
         return rootView;
     }
+    
+    OnItemLongClickListener onLongClickPost = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View converView,
+				int position, long itemId) {
+			int offset = (total_page == 1 ? 0 : 1);
+			if(offset == 1 && position == 0) return true;
+			if(offset == 1 && position > posts.size()) return true;
+			Post post = posts.get(position - offset);
+			if(pageListener != null) pageListener.onActionWithPost(post);
+			return true;
+		}
+	};
     
     OnClickListener prevClick = new OnClickListener() {
 		
@@ -232,6 +260,23 @@ public class PageFragment extends BaseFragment {
     	super.onSuccess(client, jsonObject);
     }
     
+    @Override
+    public void onStart(GClient client) {
+    	if(client instanceof PostService && posts.size() == 0)
+    	{
+    		loading.setVisibility(View.VISIBLE);
+    	}
+    	super.onStart(client);
+    }
+    
+    @Override
+    public void onFinish(GClient client) {
+    	if(client instanceof PostService)
+    	{
+    		loading.setVisibility(View.GONE);
+    	}
+    	super.onFinish(client);
+    }
     /**
      * Returns the page number represented by this fragment object.
      */

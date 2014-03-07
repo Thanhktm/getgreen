@@ -1,8 +1,5 @@
 package vn.getgreen.enties;
 
-import java.util.HashMap;
-
-import vn.getgreen.view.URLDrawable;
 
 public class Post extends BaseEnity {
 
@@ -14,7 +11,6 @@ public class Post extends BaseEnity {
 	public Post() {
 		// TODO Auto-generated constructor stub
 	}
-	public HashMap<String, URLDrawable> map = new HashMap<String, URLDrawable>();
 	
 	private int post_id;
 	private int thread_id;
@@ -130,6 +126,4 @@ public class Post extends BaseEnity {
 		this.permissions = permissions;
 	}
 	
-	
-
 }

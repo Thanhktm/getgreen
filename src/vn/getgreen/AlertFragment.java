@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class AlertFragment extends BaseFragment {
@@ -26,13 +27,15 @@ public class AlertFragment extends BaseFragment {
 	private List<Notification> notifications = new ArrayList<Notification>();
 	private NotificationService mNotificationService;
 	private ListView mListView;
-	
+	private ProgressBar loading;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
         ll = (RelativeLayout) rootView.findViewById(R.id.ll);
+        loading = (ProgressBar) rootView.findViewById(R.id.loading);
+        
         mNotificationService = new NotificationService(getActivity(), this);
         mListView = (ListView) rootView.findViewById(R.id.list);
         mAlertAdapter = new AlertAdapter(getActivity(), notifications, ((MainActivity)getActivity()).mImageFetcher);
@@ -40,7 +43,25 @@ public class AlertFragment extends BaseFragment {
         onRefresh();
         return rootView;
     }
+	
+	@Override
+	public void onStart(GClient client) {
+		if(client instanceof NotificationService && notifications.size() == 0)
+		{
+			loading.setVisibility(View.VISIBLE);
+		}
+		super.onStart(client);
+	}
 
+	@Override
+	public void onFinish(GClient client) {
+		if(client instanceof NotificationService)
+		{
+			loading.setVisibility(View.GONE);
+		}
+		super.onFinish(client);
+	}
+	
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
 		if(client instanceof NotificationService && mNotificationService.parseJson(jsonObject))

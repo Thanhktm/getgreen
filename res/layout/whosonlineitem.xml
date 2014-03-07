@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/category_item_color_dark" >
+
+    <RelativeLayout
+        android:id="@id/people_infomation"
+        android:layout_width="fill_parent"
+        android:layout_height="72.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip" >
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/WhosOnlineImg"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13.0dip" />
+
+        <vn.getgreen.view.GImageView
+            android:id="@id/avater_bg"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:layout_alignRight="@id/WhosOnlineImg"
+            android:layout_alignTop="@id/WhosOnlineImg"
+            android:background="@drawable/avator_background" />
+
+        <LinearLayout
+            android:id="@id/people_text_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/WhosOnlineImg"
+            android:orientation="vertical"
+            android:paddingLeft="10.0dip" >
+
+            <vn.getgreen.view.GTextView
+                android:id="@id/WhosOnlineItem"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:textSize="14.0sp"
+                android:textStyle="bold" />
+
+            <vn.getgreen.view.GTextView
+                android:id="@id/WhosOnlineText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15.0dip"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="2"
+                android:paddingTop="3.0dip"
+                android:textColor="@color/forum_title_color"
+                android:textSize="12.0sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <vn.getgreen.view.GImageView
+        android:id="@id/people_diver"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:layout_alignLeft="@id/people_infomation"
+        android:layout_alignRight="@id/people_infomation"
+        android:layout_below="@id/people_infomation"
+        android:layout_marginLeft="1.0dip"
+        android:layout_marginRight="1.0dip" />
+
+</RelativeLayout>

@@ -38,6 +38,7 @@ public class MessagesActivity extends BaseActivity {
 	private ProgressBar loading;
 	private GImageView showAll;
 	private GImageView reply;
+	private ProgressBar loadingMain;
 	
 	public MessagesActivity() {
 		// TODO Auto-generated constructor stub
@@ -55,6 +56,7 @@ public class MessagesActivity extends BaseActivity {
 		quickqeply = (GEditText) findViewById(R.id.quickqeply);
 		showAll = (GImageView) findViewById(R.id.show_all);
 		loading = (ProgressBar) findViewById(R.id.loading);
+		loadingMain = (ProgressBar) findViewById(R.id.loading1);
 		reply = (GImageView) findViewById(R.id.reply);
 		
 		quickbar.setVisibility(View.VISIBLE);
@@ -79,18 +81,26 @@ public class MessagesActivity extends BaseActivity {
 	
 	@Override
     public void onStart(GClient client) {
-    	if(client instanceof MessageService)
+    	if(client == mPostMessage)
     	{
     		loading.setVisibility(View.VISIBLE);
+    	}
+    	if(client == mMessageService)
+    	{
+    		loadingMain.setVisibility(View.VISIBLE);
     	}
     	super.onStart(client);
     }
     
     @Override
     public void onFinish(GClient client) {
-    	if(client instanceof MessageService)
+    	if(client == mPostMessage)
     	{
     		loading.setVisibility(View.INVISIBLE);
+    	}
+    	if(client == mMessageService)
+    	{
+    		loadingMain.setVisibility(View.GONE);
     	}
     	super.onFinish(client);
     }

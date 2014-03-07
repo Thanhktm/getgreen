@@ -3,14 +3,12 @@ package vn.getgreen.view;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import vn.getgreen.imagecache.ImageFetcher;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -21,33 +19,29 @@ import android.widget.TextView;
 public class URLImageParser implements ImageGetter {
 	Context c;
     View container;
-    HashMap<String, URLDrawable> map;
     ImageFetcher mImageFetcher;
     /***
      * Construct the URLImageParser which will execute AsyncTask and refresh the container
      * @param t
      * @param c
      */
-    public URLImageParser(View t, Context c, HashMap<String, URLDrawable> map) {
+    public URLImageParser(View t, Context c) {
         this.c = c;
         this.container = t;
-        this.map = map;
-        
     }
 
     public Drawable getDrawable(String source) {
-        if (map.get(source) != null) return map.get(source);
     	URLDrawable urlDrawable = new URLDrawable();
-        map.put(source, urlDrawable);
+
         // get the actual source
         ImageGetterAsyncTask asyncTask = 
-            new ImageGetterAsyncTask(map.get(source));
+            new ImageGetterAsyncTask(urlDrawable);
 
         asyncTask.execute(source);
 
         // return reference to URLDrawable where I will change with actual image from
         // the src tag
-        return map.get(source);
+        return urlDrawable;
     }
 
     public class ImageGetterAsyncTask extends AsyncTask<String, Void, Drawable>  {

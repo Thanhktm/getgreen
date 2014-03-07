@@ -81,7 +81,7 @@ public class PageAdapter extends BaseAdapter {
 		viewHolder.post_author_name.setText(post.getPoster_username());
 		viewHolder.post_reply_time.setTime(post.getPost_create_date());
 		
-		URLImageParser p = new URLImageParser(viewHolder.content, context, post.map);
+		URLImageParser p = new URLImageParser(viewHolder.content, context);
 		Spanned htmlSpan = Html.fromHtml(post.getPost_body_html() , p, null);
 		viewHolder.content.setText(htmlSpan);
 		

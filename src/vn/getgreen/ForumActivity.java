@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -30,6 +31,8 @@ public class ForumActivity extends BaseActivity {
 	private ForumAdapter mForumAdapter;
 	private List<Forum> forums;
 	private RelativeLayout ll;
+	private ProgressBar loading;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +45,8 @@ public class ForumActivity extends BaseActivity {
 		forums = new ArrayList<Forum>();
 		mForumAdapter = new ForumAdapter(this, forums);
 		ll = (RelativeLayout) findViewById(R.id.ll);
+		loading = (ProgressBar) findViewById(R.id.loading);
+		
 		mListForum = (ListView) findViewById(R.id.list);
 		mListForum.setAdapter(mForumAdapter);
 		
@@ -70,7 +75,23 @@ public class ForumActivity extends BaseActivity {
 		});
 	}
 	
+	@Override
+	public void onStart(GClient client) {
+		if(client instanceof ForumService && forums.size() == 0)
+		{
+			loading.setVisibility(View.VISIBLE);
+		}
+		super.onStart(client);
+	}
 
+	@Override
+	public void onFinish(GClient client) {
+		if(client instanceof ForumService)
+		{
+			loading.setVisibility(View.GONE);
+		}
+		super.onFinish(client);
+	}
 	public void onRefresh() {
 		Intent intent = getIntent();
 		if(intent.getSerializableExtra(Category.class.getName()) != null)

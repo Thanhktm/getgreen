@@ -10,6 +10,7 @@ import vn.getgreen.PageFragment.PageListener;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.common.DialogBuilder;
 import vn.getgreen.common.DialogBuilder.GDialogListener;
+import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.enties.User;
@@ -17,11 +18,13 @@ import vn.getgreen.network.GClient;
 import vn.getgreen.network.PostService;
 import vn.getgreen.view.GEditText;
 import vn.getgreen.view.GImageView;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -36,6 +39,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class PostsActivity extends BaseActivity implements PageListener{
 	private Thread mThread;
@@ -48,6 +52,11 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	private GImageView showAll;
 	private GImageView reply;
 	private PostService mPostService;
+	private PostService mPostDelete;
+	private PostService mPostLike;
+	
+	public static final int REQUEST_CODE_NEWPOST = 1;
+	
 	private int currentPage = 0;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -94,6 +103,9 @@ public class PostsActivity extends BaseActivity implements PageListener{
         });
         
         mPostService = new PostService(this, this);
+        mPostDelete = new PostService(this, this);
+        mPostLike = new PostService(this, this);
+        
         reply.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -174,7 +186,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
     }
     @Override
     public void onStart(GClient client) {
-    	if(client instanceof PostService)
+    	if(client == mPostService)
     	{
     		loading.setVisibility(View.VISIBLE);
     	}
@@ -183,7 +195,7 @@ public class PostsActivity extends BaseActivity implements PageListener{
     
     @Override
     public void onFinish(GClient client) {
-    	if(client instanceof PostService)
+    	if(client == mPostService)
     	{
     		loading.setVisibility(View.INVISIBLE);
     	}
@@ -192,9 +204,13 @@ public class PostsActivity extends BaseActivity implements PageListener{
     
     @Override
     public void onSuccess(GClient client, JSONObject jsonObject) {
-    	if(client instanceof PostService)
+    	if(client == mPostService)
     	{
     		mPager.setCurrentItem(NUM_PAGES - 1, false);
+    		onRefresh();
+    	}
+    	if(client == mPostDelete || client == mPostLike)
+    	{
     		onRefresh();
     	}
     	super.onSuccess(client, jsonObject);
@@ -254,6 +270,70 @@ public class PostsActivity extends BaseActivity implements PageListener{
 				mPager.setCurrentItem(which, false);
 			}
 		});
+	}
+
+	@Override
+	public void onActionWithPost(final Post post) {
+		if(!User.isLogin(this))
+		{
+			Toast.makeText(this, getResources().getString(R.string.require_login), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                PostsActivity.this,
+                android.R.layout.simple_list_item_1);
+		Permissions permissions = post.getPermissions();
+		final Resources res = getResources();
+		if(post.isPost_is_liked()) arrayAdapter.add(res.getString(R.string.QuickAction_unLike));
+		if(permissions.isLike() && !post.isPost_is_liked()) arrayAdapter.add(res.getString(R.string.QuickAction_Like));
+		arrayAdapter.add(res.getString(R.string.QuickAction_Quote));
+		if(permissions.isEdit()) arrayAdapter.add(res.getString(R.string.QuickAction_Edit));
+		if(permissions.isDelete()) arrayAdapter.add(res.getString(R.string.QuickAction_delete));
+		
+		new DialogBuilder(this, arrayAdapter, new GDialogListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String command = arrayAdapter.getItem(which);
+				if(command.equals(res.getString(R.string.QuickAction_Like)))
+				{
+					mPostLike.like(post);
+				}
+				if(command.equals(res.getString(R.string.QuickAction_unLike)))
+				{
+					mPostLike.unLike(post);
+				}
+				if(command.equals(res.getString(R.string.QuickAction_Edit)))
+				{
+					Intent intent = new Intent(PostsActivity.this, NewTopicActivity.class);
+					intent.putExtra(NewTopicActivity.MODE_CODE, NewTopicActivity.MODE_EDIT_POST);
+					intent.putExtra(Thread.class.getName(), mThread);
+					intent.putExtra(Post.class.getName(), post);
+					startActivityForResult(intent, REQUEST_CODE_NEWPOST);
+				}
+				if(command.equals(res.getString(R.string.QuickAction_delete)))
+				{
+					mPostDelete.remove(post);
+				}
+				if(command.equals(res.getString(R.string.QuickAction_Quote)))
+				{
+					Intent intent = new Intent(PostsActivity.this, NewTopicActivity.class);
+					intent.putExtra(NewTopicActivity.MODE_CODE, NewTopicActivity.MODE_NEW_POST_QUOTE);
+					intent.putExtra(Thread.class.getName(), mThread);
+					intent.putExtra(Post.class.getName(), post);
+					startActivityForResult(intent, REQUEST_CODE_NEWPOST);
+				}
+			}
+		});
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == REQUEST_CODE_NEWPOST && resultCode == Activity.RESULT_OK)
+		{
+			mPager.setCurrentItem(NUM_PAGES - 1, false);
+			onRefresh();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }
 

@@ -2,6 +2,7 @@ package vn.getgreen.common;
 
 import org.json.JSONObject;
 
+import vn.getgreen.MainActivity;
 import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.LoginService;
@@ -34,6 +35,10 @@ public abstract class BaseFragment extends Fragment implements ResponseListener 
 		if(statusCode == 403)
 		{
 			User.save(getActivity(), null);
+			if(getActivity() instanceof MainActivity)
+			{
+				((MainActivity)getActivity()).initView(null);
+			}
 		}
 	}
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_network_connection_toast">No network</string>
-    <string name="perform_action">Perform Action</string>
+    <string name="perform_action">Thao tác</string>
     <string name="format">Gửi từ %s của tôi</string>
 	<string name="host_name">GetGreen</string>
     <string name="app_name">GetGreen</string>
@@ -9,7 +9,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-
+	<string name="require_login">Bạn cần phải đăng nhập!</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items_not_signin">
         <item>Trang nhất</item>
@@ -490,6 +490,7 @@ Vui lòng liên hệ với chủ sở hữu diễn đàn của bạn để cập
     <string name="QuickAction_Thanks">Cảm ơn</string>
     <string name="QuickAction_Like">Thích</string>
     <string name="QuickAction_unLike">Không thích</string>
+    <string name="QuickAction_delete">Xóa</string>
     <string name="loading">Đang tải...</string>
     <string name="forumnavigateactivity_dlg_item_create_shortcut">Tạo lối tắt</string>
     <string name="menu_copy_url">Copy URL</string>

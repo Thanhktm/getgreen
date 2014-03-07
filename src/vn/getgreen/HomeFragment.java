@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 public class HomeFragment extends BaseFragment {
@@ -31,6 +32,7 @@ public class HomeFragment extends BaseFragment {
 	ThreadService mThreadService;
 	ForumService mForumService;
 	private RelativeLayout ll;
+	private ProgressBar loading;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +42,7 @@ public class HomeFragment extends BaseFragment {
         mThreadAdapter = new ThreadAdapter(getActivity(), threads, ((MainActivity) getActivity()).mImageFetcher);
 		mListThread = (ListView) rootView.findViewById(R.id.list);
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
+		loading = (ProgressBar) rootView.findViewById(R.id.loading);
 		
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(getActivity(), this);
@@ -58,6 +61,23 @@ public class HomeFragment extends BaseFragment {
 		});
         return rootView;
     }
+	
+	@Override
+	public void onStart(GClient client) {
+		if (client instanceof ForumService && threads.size() == 0) {
+			loading.setVisibility(View.VISIBLE);
+		}
+		super.onStart(client);
+	}
+	
+	@Override
+	public void onFinish(GClient client) {
+		if(client instanceof ThreadService)
+		{
+			loading.setVisibility(View.GONE);
+		}
+		super.onFinish(client);
+	}
 	
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
