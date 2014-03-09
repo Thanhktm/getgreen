@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/category_item_color_dark"
+    android:layout_marginBottom="10dp">
 
     <RelativeLayout
         android:id="@id/profile_userinfo"
@@ -28,7 +30,8 @@
                 android:id="@id/iconLay"
                 android:layout_width="60.0dip"
                 android:layout_height="60.0dip"
-                android:gravity="center" />
+                android:gravity="center" 
+                android:background="@drawable/default_avatar_dark"/>
         </LinearLayout>
 
         <vn.getgreen.view.GImageView
@@ -39,7 +42,8 @@
             android:layout_marginLeft="-27.0dip"
             android:layout_marginTop="-45.0dip"
             android:layout_toRightOf="@id/icon"
-            android:src="@drawable/camera" />
+            android:src="@drawable/camera" 
+            android:visibility="gone"/>
 
         <vn.getgreen.view.GTextView
             android:id="@id/name"
@@ -52,7 +56,8 @@
             android:layout_toRightOf="@id/icon"
             android:includeFontPadding="false"
             android:textSize="17.0sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="@color/all_white"/>
 
         <vn.getgreen.view.GImageView
             android:id="@id/onlineStatus"

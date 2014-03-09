@@ -3,6 +3,7 @@ package vn.getgreen.adapter;
 import java.util.List;
 
 import vn.getgreen.R;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.enties.Post;
 import vn.getgreen.imagecache.ImageFetcher;
 import vn.getgreen.view.GImageView;
@@ -15,6 +16,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -23,10 +25,12 @@ public class PageAdapter extends BaseAdapter {
 	List<Post> posts;
 	Context context;
 	ImageFetcher mImageFetcher;
-	public PageAdapter(Context context, List<Post> posts, ImageFetcher imageFetcher) {
+	private UserListener userListener;
+	public PageAdapter(Context context, List<Post> posts, UserListener userListener, ImageFetcher imageFetcher) {
 		this.posts = posts;
 		this.context = context;
 		this.mImageFetcher = imageFetcher;
+		this.userListener = userListener;
 	}
 
 	@Override
@@ -75,12 +79,23 @@ public class PageAdapter extends BaseAdapter {
             viewHolder = ((ViewHolder) view.getTag());
 		}
 		
-		Post post = posts.get(position);
+		final Post post = posts.get(position);
 		if(mImageFetcher != null)mImageFetcher.loadImage(post.getLinks().getPoster_avatar(), viewHolder.iconLay);
 		//viewHolder.iconLay.setImageUrl(post.getLinks().getPoster_avatar(), R.drawable.default_avatar_dark);
 		viewHolder.post_author_name.setText(post.getPoster_username());
 		viewHolder.post_reply_time.setTime(post.getPost_create_date());
-		
+		viewHolder.post_author_name.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(userListener != null) userListener.onUserSelected(post.getPoster_user_id());
+			}
+		});
+		viewHolder.iconLay.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(userListener != null) userListener.onUserSelected(post.getPoster_user_id());
+			}
+		});
 		URLImageParser p = new URLImageParser(viewHolder.content, context);
 		Spanned htmlSpan = Html.fromHtml(post.getPost_body_html() , p, null);
 		viewHolder.content.setText(htmlSpan);

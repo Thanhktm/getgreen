@@ -6,10 +6,12 @@ import java.util.List;
 import org.json.JSONObject;
 
 import vn.getgreen.adapter.AlertAdapter;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Notification;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.NotificationService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-public class AlertFragment extends BaseFragment {
+public class AlertFragment extends BaseFragment implements UserListener{
 	
 	public AlertFragment(){}
 	
@@ -38,7 +40,7 @@ public class AlertFragment extends BaseFragment {
         
         mNotificationService = new NotificationService(getActivity(), this);
         mListView = (ListView) rootView.findViewById(R.id.list);
-        mAlertAdapter = new AlertAdapter(getActivity(), notifications, ((MainActivity)getActivity()).mImageFetcher);
+        mAlertAdapter = new AlertAdapter(getActivity(), notifications, ((MainActivity)getActivity()).mImageFetcher, this);
         mListView.setAdapter(mAlertAdapter);
         onRefresh();
         return rootView;
@@ -83,5 +85,12 @@ public class AlertFragment extends BaseFragment {
 	@Override
 	public void onRefresh() {
 		mNotificationService.list();
+	}
+	
+	@Override
+	public void onUserSelected(int user_id) {
+		Intent intent = new Intent(getActivity(), ProfileActivity.class);
+		intent.putExtra(ProfileActivity.KEY_USER_ID, user_id);
+		startActivity(intent);		
 	}
 }

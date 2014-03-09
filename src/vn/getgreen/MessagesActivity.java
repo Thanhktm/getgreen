@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import vn.getgreen.adapter.MessagesAdapter;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.enties.Conversation;
 import vn.getgreen.enties.Message;
@@ -25,7 +26,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-public class MessagesActivity extends BaseActivity {
+public class MessagesActivity extends BaseActivity implements UserListener{
 
 	private List<Message> messages = new ArrayList<Message>();
 	private ListView mListView;
@@ -62,11 +63,10 @@ public class MessagesActivity extends BaseActivity {
 		quickbar.setVisibility(View.VISIBLE);
 		mMessageService = new MessageService(this, this);
 		mPostMessage = new MessageService(this, this);
-		mMessagesAdapter = new MessagesAdapter(this, messages, mImageFetcher);
+		mMessagesAdapter = new MessagesAdapter(this, messages, mImageFetcher, this);
 		mListView.setAdapter(mMessagesAdapter);
 		
 		reply.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View view) {
 				InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -150,6 +150,13 @@ public class MessagesActivity extends BaseActivity {
 			setTitle(mConversation.getConversation_title());
 			mMessageService.list(mConversation, 1);
 		}
+	}
+
+	@Override
+	public void onUserSelected(int user_id) {
+		Intent intent = new Intent(this, ProfileActivity.class);
+		intent.putExtra(ProfileActivity.KEY_USER_ID, user_id);
+		startActivity(intent);		
 	}
 
 }

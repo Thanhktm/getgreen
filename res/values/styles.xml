@@ -41,6 +41,10 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/blue_5bb2d2</item>
     </style>
+     <style name="Ligth_14_Gray_Text" parent="@android:attr/textAppearance">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/gray_898989</item>
+    </style>
     <style name="MyTheme.Widget.ListView" parent="@android:style/Widget.ListView">
     <item name="android:listSelector">@drawable/list_selector</item>
   </style>
@@ -54,6 +58,7 @@
         <item name="android:actionBarWidgetTheme">@style/Search_14_style</item>
         <item name="quoord_author_large_textStyle">@style/Ligth_14_author_Text</item>
         <item name="android:listViewStyle">@style/MyTheme.Widget.ListView</item>
+        <item name="quoord_14_Gray_textStyle">@style/Ligth_14_Gray_Text</item>
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">

@@ -6,11 +6,16 @@ import java.util.List;
 import org.json.JSONObject;
 
 import vn.getgreen.adapter.ThreadAdapter;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.common.BaseFragment;
+import vn.getgreen.common.DialogBuilder;
+import vn.getgreen.common.DialogBuilder.GDialogListener;
+import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.network.ForumService;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,11 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements UserListener {
 	
 	public HomeFragment(){}
 	
@@ -33,20 +40,25 @@ public class HomeFragment extends BaseFragment {
 	ForumService mForumService;
 	private RelativeLayout ll;
 	private ProgressBar loading;
+	ThreadService mThreadRemoveService;
+	ThreadService mThreadSubscribe;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_thread, container, false);
-        mThreadAdapter = new ThreadAdapter(getActivity(), threads, ((MainActivity) getActivity()).mImageFetcher);
+        mThreadAdapter = new ThreadAdapter(getActivity(), threads, this, ((MainActivity) getActivity()).mImageFetcher);
 		mListThread = (ListView) rootView.findViewById(R.id.list);
 		ll = (RelativeLayout) rootView.findViewById(R.id.ll);
 		loading = (ProgressBar) rootView.findViewById(R.id.loading);
 		
-		mListThread.setAdapter(mThreadAdapter);
+		mThreadRemoveService = new ThreadService(getActivity(), this);
+		mThreadSubscribe = new ThreadService(getActivity(), this);
 		mThreadService = new ThreadService(getActivity(), this);
 		mForumService = new ForumService(getActivity(), this);
+		
+		mListThread.setAdapter(mThreadAdapter);
 		onRefresh();
 		mListThread.setOnItemClickListener(new OnItemClickListener() {
 
@@ -57,6 +69,40 @@ public class HomeFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), PostsActivity.class);
 				intent.putExtra(Thread.class.getName(), thread);
 				startActivity(intent);
+			}
+		});
+		mListThread.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					final int position, long itemId) {
+				final Thread thread = threads.get(position);
+				Permissions permissions = thread.getPermissions();
+				
+	            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+	                    getActivity(),
+	                    android.R.layout.simple_list_item_1);
+	            arrayAdapter.add(getResources().getString(R.string.ForumMenuAdapter_topic_menu_unsubscribe));
+	            if(permissions.isDelete())arrayAdapter.add(getResources().getString(R.string.ThreadActivity_dlgitem_delete));
+	            
+	            new DialogBuilder(getActivity(), arrayAdapter, new GDialogListener() {
+	        		
+	        		@Override
+	        		public void onClick(DialogInterface dialog, int which) {
+	        			switch (which) {
+	        			case 0:
+	        				mThreadSubscribe.unfollow(thread);
+	        				break;
+						case 1:
+							mThreadRemoveService.remove(thread);
+							break;
+						default:
+							break;
+						}
+	        			dialog.dismiss();
+	        		}
+	        	});
+				return true;
 			}
 		});
         return rootView;
@@ -102,6 +148,13 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void onRefresh() {
 		mForumService.list();		
+	}
+
+	@Override
+	public void onUserSelected(int user_id) {
+		Intent intent = new Intent(getActivity(), ProfileActivity.class);
+		intent.putExtra(ProfileActivity.KEY_USER_ID, user_id);
+		startActivity(intent);		
 	}
 	
 }

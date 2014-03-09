@@ -55,8 +55,8 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	private PostService mPostDelete;
 	private PostService mPostLike;
 	
-	public static final int REQUEST_CODE_NEWPOST = 1;
-	
+	public static final int REQUEST_CODE_NEWPOST = 2;
+	public static final int REQUEST_CODE_EDITPOST = 3;
 	private int currentPage = 0;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -248,7 +248,14 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	public void onFastNextPage() {
 		mPager.setCurrentItem(NUM_PAGES - 1, true);
 	}
-
+	
+	@Override
+	public void onUserProfile(int user_id) {
+		Intent intent = new Intent(this, ProfileActivity.class);
+		intent.putExtra(ProfileActivity.KEY_USER_ID, user_id);
+		startActivity(intent);
+	}
+	
 	@Override
 	public void onPageBtn() {
 		  final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -330,10 +337,19 @@ public class PostsActivity extends BaseActivity implements PageListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == REQUEST_CODE_NEWPOST && resultCode == Activity.RESULT_OK)
 		{
+			onLoadComplete(mThread.getThread_post_count() + 1, null);
+			currentPage = NUM_PAGES - 1;
 			mPager.setCurrentItem(NUM_PAGES - 1, false);
 			onRefresh();
 		}
+		if(requestCode == REQUEST_CODE_EDITPOST && resultCode == Activity.RESULT_OK)
+		{
+			onRefresh();
+		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	
 }
 

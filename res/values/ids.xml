@@ -2,6 +2,7 @@
 <resources>
     <item type="id" name="content_webview" />
     <item type="id" name="action_send" />
+    <item type="id" name="action_logout" />
     <item type="id" name="list_forum" />
     <item type="id" name="selected_view" />
     <item type="id" name="tapaid_layout">false</item>

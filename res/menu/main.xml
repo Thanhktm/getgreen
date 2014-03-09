@@ -1,5 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"  >
     <item
+        android:id="@id/action_logout"
+        android:orderInCategory="1"
+        android:icon="@drawable/drawer_menu_logout_dark"
+        android:showAsAction="always"
+        android:visible="false"/>
+    <item
         android:id="@id/action_send"
         android:orderInCategory="9"
         android:icon="@drawable/menu_send_title_dark"
@@ -13,7 +19,7 @@
         android:visible="false"/>
 	<item
         android:id="@id/advancesearch"
-        android:orderInCategory="10"
+        android:orderInCategory="11"
         android:actionLayout="@layout/action_bar_advancesearch"
         android:showAsAction="always"
         android:visible="false"/>

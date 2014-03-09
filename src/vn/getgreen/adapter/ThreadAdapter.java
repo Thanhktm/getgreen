@@ -12,9 +12,9 @@ import vn.getgreen.view.GTextView;
 import vn.getgreen.view.GTimeStampView;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources.Theme;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
@@ -23,10 +23,17 @@ public class ThreadAdapter extends BaseAdapter {
 	List<Thread> threads;
 	Context context;
 	ImageFetcher mImageFetcher;
-	public ThreadAdapter(Context context, List<Thread> threads, ImageFetcher imageFetcher) {
+	private UserListener threadListener;
+	
+	public abstract interface UserListener
+	{
+		public abstract void onUserSelected(int user_id);
+	}
+	public ThreadAdapter(Context context, List<Thread> threads, UserListener threadListener, ImageFetcher imageFetcher) {
 		this.threads = threads;
 		this.context = context;
 		this.mImageFetcher = imageFetcher;
+		this.threadListener = threadListener;
 	}
 
 	@Override
@@ -81,14 +88,14 @@ public class ThreadAdapter extends BaseAdapter {
 		GTextView forumtitle = (GTextView) convertView.findViewById(R.id.forumtitle);
 		
 		
-        Thread thread = threads.get(position);
+        final Thread thread = threads.get(position);
         // bind data
         topictitle.setText(thread.getThread_title());
         topicauthor.setText(thread.getCreator_username());
         Post post = thread.getFirst_post();
         if(post != null && post.getLinks() != null)
         {
-        	mImageFetcher.loadImage(post.getLinks().getPoster_avatar(), avatar);
+        	mImageFetcher.loadImage(post.getLinks().getPoster_avatar(), iconUser);
         	shortcontent.setText(thread.getFirst_post().getPost_body_plain_text());
         }
         view_num.setText(thread.getThread_view_count() + "");
@@ -96,6 +103,19 @@ public class ThreadAdapter extends BaseAdapter {
         topic_sticky.setVisibility(thread.isThread_is_sticky() ? View.VISIBLE : View.GONE);
         topictime.setTime(thread.getThread_update_date());
         topictime.setVisibility(thread.isThread_is_sticky() ? View.GONE : View.VISIBLE);
+        topicauthor.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(threadListener != null) threadListener.onUserSelected(thread.getCreator_user_id());
+			}
+		});
+        
+        iconUser.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(threadListener != null) threadListener.onUserSelected(thread.getCreator_user_id());
+			}
+		});
 		return convertView;
 	}
 

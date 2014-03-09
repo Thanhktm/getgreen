@@ -6,12 +6,14 @@ import java.util.List;
 import org.json.JSONObject;
 
 import vn.getgreen.adapter.ThreadAdapter;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.common.DialogBuilder;
 import vn.getgreen.common.DialogBuilder.GDialogListener;
 import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Thread;
+import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
 import android.app.Activity;
@@ -27,9 +29,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ThreadActivity extends BaseActivity {
+public class ThreadActivity extends BaseActivity implements UserListener{
 	public static int REQUEST_CODE_NEWTOPIC = 1;
-	
+	public static int REQUEST_CODE_POST = 2;
 	List<Thread> threads = new ArrayList<Thread>();
 	ThreadAdapter mThreadAdapter;
 	ListView mListThread;
@@ -49,7 +51,7 @@ public class ThreadActivity extends BaseActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		mThreadAdapter = new ThreadAdapter(this, threads, mImageFetcher);
+		mThreadAdapter = new ThreadAdapter(this, threads, this, mImageFetcher);
 		mListThread = (ListView) findViewById(R.id.list);
 		mListThread.setAdapter(mThreadAdapter);
 		mThreadService = new ThreadService(this, this);
@@ -99,11 +101,13 @@ public class ThreadActivity extends BaseActivity {
 				Thread thread = threads.get(position);
 				Intent intent = new Intent(ThreadActivity.this, PostsActivity.class);
 				intent.putExtra(Thread.class.getName(), thread);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_CODE_POST);
 			}
 		});
 		onRefresh();
 	}
+	
+	
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
 		if(client == mThreadService && mThreadService.parseJson(jsonObject))
@@ -121,7 +125,7 @@ public class ThreadActivity extends BaseActivity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		menu.findItem(R.id.action_search).setVisible(true);
+		if(User.isLogin(this))menu.findItem(R.id.action_search).setVisible(true);
 		menu.findItem(R.id.action_newtopic).setVisible(forum.getPermissions().isCreate_thread());
 		menu.findItem(R.id.action_refresh).setVisible(true);
 		return super.onPrepareOptionsMenu(menu);
@@ -137,11 +141,20 @@ public class ThreadActivity extends BaseActivity {
 			onRefresh();
 			return true;
 		case R.id.action_newtopic:
+		{
 			Intent intent = new Intent(this, NewTopicActivity.class);
 			intent.putExtra(NewTopicActivity.MODE_CODE, NewTopicActivity.MODE_NEW_TOPIC);
 			intent.putExtra(Forum.class.getName(), forum);
 			startActivityForResult(intent, REQUEST_CODE_NEWTOPIC);
 			return true;
+		}
+		case R.id.action_search:
+		{
+			Intent intent = new Intent(this, SearchActivity.class);
+			intent.putExtra(Forum.class.getName(), forum);
+			startActivity(intent);
+			return true;
+		}
 		default:
 			break;
 		}
@@ -162,10 +175,14 @@ public class ThreadActivity extends BaseActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == REQUEST_CODE_NEWTOPIC && resultCode == Activity.RESULT_OK)
-		{
-			onRefresh();
-		}
+		onRefresh();
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onUserSelected(int user_id) {
+		Intent intent = new Intent(this, ProfileActivity.class);
+		intent.putExtra(ProfileActivity.KEY_USER_ID, user_id);
+		startActivity(intent);
 	}
 }

@@ -8,9 +8,8 @@ import java.util.List;
 import org.json.JSONObject;
 
 import vn.getgreen.adapter.PageAdapter;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.common.BaseFragment;
-import vn.getgreen.common.DialogBuilder;
-import vn.getgreen.common.DialogBuilder.GDialogListener;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
 import vn.getgreen.imagecache.ImageFetcher;
@@ -18,7 +17,6 @@ import vn.getgreen.network.GClient;
 import vn.getgreen.network.PostService;
 import vn.getgreen.view.GImageView;
 import vn.getgreen.view.GTextView;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +24,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-public class PageFragment extends BaseFragment {
+public class PageFragment extends BaseFragment implements UserListener{
     /**
      * The argument key for the page number this fragment represents.
      */
@@ -83,6 +80,7 @@ public class PageFragment extends BaseFragment {
     	public abstract void onFastNextPage();
     	public abstract void onPageBtn();
     	public abstract void onActionWithPost(Post post);
+    	public abstract void onUserProfile(int user_id);
     }
     
     /**
@@ -164,7 +162,7 @@ public class PageFragment extends BaseFragment {
         }
         
         onRefresh();
-        mPageAdapter = new PageAdapter(getActivity(), posts, ((PostsActivity) getActivity()).mImageFetcher);
+        mPageAdapter = new PageAdapter(getActivity(), posts, this,((PostsActivity) getActivity()).mImageFetcher);
         mListPost.setAdapter(mPageAdapter);
         if(total_page > 1)
         {
@@ -241,6 +239,10 @@ public class PageFragment extends BaseFragment {
 		}
 	};
 	
+	@Override
+	public void onUserSelected(int user_id) {
+		if(pageListener !=null) pageListener.onUserProfile(user_id);
+	}
 	
     @Override
     public void onSuccess(GClient client, JSONObject jsonObject) {

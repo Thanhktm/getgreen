@@ -3,6 +3,7 @@ package vn.getgreen.adapter;
 import java.util.List;
 
 import vn.getgreen.R;
+import vn.getgreen.adapter.ThreadAdapter.UserListener;
 import vn.getgreen.enties.Message;
 import vn.getgreen.enties.User;
 import vn.getgreen.imagecache.ImageFetcher;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
@@ -22,11 +24,13 @@ public class MessagesAdapter extends BaseAdapter {
 	Context context;
 	private ImageFetcher mImageFetcher;
 	private User me;
-	public MessagesAdapter(Context context, List<Message> messages, ImageFetcher imageFetcher) {
+	private UserListener mUserListener;
+	public MessagesAdapter(Context context, List<Message> messages, ImageFetcher imageFetcher, UserListener userListener) {
 		this.messages = messages;
 		this.context = context;
 		this.mImageFetcher = imageFetcher;
 		this.me = User.get(context);
+		this.mUserListener = userListener;
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class MessagesAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Message message = messages.get(position);
+		final Message message = messages.get(position);
 		if(message.getCreator_user_id() == me.getUser_id())
 		{
 			// me
@@ -73,6 +77,18 @@ public class MessagesAdapter extends BaseAdapter {
 	        }
 			GImageView conversation_authoricon = (GImageView) convertView.findViewById(R.id.conversation_authoricon);
 			GTextView conversation_author = (GTextView) convertView.findViewById(R.id.conversation_author);
+			conversation_authoricon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					if(mUserListener != null) mUserListener.onUserSelected(message.getCreator_user_id());
+				}
+			});
+			conversation_author.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					if(mUserListener != null) mUserListener.onUserSelected(message.getCreator_user_id());
+				}
+			});
 			GTextView conversation_shortcontent = (GTextView) convertView.findViewById(R.id.conversation_shortcontent);
 			GTextView conversation_attachment = (GTextView) convertView.findViewById(R.id.conversation_attachment);
 			GTimeStampView senttime = (GTimeStampView) convertView.findViewById(R.id.senttime);

@@ -9,10 +9,12 @@ import vn.getgreen.adapter.ForumAdapter;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.enties.Category;
 import vn.getgreen.enties.Forum;
+import vn.getgreen.enties.User;
 import vn.getgreen.network.ForumService;
 import vn.getgreen.network.GClient;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +34,7 @@ public class ForumActivity extends BaseActivity {
 	private List<Forum> forums;
 	private RelativeLayout ll;
 	private ProgressBar loading;
-	
+	Forum forum = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -105,7 +107,7 @@ public class ForumActivity extends BaseActivity {
 		if(intent.getSerializableExtra(Forum.class.getName()) != null)
 		{
 			// Get sub-forum by parent forum
-			Forum forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
+			forum = (Forum) intent.getSerializableExtra(Forum.class.getName());
 			setTitle(forum.getForum_title());
 			mForumService.listByForum(forum);
 		}
@@ -127,7 +129,11 @@ public class ForumActivity extends BaseActivity {
 		}
 		super.onSuccess(client, jsonObject);
 	}
-	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		if(User.isLogin(this))menu.findItem(R.id.action_search).setVisible(true);
+		return super.onPrepareOptionsMenu(menu);
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem)
 	{   
@@ -135,6 +141,13 @@ public class ForumActivity extends BaseActivity {
 		case android.R.id.home:
 			onBackPressed();
 			return true;
+		case R.id.action_search:
+		{
+			Intent intent = new Intent(this, SearchActivity.class);
+			intent.putExtra(Forum.class.getName(), forum);
+			startActivity(intent);
+			return true;
+		}
 		default:
 			break;
 		}

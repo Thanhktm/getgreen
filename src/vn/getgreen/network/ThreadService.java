@@ -22,7 +22,8 @@ public class ThreadService extends GClient {
 	public static final String ORDER_UPDATE_DATE_REVERSE = "thread_update_date_reverse";
 	
 	public List<Thread> threads = new ArrayList<Thread>();
-	
+	public static final int LIMIT_THREADS_PER_PAGE = 20;
+	public int threads_total;
 	public ThreadService(Context context, ResponseListener responseListener) {
 		super(context, responseListener);
 	}
@@ -102,6 +103,43 @@ public class ThreadService extends GClient {
 		post(null, "threads/"+thread.getThread_id()+"/followers");
 	}
 	
+	/**
+	 * UnFollow some thread, user must loged in
+	 * @param thread
+	 */
+	public void unfollow(Thread thread)
+	{
+		delete(null, "threads/"+thread.getThread_id()+"/followers");
+	}
+	
+	/**
+	 * Get threads which user following
+	 * @param page
+	 * @param new_only
+	 */
+	public void threadsFollowing(int page, boolean new_only)
+	{
+		RequestParams params = new RequestParams();
+		params.put("page", page+"");
+		params.put("new_only", new_only +"");
+		params.put("limit", LIMIT_THREADS_PER_PAGE +"");
+		get(params, "users/threads/following");
+	}
+	
+	/**
+	 * Search threads by forum or all
+	 * @param query
+	 * @param forum
+	 */
+	public void search(String query, Forum forum)
+	{
+		RequestParams params = new RequestParams();
+		params.put("q", query);
+		//if(forum != null) params.put("forum_id", forum.getForum_id()+"");
+		params.put("limit", LIMIT_THREADS_PER_PAGE);
+		post(params, "search/threads");
+	}
+	
 	@Override
 	public boolean parseJson(JSONObject jsonObject) {
 		try {
@@ -112,8 +150,13 @@ public class ThreadService extends GClient {
 				}.getType();
 				this.threads = gson.fromJson(jsonObject.getJSONArray("threads").toString(), listType);
 			}
+			if(!jsonObject.isNull("threads_total"))
+			{
+				this.threads_total = jsonObject.getInt("threads_total");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		return super.parseJson(jsonObject);
 	}

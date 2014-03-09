@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 public class MainActivity extends BaseActivity {
 	private DrawerLayout mDrawerLayout;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity {
 	public User user;
 	private Fragment fragment;
 	private UserService mUserService;
+	public SearchView mSearchView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,11 +111,13 @@ public class MainActivity extends BaseActivity {
 					.getResourceId(5, -1)));
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
 					.getResourceId(6, -1)));
-		}
-		// Search
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
+			// Search
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
 				.getResourceId(7, -1)));
 
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
+					.getResourceId(8, -1)));
+		}
 		// Recycle the typed array
 		navMenuIcons.recycle();
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -184,6 +189,18 @@ public class MainActivity extends BaseActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
+		switch (item.getItemId()) {
+		case R.id.action_logout:
+			User.save(this, null);
+			initView(null);
+			break;
+		case R.id.action_search:
+			Intent intent = new Intent(this, SearchActivity.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -210,7 +227,7 @@ public class MainActivity extends BaseActivity {
 			}
 			if (fragment instanceof CategoriesFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
-				menu.findItem(R.id.action_search).setVisible(true);
+				if(User.isLogin(this))menu.findItem(R.id.action_search).setVisible(true);
 			}
 			if (fragment instanceof ConversationsFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
@@ -219,7 +236,10 @@ public class MainActivity extends BaseActivity {
 				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof SearchFragment) {
-				menu.findItem(R.id.advancesearch).setVisible(true);
+				MenuItem itemSearch =  menu.findItem(R.id.advancesearch);
+				itemSearch.setVisible(true);
+				mSearchView = (SearchView) itemSearch.getActionView();
+				mSearchView.setOnQueryTextListener((SearchFragment)fragment);
 			}
 
 		} else {
@@ -229,8 +249,8 @@ public class MainActivity extends BaseActivity {
 			menu.findItem(R.id.action_settings).setVisible(false);
 			menu.findItem(R.id.action_subscribe).setVisible(false);
 			menu.findItem(R.id.action_unsubscribe).setVisible(false);
-
 		}
+		menu.findItem(R.id.action_logout).setVisible(drawerOpen && User.isLogin(this));
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -264,6 +284,9 @@ public class MainActivity extends BaseActivity {
 			case 6:
 				fragment = new SearchFragment();
 				break;
+			case 7:
+				fragment = new ProfileFragment();
+				break;
 			default:
 				break;
 			}
@@ -277,9 +300,6 @@ public class MainActivity extends BaseActivity {
 				break;
 			case 2:
 				fragment = new CategoriesFragment();
-				break;
-			case 3:
-				fragment = new SearchFragment();
 				break;
 
 			default:

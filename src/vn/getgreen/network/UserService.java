@@ -1,5 +1,7 @@
 package vn.getgreen.network;
 
+import java.util.Calendar;
+
 import org.json.JSONObject;
 
 import vn.getgreen.common.Constants;
@@ -23,6 +25,11 @@ public class UserService extends GClient {
 		isMyInfo = true;
 	}
 	
+	public void getInfo(int user_id)
+	{
+		get(null, "users/"+user_id);
+	}
+	
 	@Override
 	public boolean parseJson(JSONObject jsonObject) {
 		try {
@@ -36,7 +43,9 @@ public class UserService extends GClient {
 					this.user.setPassword(userCached.getPassword());
 					if(userCached.getOne_time_token() == null)
 					{
-						long time = (System.currentTimeMillis() + Constants.DAYS_TOKEN_EXPRIED) / 1000;
+						Calendar calendar = Calendar.getInstance();
+						calendar.add(Calendar.DATE, Constants.DAYS_TOKEN_EXPRIED);
+						int time = (int) (calendar.getTimeInMillis() / 1000);
 						String once = EncryptUtils.md5(user.getUser_id()+""+time+user.getAccess_token()+Constants.CLIENT_SECRET);
 						String ott = String.format("%d,%d,%s,%s", user.getUser_id(), time, once, Constants.API_KEY);
 						user.setOne_time_token(ott);	

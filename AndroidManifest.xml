@@ -56,6 +56,9 @@
          <activity
             android:name="vn.getgreen.MessagesActivity">
         </activity>
+        <activity
+            android:name="vn.getgreen.ProfileActivity">
+        </activity>
     </application>
 
 </manifest>
