@@ -10,6 +10,7 @@ import vn.getgreen.common.BaseFragment;
 import vn.getgreen.enties.Conversation;
 import vn.getgreen.network.ConversationService;
 import vn.getgreen.network.GClient;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -95,7 +96,16 @@ public class ConversationsFragment extends BaseFragment {
 		}
 		super.onSuccess(client, jsonObject);
 	}
-
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == MainActivity.CODE_NEW_CONVERSTATION && resultCode == Activity.RESULT_OK)
+		{
+			onRefresh();
+		}
+		
+	}
 
 
 	@Override

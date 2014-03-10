@@ -29,10 +29,13 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 public class MainActivity extends BaseActivity {
+	public static final String FRAGMENT_TAG = "MAIN_FRAGMENT";
+	public static final int CODE_NEW_CONVERSTATION = 2;
+	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	public static final String FRAGMENT_TAG = "MAIN_FRAGMENT";
+	
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
@@ -50,6 +53,7 @@ public class MainActivity extends BaseActivity {
 	private UserService mUserService;
 	public SearchView mSearchView;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,7 +62,7 @@ public class MainActivity extends BaseActivity {
 		mTitle = mDrawerTitle = getTitle();
 		user = User.get(this);
 		mUserService = new UserService(this, this);
-		
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
@@ -69,7 +73,8 @@ public class MainActivity extends BaseActivity {
 				R.array.nav_drawer_items_not_signin);
 
 		initView(savedInstanceState);
-		if(User.isLogin(this))mUserService.getInfo();
+		if (User.isLogin(this))
+			mUserService.getInfo();
 	}
 
 	@Override
@@ -113,7 +118,7 @@ public class MainActivity extends BaseActivity {
 					.getResourceId(6, -1)));
 			// Search
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
-				.getResourceId(7, -1)));
+					.getResourceId(7, -1)));
 
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons
 					.getResourceId(8, -1)));
@@ -194,9 +199,15 @@ public class MainActivity extends BaseActivity {
 			User.save(this, null);
 			initView(null);
 			break;
-		case R.id.action_search:
+		case R.id.action_search: {
 			Intent intent = new Intent(this, SearchActivity.class);
 			startActivity(intent);
+		}
+			break;
+		case R.id.action_newtopic: {
+			Intent intent = new Intent(this, NewConverstationActivity.class);
+			startActivityForResult(intent, CODE_NEW_CONVERSTATION);
+		}
 			break;
 		default:
 			break;
@@ -212,7 +223,7 @@ public class MainActivity extends BaseActivity {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		if (!drawerOpen) {
-			
+
 			if (fragment instanceof HomeFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
@@ -227,19 +238,21 @@ public class MainActivity extends BaseActivity {
 			}
 			if (fragment instanceof CategoriesFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
-				if(User.isLogin(this))menu.findItem(R.id.action_search).setVisible(true);
+				if (User.isLogin(this))
+					menu.findItem(R.id.action_search).setVisible(true);
 			}
 			if (fragment instanceof ConversationsFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
+				menu.findItem(R.id.action_newtopic).setVisible(true);
 			}
 			if (fragment instanceof UnreadsFragment) {
 				menu.findItem(R.id.action_refresh).setVisible(true);
 			}
 			if (fragment instanceof SearchFragment) {
-				MenuItem itemSearch =  menu.findItem(R.id.advancesearch);
+				MenuItem itemSearch = menu.findItem(R.id.advancesearch);
 				itemSearch.setVisible(true);
 				mSearchView = (SearchView) itemSearch.getActionView();
-				mSearchView.setOnQueryTextListener((SearchFragment)fragment);
+				mSearchView.setOnQueryTextListener((SearchFragment) fragment);
 			}
 
 		} else {
@@ -250,7 +263,8 @@ public class MainActivity extends BaseActivity {
 			menu.findItem(R.id.action_subscribe).setVisible(false);
 			menu.findItem(R.id.action_unsubscribe).setVisible(false);
 		}
-		menu.findItem(R.id.action_logout).setVisible(drawerOpen && User.isLogin(this));
+		menu.findItem(R.id.action_logout).setVisible(
+				drawerOpen && User.isLogin(this));
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -363,7 +377,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onSuccess(GClient client, JSONObject jsonObject) {
 		if (client instanceof UserService && mUserService.parseJson(jsonObject)) {
-			
+
 		}
 		super.onSuccess(client, jsonObject);
 	}

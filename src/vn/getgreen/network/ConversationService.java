@@ -43,7 +43,7 @@ public class ConversationService extends GClient {
 		params.put("conversation_title", conversation_title);
 		params.put("message_body", message_body);
 		params.put("recipients", recipients);
-		post(params, "converstations");
+		post(params, "conversations");
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class ConversationService extends GClient {
 				}.getType();
 				conversations = gson.fromJson(jsonObject.getJSONArray("conversations").toString(), listType);
 			}
-			if(!jsonObject.isNull("converstation"))
+			if(!jsonObject.isNull("conversation"))
 			{
 				conversation = gson.fromJson(jsonObject.getJSONObject("conversation").toString(), Conversation.class);
 			}

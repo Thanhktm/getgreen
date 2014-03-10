@@ -79,6 +79,10 @@ public class ProfileFragment extends BaseFragment implements
 			mProfileAdapter = new ProfileAdapter(getActivity(), mUserService.user, this, ((BaseActivity)getActivity()).mImageFetcher);
 			mListView.setAdapter(mProfileAdapter);
 			mProfileAdapter.notifyDataSetChanged();
+			if(getActivity() instanceof ProfileActivity) {
+				((ProfileActivity)getActivity()).user = mUserService.user;
+				((ProfileActivity)getActivity()).invalidateOptionsMenu();
+			}
 		}
 		super.onSuccess(client, jsonObject);
 	}

@@ -59,6 +59,9 @@
         <activity
             android:name="vn.getgreen.ProfileActivity">
         </activity>
+        <activity
+            android:name="vn.getgreen.NewConverstationActivity">
+        </activity>
     </application>
 
 </manifest>

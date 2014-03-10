@@ -10,15 +10,16 @@ import android.view.MenuItem;
 
 public class ProfileActivity extends BaseActivity {
 	public static final String KEY_USER_ID = "key_user_id";
-	private User user = null;
+	public User user = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_activity);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
+
 		Intent intent = getIntent();
 		if (intent.getIntExtra(KEY_USER_ID, -1) != -1) {
 			ProfileFragment fragment = ProfileFragment.create(intent
@@ -31,10 +32,12 @@ public class ProfileActivity extends BaseActivity {
 		}
 
 	}
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if(user != null) menu.findItem(R.id.action_newtopic).setVisible(user.getPermissions().isCreate_conversation());
+		if (user != null)
+			menu.findItem(R.id.action_newtopic).setVisible(
+					user.getPermissions().isCreate_conversation());
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -44,14 +47,18 @@ public class ProfileActivity extends BaseActivity {
 		case android.R.id.home:
 			onBackPressed();
 			break;
-		case R.id.action_newtopic:
-			
+		case R.id.action_newtopic: {
+			Intent intent = new Intent(this, NewConverstationActivity.class);
+			intent.putExtra(User.class.getName(), user);
+			startActivity(intent);
+		}
 			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
