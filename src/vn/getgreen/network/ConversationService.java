@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import vn.getgreen.enties.Conversation;
 import vn.getgreen.enties.Links;
-import vn.getgreen.enties.User;
 import android.content.Context;
 
 import com.google.gson.Gson;
