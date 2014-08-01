@@ -28,7 +28,15 @@ public class Post extends BaseEnity {
 	private boolean post_is_liked;
 	Links links;
 	Permissions permissions;
-
+	private String path;
+	
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getPost_id() {
 		return post_id;
 	}

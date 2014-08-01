@@ -114,6 +114,10 @@ public class PostService extends GClient {
 			{
 				post = gson.fromJson(jsonObject.getJSONObject("post").toString(), Post.class);
 			}
+			if(!jsonObject.isNull("thread"))
+			{
+				post = gson.fromJson(jsonObject.getJSONObject("thread").getJSONObject("first_post").toString(), Post.class);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

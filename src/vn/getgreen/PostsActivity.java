@@ -10,6 +10,7 @@ import vn.getgreen.PageFragment.PageListener;
 import vn.getgreen.common.BaseActivity;
 import vn.getgreen.common.DialogBuilder;
 import vn.getgreen.common.DialogBuilder.GDialogListener;
+import vn.getgreen.enties.Forum;
 import vn.getgreen.enties.Permissions;
 import vn.getgreen.enties.Post;
 import vn.getgreen.enties.Thread;
@@ -101,7 +102,16 @@ public class PostsActivity extends BaseActivity implements PageListener{
             	currentPage = position;
             }
         });
-        
+        showAll.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(PostsActivity.this, NewTopicActivity.class);
+				intent.putExtra(NewTopicActivity.MODE_CODE, NewTopicActivity.MODE_NEW_POST);
+				intent.putExtra(Thread.class.getName(), mThread);
+				startActivityForResult(intent, REQUEST_CODE_NEWPOST);
+			}
+		});
         mPostService = new PostService(this, this);
         mPostDelete = new PostService(this, this);
         mPostLike = new PostService(this, this);

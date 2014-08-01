@@ -16,7 +16,6 @@ import vn.getgreen.enties.Thread;
 import vn.getgreen.enties.User;
 import vn.getgreen.network.GClient;
 import vn.getgreen.network.ThreadService;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;

@@ -81,6 +81,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
+            <ImageButton 
+                android:id="@+id/btn_attach"
+                android:background="@drawable/icon_attach"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerCrop"
+                android:layout_width="30dp"/>
         </LinearLayout>
     </ScrollView>
 

@@ -24,6 +24,8 @@ public class ThreadService extends GClient {
 	public List<Thread> threads = new ArrayList<Thread>();
 	public static final int LIMIT_THREADS_PER_PAGE = 20;
 	public int threads_total;
+	public Thread thread;
+	
 	public ThreadService(Context context, ResponseListener responseListener) {
 		super(context, responseListener);
 	}
@@ -153,6 +155,10 @@ public class ThreadService extends GClient {
 			if(!jsonObject.isNull("threads_total"))
 			{
 				this.threads_total = jsonObject.getInt("threads_total");
+			}
+			if(!jsonObject.isNull("thread"))
+			{
+				thread = gson.fromJson(jsonObject.getJSONObject("thread").toString(), Thread.class);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

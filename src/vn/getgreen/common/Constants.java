@@ -7,7 +7,7 @@ public class Constants {
 	public static final String API_KEY = "ecom2014";
 	public static final String CLIENT_SECRET = "ecom2014";
 	public static int DAYS_TOKEN_EXPRIED = 14; //14 days will expried OTT
-	public static final String HOST_PRODUCTION = "http://getgreen.vn/forum/api/index.php?";
+	public static final String HOST_PRODUCTION = "http://songxanh.tk/forum/api/index.php?";
 	
 	public static final int SCALED_IMAGE = 1;// 1-100%; 2-50%; 4-25%
 	public static final float CACHE_SIZE = 0.5f;// 50% app memory
