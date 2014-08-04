@@ -17,6 +17,7 @@ import vn.getgreen.network.PostService;
 import vn.getgreen.network.ThreadService;
 import vn.getgreen.view.GEditText;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,8 +33,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class NewTopicActivity extends BaseActivity {
 	private ThreadService mThreadService;
@@ -47,6 +50,8 @@ public class NewTopicActivity extends BaseActivity {
 	private GEditText mEditBody;
 	private ImageButton mBtnAttach;
 	private CheckBox mCkSignature;
+	private Button mBtnImgTag;
+	
 	private int mode = -1;
 	public static String MODE_CODE = "mode_code";
 
@@ -60,7 +65,7 @@ public class NewTopicActivity extends BaseActivity {
 	private static final int CAMERA_REQUEST = 1888;
 
 	private Uri mCapturedImageURI;
-
+	ProgressDialog dialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,7 +75,8 @@ public class NewTopicActivity extends BaseActivity {
 		mEditBody = (GEditText) findViewById(R.id.editcontent);
 		mCkSignature = (CheckBox) findViewById(R.id.signature_tag);
 		mBtnAttach = (ImageButton) findViewById(R.id.btn_attach);
-
+		mBtnImgTag = (Button) findViewById(R.id.btn_img_tag);
+		
 		mBtnAttach.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -105,6 +111,18 @@ public class NewTopicActivity extends BaseActivity {
 				alert.show();
 			}
 		});
+		
+		mBtnImgTag.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int start = mEditBody.getSelectionStart(); //this is to get the the cursor position
+				String s = "[IMG][/IMG]";
+				mEditBody.getText().insert(start, s);
+				mEditBody.setSelection(start + 5);
+			}
+		});
+		
 		mCkSignature.setText(signature);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -160,6 +178,32 @@ public class NewTopicActivity extends BaseActivity {
 		mAttachService = new AttachService(this, this);
 	}
 
+	@Override
+	public void onStart(GClient client) {
+		super.onStart(client);
+		if(client == mThreadService || client == mPostNew){
+			if(dialog == null){
+				dialog = ProgressDialog.show(this, "", 
+	                    "Loading. Please wait...", true);	
+			} else {
+				dialog.show();
+			}
+			
+		}
+	}
+	
+	@Override
+	public void onFinish(GClient client) {
+		if(mPost.getPath() == null){
+			if(dialog != null) dialog.dismiss();
+		}else{
+			if(client == mAttachService){
+				if(dialog != null) dialog.dismiss();
+			}	
+		}
+		
+		super.onFinish(client);
+	}
 	private void openGalary() {
 		Intent intent = new Intent();
 		intent.setType("image/*");
@@ -263,7 +307,7 @@ public class NewTopicActivity extends BaseActivity {
 	public void onRefresh() {
 
 	}
-
+	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAMERA_REQUEST) {
@@ -277,6 +321,10 @@ public class NewTopicActivity extends BaseActivity {
 				cursor.moveToFirst();
 				String capturedImageFilePath = cursor
 						.getString(column_index_data);
+				if(!Utils.checkSize(capturedImageFilePath)){
+					Toast.makeText(this, R.string.limit_size, Toast.LENGTH_SHORT).show();
+					return;
+				}
 				mPost.setPath(capturedImageFilePath);
 				try {
 					Bitmap photo = (Bitmap) MediaStore.Images.Media.getBitmap(
@@ -294,6 +342,11 @@ public class NewTopicActivity extends BaseActivity {
 				Uri selectedImageUri = data.getData();
 				if (Build.VERSION.SDK_INT < 19) {
 					String selectedImagePath = getPath(selectedImageUri);
+					if(!Utils.checkSize(selectedImagePath)){
+						Toast.makeText(this, R.string.limit_size, Toast.LENGTH_SHORT).show();
+						mPost.setPath(null);
+						return;
+					}
 					Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath);
 					mBtnAttach.setImageBitmap(bitmap);
 
@@ -308,6 +361,12 @@ public class NewTopicActivity extends BaseActivity {
 								.decodeFileDescriptor(fileDescriptor);
 						parcelFileDescriptor.close();
 						mPost.setPath(Utils.getPath(this, selectedImageUri));
+						if(!Utils.checkSize(mPost.getPath())){
+							Toast.makeText(this, R.string.limit_size, Toast.LENGTH_SHORT).show();
+							mPost.setPath(null);
+							return;
+						}
+						
 						mBtnAttach.setImageBitmap(image);
 
 					} catch (FileNotFoundException e) {

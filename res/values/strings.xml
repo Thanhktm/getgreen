@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="limit_size">Attachment vượt quá giới hạn 5MB</string>
+    <string name="image_tag">[IMG]</string>
     <string-array name="select_image_items_clear">
         <item>Camera</item>
         <item>Galary</item>

@@ -42,6 +42,7 @@ import android.provider.MediaStore;
  */
 
 public class Utils {
+	public static final long LIMIT_ATTACH_SIZE = 5*1024*1024;
 	private Utils() {
 	};
 	
@@ -217,7 +218,15 @@ public class Utils {
 			StrictMode.setVmPolicy(vmPolicyBuilder.build());
 		}
 	}
-
+	public static boolean checkSize(String path){
+		try {
+			File file = new File(path);
+			return (file.length() < LIMIT_ATTACH_SIZE && file.length() > 0); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public static boolean hasFroyo() {
 		// Can use static final constants like FROYO, declared in later versions
 		// of the OS since they are inlined at compile time. This is guaranteed
